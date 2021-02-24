@@ -1,0 +1,174 @@
+<div class="card">
+ 
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="showModalDialog3()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-mr-2"[disabled]="!selectedBills || !selectedBills.length" (click)="showModalDialog2()"></button>
+
+        </ng-template>
+
+        <ng-template pTemplate="right">
+                      
+                       <button pButton pRipple label="Export" icon="pi pi-file-pdf" (click)="exportPdf()" style="background-color: #34495E;border: none;" [disabled]="!selectedBills || !selectedBills.length"></button>
+        </ng-template>
+    </p-toolbar>
+
+
+</div>
+
+<p-table #dt [value]="users" [rows]="5" [paginator]="true" [globalFilterFields]="['name','age']"
+        [(selection)]="selectedBills" [rowHover]="true" dataKey="_id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Manage Bills</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox> 
+                </th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="age">age <p-sortIcon field="age"></p-sortIcon></th>
+                <th pSortableColumn="name">name <p-sortIcon field="name"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="user"></p-tableCheckbox>
+                </td> 
+                <td>{{user.name}}</td>
+                <td>{{user.age }}</td>
+                <td>{{user.name}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="showModalDialog()"></button>
+                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2"(click)="showModalDialog1()"></button>
+                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-warning " (click)="showModalDialog4()"></button>
+
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                In total there are {{users ? users.length : 0 }} users.
+            </div>
+        </ng-template>
+</p-table>
+
+  
+
+
+
+<!-- Modal for  editing-->
+<p-dialog header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+    
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="firstname1">Firstname</label>
+                <input id="firstname1" type="text" pInputText> 
+            </div>
+            <div class="p-field">
+                <label for="lastname1">Lastname</label>
+                <input id="lastname1" type="text" pInputText> 
+            </div>
+        </div>
+
+   
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+<!-- Modal More info-->
+
+<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <p class="p-m-0">More Info</p>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
+            
+        </ng-template>
+</p-dialog>
+
+
+
+
+<!-- Modal for delete confirmation-->
+
+<p-dialog header="Delete" [(visible)]="displayModal2" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <p class="p-m-0">Do you want to delete this record?</p>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-times" (click)="displayModal2=false" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" label="Yes" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+
+
+<!-- Modal add new Bill-->
+
+<p-dialog header="Add new Bill" [(visible)]="displayModal3" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    
+<div class="p-fluid">
+    <div class="p-field">
+        <label for="firstname1">Firstname</label>
+        <input id="firstname1" type="text" pInputText> 
+    </div>
+    <div class="p-field">
+        <label for="lastname1">Lastname</label>
+        <input id="lastname1" type="text" pInputText> 
+    </div>
+    
+</div>
+
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-times" (click)="displayModal3=false" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" label="Yes" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+
+
+
+
+<!--Modal for Preview -->
+
+<p-dialog header="Preview" [(visible)]="displayModal4" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    
+<div class="p-fluid">
+    Preview for the Bill
+    
+</div>
+
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal4=false" label="Ok" styleClass="p-button-text"></p-button>
+            
+        </ng-template>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
