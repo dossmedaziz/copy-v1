@@ -3,8 +3,11 @@ import jsPDF from 'jspdf' ;
 import { UserService } from 'src/app/user.service';
 import 'jspdf-autotable';
 import { User } from 'src/app/user';
+<<<<<<< HEAD
 import Swal from 'sweetalert2'
 
+=======
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 @Component({
   selector: 'app-others',
   templateUrl: './others.component.html',
@@ -12,12 +15,19 @@ import Swal from 'sweetalert2'
 })
 export class OthersComponent implements OnInit {
   users:User[];
+<<<<<<< HEAD
   selectedUser
   user : User ;
 
   selectedBills: User[];
   displayModal: boolean;
   displayModal1: boolean;
+=======
+  selectedBills: User[];
+  displayModal: boolean;
+  displayModal1: boolean;
+  displayModal2: boolean;
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
   displayModal3: boolean;
   exportColumns:[];
   doc = new jsPDF()
@@ -41,7 +51,13 @@ showModalDialog1() {
   this.displayModal1 = true;
 }
 
+<<<<<<< HEAD
 
+=======
+showModalDialog2() {
+  this.displayModal2 = true;
+}
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 
 showModalDialog3() {
   this.displayModal3 = true;
@@ -53,6 +69,7 @@ exportPdf() {
   
   this.doc.save('table.pdf')
 }
+<<<<<<< HEAD
 
 
 
@@ -97,4 +114,6 @@ editUser(user: User) {
  this.displayModal = true;
 
 }
+=======
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 }

@@ -48,8 +48,13 @@
                 <td>{{user.age }}</td>
                 <td>{{user.name}}</td>
                 <td>
+<<<<<<< HEAD
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editUser(user)"></button>
                     <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary"(click)="ShowUser(user)"></button>
+=======
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="showModalDialog()"></button>
+                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary"(click)="showModalDialog1()"></button>
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
                 </td>
             </tr>
         </ng-template>
@@ -65,31 +70,48 @@
 
 
 <!-- Modal for  editing-->
+<<<<<<< HEAD
 <p-dialog *ngIf="user"  header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
+=======
+<p-dialog header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
     [draggable]="false" [resizable]="false">
 
     
         <div class="p-fluid">
             <div class="p-field">
                 <label for="firstname1">Firstname</label>
+<<<<<<< HEAD
                 <input id="firstname1" type="text" pInputText  [(ngModel)]="user.name" > 
             </div>
             <div class="p-field">
                 <label for="lastname1">Lastname</label>
                 <input id="lastname1" type="text" pInputText [(ngModel)]="user.age" > 
+=======
+                <input id="firstname1" type="text" pInputText> 
+            </div>
+            <div class="p-field">
+                <label for="lastname1">Lastname</label>
+                <input id="lastname1" type="text" pInputText> 
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
             </div>
         </div>
 
    
         <ng-template pTemplate="footer">
+<<<<<<< HEAD
         <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel" styleClass="p-button-text"></p-button>
         <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"></p-button>
+=======
+        <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
         </ng-template>
 </p-dialog>
 
 
 <!-- Modal More info-->
 
+<<<<<<< HEAD
 <p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '75vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
     <p-table #dt [value]="selectedUser" [rowHover]="true" dataKey="_id"
@@ -123,12 +145,34 @@
         <ng-template pTemplate="footer">
             <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
             
+=======
+<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <p class="p-m-0">More Info</p>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-times" (click)="displayModal1=false" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" label="Yes" styleClass="p-button-text"></p-button>
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
         </ng-template>
 </p-dialog>
 
 
 
 
+<<<<<<< HEAD
+=======
+<!-- Modal for delete confirmation-->
+
+<p-dialog header="Delete" [(visible)]="displayModal2" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <p class="p-m-0">Do you want to delete this record?</p>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-times" (click)="displayModal2=false" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" label="Yes" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 
 
 

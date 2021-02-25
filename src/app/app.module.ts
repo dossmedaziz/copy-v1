@@ -1,26 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
+
+//Components
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-import {ButtonModule} from 'primeng/button';
-import {MenubarModule} from 'primeng/menubar';
-import {SidebarModule} from 'primeng/sidebar';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InputTextModule } from 'primeng/inputtext';
+import { BillsComponent } from './files/bills/bills.component';
+import { ContractsComponent } from './files/contracts/contracts.component';
+import { OthersComponent } from './files/others/others.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {CardModule} from 'primeng/card';
-import {CarouselModule} from 'primeng/carousel';
-import { HttpClientModule } from '@angular/common/http';
-import {SplitterModule} from 'primeng/splitter';
-import { TagModule } from 'primeng/tag';
-import {BadgeModule} from 'primeng/badge';
 import { UsersComponent } from './users/users.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { RolesComponent } from './roles/roles.component';
+
+
+//primeNG imports
+import {ButtonModule} from 'primeng/button';
+import {MenubarModule} from 'primeng/menubar';
+import {SidebarModule} from 'primeng/sidebar';
+import { InputTextModule } from 'primeng/inputtext';
+import {CardModule} from 'primeng/card';
+import {CarouselModule} from 'primeng/carousel';
+import {SplitterModule} from 'primeng/splitter';
+import { TagModule } from 'primeng/tag';
+import {BadgeModule} from 'primeng/badge';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {CalendarModule} from 'primeng/calendar';
@@ -39,9 +48,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {EditorModule} from 'primeng/editor';
 import { FormsModule } from '@angular/forms';
-import { BillsComponent } from './files/bills/bills.component';
-import { ContractsComponent } from './files/contracts/contracts.component';
-import { OthersComponent } from './files/others/others.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -55,7 +64,8 @@ import { OthersComponent } from './files/others/others.component';
     ProjectsComponent,
     BillsComponent,
     ContractsComponent,
-    OthersComponent
+    OthersComponent,
+    RolesComponent
   ],
   imports: [
     BrowserModule,

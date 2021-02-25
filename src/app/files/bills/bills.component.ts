@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/user.service';
 import jsPDF from 'jspdf' ;
 import 'jspdf-autotable';
+<<<<<<< HEAD
 import Swal from 'sweetalert2'
 
+=======
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 import { User } from 'src/app/user';
 @Component({
   selector: 'app-bills',
@@ -12,6 +15,7 @@ import { User } from 'src/app/user';
 })
 export class BillsComponent implements OnInit {
 users:User[];
+<<<<<<< HEAD
 user : User ;
 selectedUser 
 
@@ -20,6 +24,12 @@ selectedUser
 selectedBills: User[];
 displayModal: boolean;
 displayModal1: boolean;
+=======
+selectedBills: User[];
+displayModal: boolean;
+displayModal1: boolean;
+displayModal2: boolean;
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 displayModal3: boolean;
 displayModal4: boolean;
 exportColumns:[];
@@ -33,6 +43,23 @@ exportColumns:[];
     this.userService.getusers().subscribe(data=> this.users = data)
   }
 
+<<<<<<< HEAD
+=======
+  
+  showModalDialog() {
+    this.displayModal = true;
+}
+
+
+showModalDialog1() {
+  this.displayModal1 = true;
+}
+
+showModalDialog2() {
+  this.displayModal2 = true;
+}
+
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 showModalDialog3() {
   this.displayModal3 = true;
 }
@@ -47,6 +74,7 @@ exportPdf() {
   this.doc.save('table.pdf')
 }
 
+<<<<<<< HEAD
 editUser(user: User) {
   this.user = user
   console.log(this.user.name)
@@ -87,5 +115,8 @@ ShowUser(user:User)
   console.log(this.selectedUser)
   this.displayModal1 = true;
 }
+=======
+
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 
 }

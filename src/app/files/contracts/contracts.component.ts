@@ -15,7 +15,11 @@ export class ContractsComponent implements OnInit {
   users:User[];
 
   user : User ;
+<<<<<<< HEAD
   selectedUser
+=======
+
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 
 
 selectedBills: User[];
@@ -38,6 +42,14 @@ doc = new jsPDF()
     this.displayModal = true;
 }
 
+<<<<<<< HEAD
+=======
+
+showModalDialog1() {
+  this.displayModal1 = true;
+}
+
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 // showModalDialog2() {
 //   this.displayModal2 = true;
 // }
@@ -46,6 +58,7 @@ showModalDialog3() {
   this.displayModal3 = true;
 }
 
+<<<<<<< HEAD
 
 ShowUser(user:User)
 {
@@ -54,6 +67,8 @@ ShowUser(user:User)
   this.displayModal1 = true;
 }
 
+=======
+>>>>>>> 058f7a072ca3493cfe9d48a842d2dd9933fb2f97
 exportPdf() {
   //  this.doc.default(0,0) ; 
   //  this.doc.autoTable(this.exportColumns,this.selectedBills)
