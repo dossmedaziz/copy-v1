@@ -3,6 +3,31 @@
     margin : 0;
     font-family: 'Poppins', sans-serif;
 }
+.title_erp {
+  font-family: "Oldenburg", cursive;
+}
+
+.transp{
+color: white;
+}
+
+.ptag {
+  font-family: "Oldenburg", cursive;
+  text-align: center;
+  font-size: 30px;
+}
+
+
+.brad{
+  border-radius: 10px !important ;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}
 /*!
  * AdminKit v2.0.1 (https://adminkit.io/)
  * Copyright 2020 Paul Laros
