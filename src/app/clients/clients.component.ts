@@ -15,8 +15,9 @@ export class ClientsComponent implements OnInit {
   users:User[];
   user : User ;
   selectedUser 
-  
-  
+  selecteduser
+  filteredusers
+  selectedUsers
   
   selectedBills: User[];
   displayModal: boolean;
@@ -47,7 +48,6 @@ export class ClientsComponent implements OnInit {
   
   editUser(user: User) {
     this.user = user
-    console.log(this.user.name)
    this.displayModal = true;
   
   }
@@ -82,7 +82,22 @@ export class ClientsComponent implements OnInit {
   ShowUser(user:User)
   {
     this.selectedUser = [user]
-    console.log(this.selectedUser)
     this.displayModal1 = true;
   }
+
+  filterCountry(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.users.length; i++) {
+        let country = this.users[i];
+        if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            filtered.push(country);
+        }
+    }
+    
+    this.filteredusers = filtered;
+  }
+
+  
 }

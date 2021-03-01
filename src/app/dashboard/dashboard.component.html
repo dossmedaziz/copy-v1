@@ -6,10 +6,10 @@
                 <div class="p-d-flex p-flex-column p-flex-md-row ">
                    
                     <div class="p-mb-2 p-mr-2"> 
-                        <p-card  [style]="{'width': '20rem', 'margin-bottom': '2em', 'margin-right': '2rem','height': '8rem','background-color':'#636e72','cursor':'pointer'}"(click)="test()">
-                            <p-card  [style]="{'width': '20rem','height': '2rem','margin-left': '-1rem','margin-top': '-2rem','background-color':'#b2bec3'}">
+                        <p-card  [style]="{'width': '20rem', 'margin-bottom': '2em', 'margin-right': '2rem','height': '8rem','background-color':'#0984e3','cursor':'pointer'}"(click)="test()">
+                            <p-card  [style]="{'width': '20rem','height': '2rem','margin-left': '-1rem','margin-top': '-2rem','background-color':'#74b9ff'}">
                             </p-card>
-                            <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded"[style]="{'margin-left':'7.5em','margin-top':'-3em','background-color':'#636e72','border':'none'}"></button>
+                            <button pButton pRipple type="button" icon="pi pi-file" class="p-button-rounded"[style]="{'margin-left':'7.5em','margin-top':'-3em','background-color':'#0984e3','border':'none'}"></button>
                                <h1 style="color:cornsilk;font-size: 15px;margin-left:6em  ; ">Maintenance</h1>
                             <h1 style="margin-left: 5em;font-size: 25px; color: cornsilk;margin-top:1rem">36</h1>
 
@@ -59,17 +59,17 @@
 <div class="card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-mr-2"[disabled]="!selectedBills || !selectedBills.length" (click)="deleteContract()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash"[disabled]="!selectedUsers || !selectedUsers.length"class="p-button-rounded p-button-danger"(click)="deleteContract()"></button>
         </ng-template>
 
         <ng-template pTemplate="right">
                       
-                       <button pButton pRipple label="Export" icon="pi pi-file-pdf" (click)="exportPdf()" style="background-color: #34495E;border: none;" [disabled]="!selectedBills || !selectedBills.length"></button>
+                       <button pButton pRipple label="Export" icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-rounded" style="background-color: #34495E;border: none;" [disabled]="!selectedUsers || !selectedUsers.length"></button>
         </ng-template>
     </p-toolbar>
 
     <p-table #dt [value]="users" [rows]="5" [paginator]="true" [globalFilterFields]="['name','age']"
-    [(selection)]="selectedBills" [rowHover]="true" dataKey="_id"
+    [(selection)]="selectedUsers" [rowHover]="true" dataKey="_id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
      styleClass="p-datatable-responsive-demo">
     <ng-template pTemplate="caption" dataKey="_id">
@@ -141,21 +141,18 @@
 <!--Modal for more info-->
 
 
-<p-dialog header="More info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
-    [draggable]="false" [resizable]="false">
-
-       
-            <div *ngFor="let user of selectedUser">
-                <h1>name: {{ user.name }}</h1>
-                <h1>age: {{ user.age }}</h1>
-            </div>
-       
-
-        <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
-        </ng-template>
-</p-dialog>
-
+<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{ width: '650px' }" [baseZIndex]="10000"[draggable]="true"[resizable]="true">
+    <img class="center"  src="assets/img/cog_tools_configuration_settings_icon_131758.ico"/>
+    <br />
+  <div *ngFor="let user of selectedUser">
+    <h1>name: {{ user.name }}</h1>
+    <h1>age: {{ user.age }}</h1>
+  </div>
+  
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check"  (click)="displayModal1 = false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
 
 
 <!-- Modal for preview-->

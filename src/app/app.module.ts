@@ -50,6 +50,7 @@ import {EditorModule} from 'primeng/editor';
 import { FormsModule } from '@angular/forms';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 
 
@@ -101,7 +102,8 @@ import { AddBillComponent } from './files/add-bill/add-bill.component';
     InputTextareaModule,
     EditorModule,
     FormsModule,
-    SplitButtonModule
+    SplitButtonModule,
+    AutoCompleteModule
     
   ],
   providers: [],

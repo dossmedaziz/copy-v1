@@ -2,7 +2,7 @@
  
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" [routerLink]="['/addBill']"></button>
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2 p-button-rounded" [routerLink]="['/addBill']"></button>
             <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-mr-2"[disabled]="!selectedBills || !selectedBills.length" (click)="deleteItem()"></button>
 
         </ng-template>
@@ -68,7 +68,7 @@
 
 
 <!-- Modal for  editing-->
-<p-dialog *ngIf="user"  header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
+<!-- <p-dialog *ngIf="user"  header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
 
     
@@ -88,12 +88,62 @@
         <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel" styleClass="p-button-text"></p-button>
         <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"></p-button>
         </ng-template>
-</p-dialog>
+</p-dialog> -->
+<p-dialog *ngIf="user" header="Update User" [(visible)]="displayModal"[modal]="true" [style]="{ width: '450px' }"[baseZIndex]="10000"
+  [draggable]="true" [resizable]="false"styleClass="p-fluid"
+>
+  <div class="p-fluid">
+    <img class="center"src="assets/img/wrench_tools_settings_icon_131761.ico" />
+    <br />
+    <div class="p-field brad">
+      <label for="firstname1"></label>
+      <input id="firstname1" type="text"  pInputText  class="brad"   placeholder="UserName"[(ngModel)]="user.name" />
+    </div>
 
+    <div class="p-field brad">
+<p-autoComplete [(ngModel)]="selecteduser" [suggestions]="filteredusers"(completeMethod)="filterCountry($event)" placeholder="select Client" field="name" [dropdown]="true">
+    <ng-template let-user pTemplate="item">
+        <div class="country-item">
+            <div>{{user.name}}</div>
+        </div>
+        
+    </ng-template>
+</p-autoComplete>
+</div>
+    <div class="p-field">
+      <label for="lastname1"></label>
+      <input id="lastname1"  type="text"pInputText class="brad" placeholder="Email" [(ngModel)]="user.name"/>
+    </div>
+
+    <div class="p-field">
+      <label for="lastname1"></label>
+      <input id="lastname2" type="text" pInputText class="brad" placeholder="Pseudo" [(ngModel)]="user.name"/>
+    </div>
+
+    <div class="p-field">
+      <label for="lastname1"></label>
+      <input id="lastname3" type="text"  pInputText class="brad" placeholder="Password"[(ngModel)]="user.name" />
+    </div>
+
+    <div class="p-field">
+      <label for="lastname1"></label>
+      <input id="lastname4" type="text"pInputText class="brad" placeholder="Contact"[(ngModel)]="user.name" />
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-times" (click)="displayModal = false" label="Cancel"styleClass="p-button-text" ></p-button>
+    <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+
+
+  <button (click)="test()">test</button>
+</p-dialog>
 
 <!-- Modal More info-->
 
-<p-dialog header="More info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+<!-- <p-dialog header="More info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
 
        
@@ -106,8 +156,20 @@
         <ng-template pTemplate="footer">
             <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
         </ng-template>
-</p-dialog>
-
+</p-dialog> -->
+<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{ width: '650px' }" [baseZIndex]="10000"[draggable]="true"[resizable]="true">
+    <img class="center"  src="assets/img/cog_tools_configuration_settings_icon_131758.ico"/>
+    <br />
+  <div *ngFor="let user of selectedUser">
+    <h1>name: {{ user.name }}</h1>
+    <h1>age: {{ user.age }}</h1>
+  </div>
+  
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check"  (click)="displayModal1 = false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+  
 
 
 

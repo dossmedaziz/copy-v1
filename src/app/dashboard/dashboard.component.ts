@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   text: string = '<h1>bonjour</h2>';
   users: User[];
   selectedUser 
-  selectedBills: User[];
+  selectedUsers: User[];
   displayModal: boolean;
   displayModal1: boolean;
   displayModal2: boolean;
