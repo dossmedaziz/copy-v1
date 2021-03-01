@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ClientsComponent } from './clients/clients.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddBillComponent } from './files/add-bill/add-bill.component';
 import { BillsComponent } from './files/bills/bills.component';
 import { ContractsComponent } from './files/contracts/contracts.component';
 import { OthersComponent } from './files/others/others.component';
@@ -56,6 +57,10 @@ const routes: Routes = [
       {
         path:'others',
         component:OthersComponent
+      },
+      {
+        path:'addBill',
+        component:AddBillComponent
       }
     ]
   }

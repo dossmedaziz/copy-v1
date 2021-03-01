@@ -18,7 +18,7 @@
 
 <p-table #dt [value]="users" [rows]="5" [paginator]="true" [globalFilterFields]="['name','age']"
         [(selection)]="selectedBills" [rowHover]="true" dataKey="_id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true" styleClass="p-datatable-responsive-demo">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
                 <h5 class="p-m-0">Manage Contracts</h5>
@@ -89,39 +89,18 @@
 
 <!-- Modal More info-->
 
-<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '75vw'}" [baseZIndex]="10000"
+<p-dialog header="More info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
-    <p-table #dt [value]="selectedUser" [rowHover]="true" dataKey="_id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
-    [showCurrentPageReport]="true">
-   <ng-template pTemplate="caption" dataKey="_id">
-     
-   </ng-template>
-   <ng-template pTemplate="header">
-       <tr>
-          
-           <th pSortableColumn="name">Contract Name </th>
-           <th pSortableColumn="age">Start Date </th>
-           <th pSortableColumn="name">End Date</th>
-           <th pSortableColumn="age">Type</th>
-           <th></th>
-       </tr>
-   </ng-template>
-   <ng-template pTemplate="body" let-user>
-       <tr>
-           
-           <td>{{user.name}}</td>
-           <td>{{user.age }}</td>
-           <td>{{user.name}}</td>
-           <td><p-tag styleClass="p-mr-2" value="Contract_type"></p-tag></td>
-        
-       </tr>
-   </ng-template>
 
-</p-table> 
+       
+            <div *ngFor="let user of selectedUser">
+                <h1>name: {{ user.name }}</h1>
+                <h1>age: {{ user.age }}</h1>
+            </div>
+       
+
         <ng-template pTemplate="footer">
             <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
-            
         </ng-template>
 </p-dialog>
 

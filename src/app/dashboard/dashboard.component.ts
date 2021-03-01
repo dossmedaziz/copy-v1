@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   displayModal3: boolean;
   exportColumns:[];
   doc = new jsPDF()
+
+  items
   constructor(private userService :UserService) { }
 
   ngOnInit(): void {
@@ -29,6 +31,26 @@ export class DashboardComponent implements OnInit {
         this.users = data
         
       }) ; 
+      this.items = [
+        {
+            label: 'Update',
+            icon: 'pi pi-refresh'
+        },
+        {
+            label: 'Delete',
+            icon: 'pi pi-times'
+        },
+        {
+            label: 'Angular',
+            icon: 'pi pi-external-link',
+            url: 'http://angular.io'
+        },
+        {
+            label: 'Router',
+            icon: 'pi pi-upload',
+            routerLink: '/fileupload'
+        }
+    ];
   }
 
 
@@ -87,8 +109,10 @@ deleteContract()
 ShowUser(user:User)
 {
   this.selectedUser = [user]
-  console.log(this.selectedUser)
   this.displayModal1 = true;
 }
-
+test()
+{
+  alert("contract list")
+}
 }
