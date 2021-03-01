@@ -105,8 +105,13 @@
               "src/assets"
             ],
             "styles": [
+<<<<<<< HEAD
               "src/styles.scss",
               "src/styles.css"
+=======
+              "src/styles.css",
+              "src/styles.scss"
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
             ],
             "scripts": []
           }

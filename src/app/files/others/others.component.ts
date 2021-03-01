@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 @Component({
   selector: 'app-others',
   templateUrl: './others.component.html',
-  styleUrls: ['./others.component.css']
+  styleUrls: ['./others.component.scss']
 })
 export class OthersComponent implements OnInit {
   users:User[];
@@ -18,7 +18,10 @@ export class OthersComponent implements OnInit {
   selectedBills: User[];
   displayModal: boolean;
   displayModal1: boolean;
+<<<<<<< HEAD
   displayModal2: boolean;
+=======
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
   displayModal3: boolean;
   exportColumns:[];
   doc = new jsPDF()

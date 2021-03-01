@@ -1,1 +1,176 @@
-<p>clients works!</p>
+<div class="card">
+ 
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" [routerLink]="['/addBill']"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-mr-2"[disabled]="!selectedBills || !selectedBills.length" (click)="deleteItem()"></button>
+
+        </ng-template>
+
+        <ng-template pTemplate="right">
+                      
+                       <button pButton pRipple label="Export" icon="pi pi-file-pdf" (click)="exportPdf()" style="background-color: #34495E;border: none;" [disabled]="!selectedBills || !selectedBills.length"></button>
+        </ng-template>
+    </p-toolbar>
+
+
+
+    <p-table [value]="users" dataKey="name">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem"></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="user" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+                <td>{{user.name}}</td>
+                <td>{{user.age }}</td>
+                <td>{{user.name}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-product>
+            <tr>
+                <td colspan="7">
+                    <div class="p-p-3">
+                        <p-table [value]="users" dataKey="_id">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
+                                    <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+                                    <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+                                   
+                                    <th style="width: 4rem"></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-user>
+                                <tr>
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.id}}</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6">There are no order for this product yet.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+  
+</div>
+
+
+<!-- Modal for  editing-->
+<p-dialog *ngIf="user"  header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+    
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="firstname1">Firstname</label>
+                <input id="firstname1" type="text" pInputText  [(ngModel)]="user.name" > 
+            </div>
+            <div class="p-field">
+                <label for="lastname1">Lastname</label>
+                <input id="lastname1" type="text" pInputText [(ngModel)]="user.age" > 
+            </div>
+        </div>
+
+   
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+<!-- Modal More info-->
+
+<p-dialog header="More info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+       
+            <div *ngFor="let user of selectedUser">
+                <h1>name: {{ user.name }}</h1>
+                <h1>age: {{ user.age }}</h1>
+            </div>
+       
+
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+<!-- Modal add new Bill-->
+
+<p-dialog header="Add new Bill" [(visible)]="displayModal3" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    
+<div class="p-fluid">
+    <div class="p-field">
+        <label for="firstname1">Firstname</label>
+        <input id="firstname1" type="text" pInputText> 
+    </div>
+    <div class="p-field">
+        <label for="lastname1">Lastname</label>
+        <input id="lastname1" type="text" pInputText> 
+    </div>
+    
+</div>
+
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-times" (click)="displayModal3=false" label="Cancel" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" label="Yes" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+
+
+
+
+<!--Modal for Preview -->
+
+<p-dialog header="Preview" [(visible)]="displayModal4" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    
+<div class="p-fluid">
+    Preview for the Bill
+    
+</div>
+
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal4=false" label="Ok" styleClass="p-button-text"></p-button>
+            
+        </ng-template>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+

@@ -48,7 +48,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {EditorModule} from 'primeng/editor';
 import { FormsModule } from '@angular/forms';
-
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { AddBillComponent } from './files/add-bill/add-bill.component';
 
 
 
@@ -65,7 +66,8 @@ import { FormsModule } from '@angular/forms';
     BillsComponent,
     ContractsComponent,
     OthersComponent,
-    RolesComponent
+    RolesComponent,
+    AddBillComponent
   ],
   imports: [
     BrowserModule,
@@ -98,8 +100,14 @@ import { FormsModule } from '@angular/forms';
     ConfirmDialogModule,
     InputTextareaModule,
     EditorModule,
+<<<<<<< HEAD
     FormsModule
 
+=======
+    FormsModule,
+    SplitButtonModule
+    
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
   ],
   providers: [],
   bootstrap: [AppComponent]

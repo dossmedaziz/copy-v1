@@ -2,20 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/user.service';
 import jsPDF from 'jspdf' ;
 import 'jspdf-autotable';
+<<<<<<< HEAD
 
 import Swal from 'sweetalert2'
 
 
 
+=======
+import Swal from 'sweetalert2'
+
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 import { User } from 'src/app/user';
 @Component({
   selector: 'app-bills',
   templateUrl: './bills.component.html',
-  styleUrls: ['./bills.component.css']
+  styleUrls: ['./bills.component.scss']
 })
 export class BillsComponent implements OnInit {
 users:User[];
+<<<<<<< HEAD
 
+=======
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 user : User ;
 selectedUser 
 
@@ -24,8 +32,11 @@ selectedUser
 selectedBills: User[];
 displayModal: boolean;
 displayModal1: boolean;
+<<<<<<< HEAD
 displayModal2: boolean;
 
+=======
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 displayModal3: boolean;
 displayModal4: boolean;
 exportColumns:[];
@@ -39,6 +50,7 @@ exportColumns:[];
     this.userService.getusers().subscribe(data=> this.users = data)
   }
 
+<<<<<<< HEAD
 
   
   showModalDialog() {
@@ -54,6 +66,8 @@ showModalDialog2() {
   this.displayModal2 = true;
 }
 
+=======
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 showModalDialog3() {
   this.displayModal3 = true;
 }
@@ -68,7 +82,10 @@ exportPdf() {
   this.doc.save('table.pdf')
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 editUser(user: User) {
   this.user = user
   console.log(this.user.name)
@@ -109,7 +126,10 @@ ShowUser(user:User)
   console.log(this.selectedUser)
   this.displayModal1 = true;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 
 
 

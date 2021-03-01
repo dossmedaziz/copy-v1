@@ -15,6 +15,7 @@
 
 
 </div>
+<<<<<<< HEAD
 
 <p-table #dt [value]="users" [rows]="5" [paginator]="true" [globalFilterFields]="['name','age']"
       [(selection)]="selectedBills" [rowHover]="true" dataKey="_id"
@@ -61,11 +62,49 @@
 </p-table>
 
 
+=======
+<p-table #dt1 [value]="users" selectionMode="single"  dataKey="_id" styleClass="p-datatable-customers"
+[rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session"styleClass="p-datatable-responsive-demo">
+<ng-template pTemplate="header"
+>
+    <tr>
+        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
+        <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-user>
+    <tr>
+        <td>
+            <span class="p-column-title">Name</span>
+            {{user.name}}
+        </td>
+        <td>
+            <span class="p-column-title">Status</span>
+            <span>{{user.age}}</span>
+        </td>
+        <td>
+            <span class="p-column-title">Status</span>
+            <span>{{user.age}}</span>
+        </td>
+         <td>
+            <span class="p-column-title">Status</span>
+            <span>{{user.age}}</span>
+        </td>
+    </tr>
+</ng-template>
+</p-table>
+
+
+  
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 
 
 
 <!-- Modal for  editing-->
 <p-dialog *ngIf="user"  header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
+<<<<<<< HEAD
   [draggable]="false" [resizable]="false">
 
   
@@ -85,6 +124,27 @@
       <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel" styleClass="p-button-text"></p-button>
       <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"></p-button>
       </ng-template>
+=======
+    [draggable]="false" [resizable]="false">
+
+    
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="firstname1">Firstname</label>
+                <input id="firstname1" type="text" pInputText  [(ngModel)]="user.name" > 
+            </div>
+            <div class="p-field">
+                <label for="lastname1">Lastname</label>
+                <input id="lastname1" type="text" pInputText [(ngModel)]="user.age" > 
+            </div>
+        </div>
+
+   
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"></p-button>
+        </ng-template>
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 </p-dialog>
 
 
@@ -120,10 +180,17 @@
  </ng-template>
 
 </p-table> 
+<<<<<<< HEAD
       <ng-template pTemplate="footer">
           <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
           
       </ng-template>
+=======
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
+            
+        </ng-template>
+>>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 </p-dialog>
 
 
