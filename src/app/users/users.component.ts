@@ -6,7 +6,7 @@ import { User } from '../user';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
 
@@ -16,7 +16,6 @@ displayModal: boolean;
 displayModal1: boolean;
 displayModal2: boolean;
 displayModal3: boolean;
-displayModal4: boolean;
 
   constructor(private  userService:UserService) { }
 
@@ -42,9 +41,6 @@ showModalDialog3() {
   this.displayModal3 = true;
 }
 
-showModalDialog4() {
-  this.displayModal4 = true;
-}
 
 
 

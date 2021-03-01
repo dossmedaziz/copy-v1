@@ -44,7 +44,7 @@
   [rowHover]="true"
   dataKey="_id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [showCurrentPageReport]="true"
+  [showCurrentPageReport]="true" styleClass="p-datatable-responsive-demo"
 >
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
@@ -137,6 +137,7 @@
         placeholder="Name"
         class="brad"
         pInputText
+
       />
     </div>
 
@@ -336,11 +337,11 @@
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   [showCurrentPageReport]="true"
 >
- 
+
   <ng-template pTemplate="header">
     <tr>
-    
-  
+
+
       <th pSortableColumn="age">Contact <p-sortIcon field="age"></p-sortIcon></th>
       <th></th>
       <th></th>
@@ -350,7 +351,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-user>
     <tr>
-      
+
       <td>{{ user.name }}</td>
       <td></td>
       <td></td>
@@ -360,9 +361,8 @@
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
-          (click)="showModalDialog4()"
         ></button>
-       
+
       </td>
     </tr>
   </ng-template>
@@ -413,47 +413,4 @@
   </ng-template>
 </p-dialog>
 
-<!-- Update Contact popup-->
-<p-dialog
-  header="Update User"
-  [(visible)]="displayModal4"
-  [modal]="true"
-  [style]="{ width: '450px' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
-  styleClass="p-fluid"
->
-  <div class="p-fluid">
-    <img
-      class="center"
-      src="assets/img/wrench_tools_settings_icon_131761.ico"
-    />
-    <br />
-   
-    <div class="p-field">
-      <label for="lastname1"></label>
-      <input
-        id="lastname1"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="Contact"
-      />
-    </div>
-  </div>
 
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-times"
-      (click)="displayModal4 = false"
-      label="Cancel"
-      styleClass="p-button-text"
-    ></p-button>
-    <p-button
-      icon="pi pi-check"
-      label="Save"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>

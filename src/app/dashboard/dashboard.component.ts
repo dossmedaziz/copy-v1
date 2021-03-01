@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'
 export class DashboardComponent implements OnInit {
   text: string = '<h1>bonjour</h2>';
   users: User[];
-  selectedUser
+  selectedUser 
   selectedBills: User[];
   displayModal: boolean;
   displayModal1: boolean;
@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit {
     this.userService.getusers().subscribe(
       data => {
         this.users = data
-        console.log(this.users)
         
       }) ; 
   }
@@ -87,9 +86,9 @@ deleteContract()
 
 ShowUser(user:User)
 {
-  this.selectedUser = user
-  this.displayModal1 = true;
+  this.selectedUser = [user]
   console.log(this.selectedUser)
+  this.displayModal1 = true;
 }
 
 }

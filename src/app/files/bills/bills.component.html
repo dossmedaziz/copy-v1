@@ -1,153 +1,93 @@
 <div class="card">
-  <p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="left">
-      <button
-        pButton
-        pRipple
-        label="New"
-        icon="pi pi-plus"
-        class="p-button-success p-mr-2"
-        (click)="showModalDialog3()"
-      ></button>
-      <button
-        pButton
-        pRipple
-        label="Delete"
-        icon="pi pi-trash"
-        class="p-button-danger p-mr-2"
-        [disabled]="!selectedBills || !selectedBills.length"
-        (click)="showModalDialog2()"
-      ></button>
-    </ng-template>
+ 
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="showModalDialog3()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-mr-2"[disabled]="!selectedBills || !selectedBills.length" (click)="deleteItem()"></button>
 
-    <ng-template pTemplate="right">
-      <button
-        pButton
-        pRipple
-        label="Export"
-        icon="pi pi-file-pdf"
-        (click)="exportPdf()"
-        style="background-color: #34495e; border: none"
-        [disabled]="!selectedBills || !selectedBills.length"
-      ></button>
-    </ng-template>
-  </p-toolbar>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+                      
+                       <button pButton pRipple label="Export" icon="pi pi-file-pdf" (click)="exportPdf()" style="background-color: #34495E;border: none;" [disabled]="!selectedBills || !selectedBills.length"></button>
+        </ng-template>
+    </p-toolbar>
+
+
 </div>
 
-<p-table
-  #dt
-  [value]="users"
-  [rows]="5"
-  [paginator]="true"
-  [globalFilterFields]="['name', 'age']"
-  [(selection)]="selectedBills"
-  [rowHover]="true"
-  dataKey="_id"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [showCurrentPageReport]="true"
->
-  <ng-template pTemplate="caption">
-    <div class="p-d-flex p-ai-center p-jc-between">
-      <h5 class="p-m-0">Manage Bills</h5>
-      <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input pInputText type="text" placeholder="Search..." />
-      </span>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="header">
-    <tr>
-      <th style="width: 3rem">
-        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-      </th>
-      <th pSortableColumn="name">
-        Name <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th pSortableColumn="age">age <p-sortIcon field="age"></p-sortIcon></th>
-      <th pSortableColumn="name">
-        name <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-user>
-    <tr>
-      <td>
-        <p-tableCheckbox [value]="user"></p-tableCheckbox>
-      </td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.age }}</td>
-      <td>{{ user.name }}</td>
-      <td>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-pencil"
-          class="p-button-rounded p-button-success p-mr-2"
-          (click)="showModalDialog()"
-        ></button>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-info-circle"
-          class="p-button-rounded p-button-secondary p-mr-2"
-          (click)="showModalDialog1()"
-        ></button>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-eye"
-          class="p-button-rounded p-button-warning"
-          (click)="showModalDialog4()"
-        ></button>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="summary">
-    <div class="p-d-flex p-ai-center p-jc-between">
-      In total there are {{ users ? users.length : 0 }} users.
-    </div>
-  </ng-template>
+<p-table #dt [value]="users" [rows]="5" [paginator]="true" [globalFilterFields]="['name','age']"
+        [(selection)]="selectedBills" [rowHover]="true" dataKey="_id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Manage Bills</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox> 
+                </th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="age">age <p-sortIcon field="age"></p-sortIcon></th>
+                <th pSortableColumn="name">name <p-sortIcon field="name"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="user"></p-tableCheckbox>
+                </td> 
+                <td>{{user.name}}</td>
+                <td>{{user.age }}</td>
+                <td>{{user.name}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editUser(user)"></button>
+                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2"(click)="ShowUser(user)"></button>
+                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-warning " (click)="showModalDialog4()"></button>
+
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                In total there are {{users ? users.length : 0 }} users.
+            </div>
+        </ng-template>
 </p-table>
 
 <!-- Modal for  editing-->
-<p-dialog
-  header="Edit"
-  [(visible)]="displayModal"
-  [modal]="true"
-  [style]="{ width: '80vw' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
-  <div class="p-fluid">
-    <div class="p-field">
-      <label for="firstname1">Firstname</label>
-      <input id="firstname1" type="text" pInputText />
-    </div>
-    <div class="p-field">
-      <label for="lastname1">Lastname</label>
-      <input id="lastname1" type="text" pInputText />
-    </div>
-  </div>
+<p-dialog *ngIf="user"  header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
 
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-times"
-      (click)="displayModal = false"
-      label="Cancel"
-      styleClass="p-button-text"
-    ></p-button>
-    <p-button
-      icon="pi pi-check"
-      label="Save"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
+    
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="firstname1">Firstname</label>
+                <input id="firstname1" type="text" pInputText  [(ngModel)]="user.name" > 
+            </div>
+            <div class="p-field">
+                <label for="lastname1">Lastname</label>
+                <input id="lastname1" type="text" pInputText [(ngModel)]="user.age" > 
+            </div>
+        </div>
+
+   
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"></p-button>
+        </ng-template>
 </p-dialog>
 
 <!-- Modal More info-->
 
+<<<<<<< HEAD
 <p-dialog
   header="More Info"
   [(visible)]="displayModal1"
@@ -194,6 +134,48 @@
     ></p-button>
   </ng-template>
 </p-dialog>
+=======
+<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '75vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <p-table #dt [value]="selectedUser" [rowHover]="true" dataKey="_id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+    [showCurrentPageReport]="true">
+   <ng-template pTemplate="caption" dataKey="_id">
+     
+   </ng-template>
+   <ng-template pTemplate="header">
+       <tr>
+          
+           <th pSortableColumn="name">Contract Name </th>
+           <th pSortableColumn="age">Start Date </th>
+           <th pSortableColumn="name">End Date</th>
+           <th pSortableColumn="age">Type</th>
+           <th></th>
+       </tr>
+   </ng-template>
+   <ng-template pTemplate="body" let-user>
+       <tr>
+           
+           <td>{{user.name}}</td>
+           <td>{{user.age }}</td>
+           <td>{{user.name}}</td>
+           <td><p-tag styleClass="p-mr-2" value="Contract_type"></p-tag></td>
+        
+       </tr>
+   </ng-template>
+
+</p-table> 
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
+            
+        </ng-template>
+</p-dialog>
+
+
+
+
+
+>>>>>>> 278bbd2045d0fe7f675f9bf68358a14bc7bbad2c
 
 <!-- Modal add new Bill-->
 

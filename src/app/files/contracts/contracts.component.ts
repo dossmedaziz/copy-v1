@@ -15,7 +15,7 @@ export class ContractsComponent implements OnInit {
   users:User[];
 
   user : User ;
-
+  selectedUser
 
 
 selectedBills: User[];
@@ -38,17 +38,20 @@ doc = new jsPDF()
     this.displayModal = true;
 }
 
-
-showModalDialog1() {
-  this.displayModal1 = true;
-}
-
 // showModalDialog2() {
 //   this.displayModal2 = true;
 // }
 
 showModalDialog3() {
   this.displayModal3 = true;
+}
+
+
+ShowUser(user:User)
+{
+  this.selectedUser = [user]
+  console.log(this.selectedUser)
+  this.displayModal1 = true;
 }
 
 exportPdf() {

@@ -7,9 +7,9 @@
                    
                     <div class="p-mb-2 p-mr-2"> 
                         <p-card  [style]="{'width': '25rem', 'margin-bottom': '2em', 'margin-right': '2rem','height': '12rem','background-color':'#00A8FF'}">
-                          
+                      
                                <h1 style="color:cornsilk">Maintenance</h1>
-                               <i class="pi pi-file"style="font-size: 50px;margin-left:6em ; color:white;"></i>
+                               <i class="pi pi-file" style="font-size: 50px;margin-left:6em ; color:white;"></i>
                            
                     
                                <h1 style="margin-left: 1.8em;font-size: 50px; color: cornsilk;margin-top:-1.5rem">36</h1>
@@ -80,7 +80,7 @@
             <h5 class="p-m-0">Manage Contracts</h5>
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
-                <input pInputText type="text" placeholder="Search..."  />
+                <input pInputText type="text" placeholder="Search..." style="border-radius: 10px;" />
             </span>
         </div>
     </ng-template>
@@ -145,9 +145,9 @@
 <p-dialog header="More info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '75vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
 
-     <p-table #dt [value]="selectedUser" [rows]="5"[globalFilterFields]="['name','age']"
-    [(selection)]="selectedBills" [rowHover]="true" dataKey="_id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+     <p-table #dt [value]="selectedUser" [rowHover]="true" dataKey="_id"
+     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+     [showCurrentPageReport]="true">
     <ng-template pTemplate="caption" dataKey="_id">
       
     </ng-template>

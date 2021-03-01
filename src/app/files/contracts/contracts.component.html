@@ -49,7 +49,7 @@
                 <td>{{user.name}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editUser(user)"></button>
-                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary"(click)="showModalDialog1()"></button>
+                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary"(click)="ShowUser(user)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -76,7 +76,7 @@
             </div>
             <div class="p-field">
                 <label for="lastname1">Lastname</label>
-                <input id="lastname1" type="text" pInputText> 
+                <input id="lastname1" type="text" pInputText  [(ngModel)]="user.age"> 
             </div>
         </div>
 
@@ -89,12 +89,39 @@
 
 <!-- Modal More info-->
 
-<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '75vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
-    <p class="p-m-0">More Info</p>
+    <p-table #dt [value]="selectedUser" [rowHover]="true" dataKey="_id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+    [showCurrentPageReport]="true">
+   <ng-template pTemplate="caption" dataKey="_id">
+     
+   </ng-template>
+   <ng-template pTemplate="header">
+       <tr>
+          
+           <th pSortableColumn="name">Contract Name </th>
+           <th pSortableColumn="age">Start Date </th>
+           <th pSortableColumn="name">End Date</th>
+           <th pSortableColumn="age">Type</th>
+           <th></th>
+       </tr>
+   </ng-template>
+   <ng-template pTemplate="body" let-user>
+       <tr>
+           
+           <td>{{user.name}}</td>
+           <td>{{user.age }}</td>
+           <td>{{user.name}}</td>
+           <td><p-tag styleClass="p-mr-2" value="Contract_type"></p-tag></td>
+        
+       </tr>
+   </ng-template>
+
+</p-table> 
         <ng-template pTemplate="footer">
-            <p-button icon="pi pi-times" (click)="displayModal1=false" label="Cancel" styleClass="p-button-text"></p-button>
-            <p-button icon="pi pi-check" label="Yes" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
+            
         </ng-template>
 </p-dialog>
 
@@ -103,9 +130,10 @@
 
 
 
+
 <!-- Modal add new contract-->
 
-<p-dialog *ngIf="user" header="Add new Bill" [(visible)]="displayModal3" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+<p-dialog  header="Add new Bill" [(visible)]="displayModal3" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
     <ng-template pTemplate="content">
 <div class="p-fluid">

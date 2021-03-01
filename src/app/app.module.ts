@@ -99,7 +99,7 @@ import { FormsModule } from '@angular/forms';
     InputTextareaModule,
     EditorModule,
     FormsModule
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

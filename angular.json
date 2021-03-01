@@ -29,6 +29,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/styles.scss",
               "node_modules/primeflex/src/_variables.scss",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/saga-blue/theme.css",
@@ -104,6 +105,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/styles.scss",
               "src/styles.css"
             ],
             "scripts": []
