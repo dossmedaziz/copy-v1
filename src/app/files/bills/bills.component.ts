@@ -101,8 +101,5 @@ filterCountry(event) {
   this.filteredusers = filtered;
 }
 
-test()
-{
-console.log(this.selecteduser.length)
-}
+
 }

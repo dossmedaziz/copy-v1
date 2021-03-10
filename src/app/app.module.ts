@@ -51,6 +51,8 @@ import { FormsModule } from '@angular/forms';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { LoginComponent } from './login/login.component';
+import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
 
 
 
@@ -68,7 +70,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     ContractsComponent,
     OthersComponent,
     RolesComponent,
-    AddBillComponent
+    AddBillComponent,
+    LoginComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -103,7 +107,10 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     EditorModule,
     FormsModule,
     SplitButtonModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
+
     
   ],
   providers: [],
