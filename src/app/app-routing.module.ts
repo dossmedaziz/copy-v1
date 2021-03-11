@@ -11,6 +11,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { RolesComponent } from './roles/roles.component';
+import { SpaceGuard } from './space.guard';
 import { UsersComponent } from './users/users.component';
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
       {
         path:'dashboard',
         component:DashboardComponent,
+        canActivate:[SpaceGuard]
       },
       
       {
@@ -32,22 +34,29 @@ const routes: Routes = [
       },
        {
         path:'users',
-        component:UsersComponent
+        component:UsersComponent,
+        canActivate:[SpaceGuard]
        },
       
       {
         path:'clients',
-        component:ClientsComponent
+        component:ClientsComponent,
+        canActivate:[SpaceGuard]
+
 
       },
       {
         path:'roles',
-        component:RolesComponent
+        component:RolesComponent,
+        canActivate:[SpaceGuard]
+
 
       },
       {
         path:'projects',
-        component:ProjectsComponent
+        component:ProjectsComponent,
+        canActivate:[SpaceGuard]
+
 
       },
       {
