@@ -18,10 +18,6 @@ export class OthersComponent implements OnInit {
   selectedBills: User[];
   displayModal: boolean;
   displayModal1: boolean;
-<<<<<<< HEAD
-  displayModal2: boolean;
-=======
->>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
   displayModal3: boolean;
   exportColumns:[];
   doc = new jsPDF()
@@ -35,7 +31,7 @@ export class OthersComponent implements OnInit {
 
 
 
-      
+
   showModalDialog() {
     this.displayModal = true;
 }
@@ -51,9 +47,9 @@ showModalDialog3() {
 }
 
 exportPdf() {
-  //  this.doc.default(0,0) ; 
+  //  this.doc.default(0,0) ;
   //  this.doc.autoTable(this.exportColumns,this.selectedBills)
-  
+
   this.doc.save('table.pdf')
 }
 
@@ -86,7 +82,7 @@ deleteItem()
     }
   })
 
- 
+
 }
 ShowUser(user:User)
 {

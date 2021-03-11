@@ -67,7 +67,6 @@ editUser(user: User) {
   this.user = user
   console.log(this.user.name)
  this.displayModal = true;
-
 }
 
 deleteUser()

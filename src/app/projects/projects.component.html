@@ -34,6 +34,7 @@
 </p-toolbar>
 
 <!--Table-->
+<div class="card">
 <p-table
   #dt
   [value]="users"
@@ -49,7 +50,7 @@
 >
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
-      <h5 class="p-m-0 title_erp">Manage Projects</h5>
+      <h5 class="p-m-0 title_erp"> Projects List</h5>
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input pInputText type="text" class="brad" placeholder="Search..." />
@@ -82,22 +83,22 @@
   </ng-template>
   <ng-template pTemplate="body" let-user>
     <tr>
-      <td  *ngFor="let u of user">
+      <td >
         <p-tableCheckbox [value]="user"></p-tableCheckbox>
       </td>
       <td>{{ user.name }}</td>
       <td>{{ user.age }}</td>
       <td>{{ user.name }}</td>
       <td>{{ user.age }}</td>
-      <td *ngIf="u.dateEx ==='f'">{{ user.dateEx }}</td>
-
+      <td >{{ user.name }}</td>
+      <!-- <td><span [class]="'user-badge status-' + user.status.toLowerCase()">{{user.status}}</span></td> -->
       <td>
         <button
           pButton
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
-          (click)="showModalDialog()"
+          (click)="editUser(user)"
         ></button>
         <button
           pButton
@@ -115,10 +116,11 @@
     </div>
   </ng-template>
 </p-table>
+</div>
 
 <!-- New popup-->
 <p-dialog
-  header="Add new User"
+  header="Add new Project"
   [(visible)]="displayModal3"
   [modal]="true"
   [style]="{ width: '450px' }"
@@ -131,11 +133,11 @@
     <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
     <br />
     <div class="brad p-field">
-      <label for="firstname1"></label>
+      <label for="ProjectName"></label>
       <input
-        id="firstname1"
+        id="ProjectName"
         type="text"
-        placeholder="Name"
+        placeholder="Project Name"
         class="brad"
         pInputText
 
@@ -147,54 +149,53 @@
         [style]="{ 'border-radius': '10px' }"
         [options]="users"
         [(ngModel)]="selectedUsers"
-        placeholder="Select a Role"
+        placeholder="Select the client"
         optionLabel="name"
       ></p-multiSelect>
     </div>
 
     <div class="p-field">
-      <label for="lastname1"></label>
+      <p-multiSelect
+        [style]="{ 'border-radius': '10px' }"
+        [options]="users"
+        [(ngModel)]="selectedUsers"
+        placeholder="Select the User Manager of this project"
+        optionLabel="name"
+      ></p-multiSelect>
+    </div>
+
+    <div class="p-field">
+      <label for="Start Date"></label>
       <input
-        id="lastname1"
+        id="Start Date"
         type="text"
         pInputText
         class="brad"
-        placeholder="Email"
+        placeholder="Start Date"
       />
     </div>
 
     <div class="p-field">
-      <label for="lastname1"></label>
+      <label for="End Date"></label>
       <input
-        id="lastname1"
+        id="End Date"
         type="text"
         pInputText
         class="brad"
-        placeholder="Pseudo"
+        placeholder="End Date"
       />
     </div>
 
-    <div class="p-field">
-      <label for="lastname1"></label>
-      <input
-        id="lastname1"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="Password"
-      />
-    </div>
+    <span class="p-float-label">
+      <textarea
+      style="border-radius: 10px;"
+       id="float-input" 
+      rows="5" 
+      cols="72" 
+      pInputTextarea 
+      placeholder="Description"></textarea>
+  </span>
 
-    <div class="p-field">
-      <label for="lastname1"></label>
-      <input
-        id="lastname1"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="Contact"
-      />
-    </div>
   </div>
 
   <ng-template pTemplate="footer">
@@ -213,7 +214,7 @@
 </p-dialog>
 
 <!-- Update popup-->
-<p-dialog
+<p-dialog *ngIf="user"
   header="Update User"
   [(visible)]="displayModal"
   [modal]="true"
@@ -229,14 +230,16 @@
       src="assets/img/wrench_tools_settings_icon_131761.ico"
     />
     <br />
-    <div class="p-field brad">
-      <label for="firstname1"></label>
+    <div class="brad p-field">
+      <label for="ProjectName"></label>
       <input
-        id="firstname1"
+        id="ProjectName"
         type="text"
-        pInputText
+        placeholder="Project Name"
         class="brad"
-        placeholder="UserName"
+        pInputText
+        [(ngModel)]="user.name"
+
       />
     </div>
 
@@ -245,54 +248,73 @@
         [style]="{ 'border-radius': '10px' }"
         [options]="users"
         [(ngModel)]="selectedUsers"
-        placeholder="Select a Role"
+        placeholder="Select the client"
         optionLabel="name"
       ></p-multiSelect>
     </div>
 
     <div class="p-field">
-      <label for="lastname1"></label>
+      <p-multiSelect
+        [style]="{ 'border-radius': '10px' }"
+        [options]="users"
+        [(ngModel)]="selectedUsers"
+        placeholder="Select the User Manager of this project"
+        optionLabel="name"
+        [(ngModel)]="user.age"
+
+      ></p-multiSelect>
+    </div>
+
+
+    <div class="p-field">
+      <label for="Start Date"></label>
       <input
-        id="lastname1"
+        id="Start Date"
         type="text"
         pInputText
         class="brad"
-        placeholder="Email"
+        placeholder="Start Date"
+        [(ngModel)]="user.name"
+
       />
     </div>
 
     <div class="p-field">
-      <label for="lastname1"></label>
+      <label for="End Date"></label>
       <input
-        id="lastname1"
+        id="End Date"
         type="text"
         pInputText
         class="brad"
-        placeholder="Pseudo"
+        placeholder="End Date"
+        [(ngModel)]="user.age"
+
+      />
+    </div>
+    <div class="brad p-field">
+      <label for="Status"></label>
+      <input
+        id="Status"
+        type="text"
+        placeholder="Status"
+        class="brad"
+        pInputText
+        [(ngModel)]="user.name"
+
       />
     </div>
 
-    <div class="p-field">
-      <label for="lastname1"></label>
-      <input
-        id="lastname1"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="Password"
-      />
-    </div>
+    <span class="p-float-label">
+      <textarea
+      style="border-radius: 10px;"
+       id="float-input" 
+      rows="5" 
+      cols="72" 
+      pInputTextarea 
+      [(ngModel)]="user.name"
+      placeholder="Description"></textarea>
+  </span>
 
-    <div class="p-field">
-      <label for="lastname1"></label>
-      <input
-        id="lastname1"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="Contact"
-      />
-    </div>
   </div>
 
   <ng-template pTemplate="footer">
@@ -326,10 +348,22 @@
   />
   <br />
 
+  <!--Client-->
+<span>
+  <h4 style="color: grey; font-size: 15px;">Client: </h4>
+  <h4 style="color: grey; font-size: 15px;" >Contacts: </h4>
+
+</span>
+
   <!--Specification-->
   <span class="p-float-label">
-    <textarea id="float-input" rows="5" cols="72" pInputTextarea ></textarea>
-    <label for="float-input">Description</label>
+    <textarea
+    style="border-radius: 10px;"
+     id="float-input" 
+    rows="5" 
+    cols="72" 
+    pInputTextarea 
+    placeholder="Description"></textarea>
 </span>
 
   <ng-template pTemplate="footer">

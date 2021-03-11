@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
-import { User } from '../user';
-import { Status } from 'models/status';
+import { UserService } from 'src/app/user.service';
+import { User } from 'src/app/user';
 
 
 @Component({
@@ -11,11 +10,7 @@ import { Status } from 'models/status';
 })
 export class ProjectsComponent implements OnInit {
 
-  user: User[]=[
-    { name:'a', dateEx:'f'},
-    { name:'b', dateEx: 'g'}
-  ];
-
+  user : User ;
   users:User[];
   selectedUsers: User[];
   displayModal: boolean;
@@ -52,6 +47,11 @@ export class ProjectsComponent implements OnInit {
     this.displayModal4 = true;
   }
 
-
+  editUser(user: User) {
+    this.user = user
+    console.log(this.user.name)
+   this.displayModal = true;
+  
+  }
 
 }

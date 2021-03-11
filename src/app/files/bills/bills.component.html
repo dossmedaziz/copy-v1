@@ -1,5 +1,5 @@
 <div class="card">
- 
+
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" [routerLink]="['/addBill']"></button>
@@ -8,7 +8,7 @@
         </ng-template>
 
         <ng-template pTemplate="right">
-                      
+
                        <button pButton pRipple label="Export" icon="pi pi-file-pdf" (click)="exportPdf()" style="background-color: #34495E;border: none;" [disabled]="!selectedBills || !selectedBills.length"></button>
         </ng-template>
     </p-toolbar>
@@ -32,7 +32,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox> 
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="age">age <p-sortIcon field="age"></p-sortIcon></th>
@@ -44,7 +44,7 @@
             <tr>
                 <td>
                     <p-tableCheckbox [value]="user"></p-tableCheckbox>
-                </td> 
+                </td>
                 <td>{{user.name}}</td>
                 <td>{{user.age }}</td>
                 <td>{{user.name}}</td>
@@ -63,30 +63,27 @@
         </ng-template>
 </p-table>
 
-<<<<<<< HEAD
-=======
-  
+
 </div>
 
 
->>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
 <!-- Modal for  editing-->
 <p-dialog *ngIf="user"  header="Edit" [(visible)]="displayModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
 
-    
+
         <div class="p-fluid">
             <div class="p-field">
                 <label for="firstname1">Firstname</label>
-                <input id="firstname1" type="text" pInputText  [(ngModel)]="user.name" > 
+                <input id="firstname1" type="text" pInputText  [(ngModel)]="user.name" >
             </div>
             <div class="p-field">
                 <label for="lastname1">Lastname</label>
-                <input id="lastname1" type="text" pInputText [(ngModel)]="user.age" > 
+                <input id="lastname1" type="text" pInputText [(ngModel)]="user.age" >
             </div>
         </div>
 
-   
+
         <ng-template pTemplate="footer">
         <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel" styleClass="p-button-text"></p-button>
         <p-button icon="pi pi-check" label="Save" styleClass="p-button-text"></p-button>
@@ -95,8 +92,7 @@
 
 <!-- Modal More info-->
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 <p-dialog
   header="More Info"
   [(visible)]="displayModal1"
@@ -143,19 +139,18 @@
     ></p-button>
   </ng-template>
 </p-dialog>
-=======
-<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '75vw'}" [baseZIndex]="10000"
-=======
+
+
 <p-dialog header="More info" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
->>>>>>> d48d12d39929d9402d020dd840d0b052478d42bf
+
     [draggable]="false" [resizable]="false">
 
-       
+
             <div *ngFor="let user of selectedUser">
                 <h1>name: {{ user.name }}</h1>
                 <h1>age: {{ user.age }}</h1>
             </div>
-       
+
 
         <ng-template pTemplate="footer">
             <p-button icon="pi pi-check" (click)="displayModal1=false" label="Ok" styleClass="p-button-text"></p-button>
@@ -166,7 +161,7 @@
 
 
 
->>>>>>> 278bbd2045d0fe7f675f9bf68358a14bc7bbad2c
+
 
 <!-- Modal add new Bill-->
 
