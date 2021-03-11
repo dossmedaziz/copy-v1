@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import {User} from'../user' ; 
 import jsPDF from 'jspdf' ;
 import 'jspdf-autotable';
@@ -51,6 +51,8 @@ export class DashboardComponent implements OnInit {
             routerLink: '/fileupload'
         }
     ];
+
+
   }
 
 

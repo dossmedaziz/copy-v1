@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree,Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from './user.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from './services/user.service';
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private userService:UserService,private router :Router,private toastr:ToastrService){}
+  constructor(private userService:UserService,private router :Router,private toastr:ToastrService,){}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -23,6 +23,9 @@ export class AuthGuard implements CanActivate {
       }else{
         this.router.navigate(['/login'])
         this.toastr.warning("connect first!")
+        
+       
+      
           return false
       }
   }

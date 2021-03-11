@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { User } from '../user';
 
 
@@ -22,7 +22,13 @@ displayModal4: boolean;
 
   ngOnInit(): void {
 
-    this.userService.getusers().subscribe(data=> this.users = data)
+    this.userService.getusers().subscribe(
+      res=>{
+console.log(res)
+      },err=>{
+        console.log(err)
+      }
+    )
   }
 
 
