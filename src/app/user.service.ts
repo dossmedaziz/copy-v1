@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Api } from './api';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  constructor(private http:HttpClient ) { }
 
-  status: string[] = ['DONE', 'NOT DONE', 'CANCELLED'];
-
-  constructor(private http:HttpClient) { }
-
-
+api = new Api();
 getusers()
 {
   return this.http.get<any>('https://server-side01.herokuapp.com/read')
@@ -19,4 +16,21 @@ getusers()
 
 
 
+login(email : string, pass:string)
+{
+  return this.http.get<any>(this.api.api+'/login/'+'?email='+email+'&password='+pass) ;
+}
+
+
+
+islogged()
+{
+     let token = localStorage.getItem('token')
+     if(token)
+     {
+       return true
+     }else{
+       return false
+     }
+}
 }

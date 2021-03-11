@@ -16,9 +16,15 @@ import { User } from 'src/app/user';
 export class BillsComponent implements OnInit {
 users:User[];
 user : User ;
+<<<<<<< HEAD
 selectedUser
 
 
+=======
+selectedUser 
+selecteduser
+filteredusers
+>>>>>>> 418947c93d93ff13031d7dcdfc5b24ec247bf8bc
 
 selectedBills: User[];
 displayModal: boolean;
@@ -34,7 +40,6 @@ exportColumns:[];
   constructor(private  userService:UserService) { }
 
   ngOnInit(): void {
-
     this.userService.getusers().subscribe(data=> this.users = data)
   }
 
@@ -69,7 +74,6 @@ exportPdf() {
 
 editUser(user: User) {
   this.user = user
-  console.log(this.user.name)
  this.displayModal = true;
 
 }
@@ -104,10 +108,27 @@ deleteItem()
 ShowUser(user:User)
 {
   this.selectedUser = [user]
-  console.log(this.selectedUser)
   this.displayModal1 = true;
 }
 
 
 
+<<<<<<< HEAD
+=======
+filterCountry(event) {
+  //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+  let filtered : any[] = [];
+  let query = event.query;
+  for(let i = 0; i < this.users.length; i++) {
+      let country = this.users[i];
+      if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+          filtered.push(country);
+      }
+  }
+  
+  this.filteredusers = filtered;
+}
+
+
+>>>>>>> 418947c93d93ff13031d7dcdfc5b24ec247bf8bc
 }
