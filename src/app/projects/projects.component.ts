@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/user.service';
+import { UserService } from '../services/user.service';
 import { User } from 'src/app/user';
 
 
@@ -47,16 +47,11 @@ export class ProjectsComponent implements OnInit {
     this.displayModal4 = true;
   }
 
-<<<<<<< HEAD
   editUser(user: User) {
     this.user = user
     console.log(this.user.name)
    this.displayModal = true;
   
-=======
-  ngOnInit(): void {
-
->>>>>>> 7943412e8e35f391066e69c390e63a60eb447f45
   }
 
 }

@@ -42,7 +42,7 @@
   [globalFilterFields]="['name', 'age']"
   [(selection)]="selectedUsers"
   [rowHover]="true"
-  dataKey="_id"
+  dataKey="id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   [showCurrentPageReport]="true"
 >
@@ -129,13 +129,13 @@
     </div>
 
     <div class="p-field">
-      <p-multiSelect
-        [style]="{ 'border-radius': '10px' }"
-        [options]="users"
-        [(ngModel)]="selectedUsers"
-        placeholder="Select Privileges"
-        optionLabel="name"
-      ></p-multiSelect>
+      <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select privil eges" scrollHeight="250px" display="chip">
+        <ng-template let-group pTemplate="group">
+            <div class="p-d-flex p-ai-center">
+                <span>{{group.label}}</span>
+            </div>
+        </ng-template>
+    </p-multiSelect>
     </div>
 <p class="transp">...</p>
 <p class="transp">...</p>
@@ -153,6 +153,7 @@
       styleClass="p-button-text"
     ></p-button>
     <p-button
+    (click)="test()"
       icon="pi pi-check"
       label="Yes"
       styleClass="p-button-text"
@@ -186,14 +187,15 @@
   </div>
 
   <div class="p-field">
-    <p-multiSelect
-      [style]="{ 'border-radius': '10px' }"
-      [options]="users"
-      [(ngModel)]="selectedUsers"
-      placeholder="Select Privileges"
-      optionLabel="name"
-    ></p-multiSelect>
+    <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
+      <ng-template let-group pTemplate="group">
+          <div class="p-d-flex p-ai-center">
+              <span>{{group.label}}</span>
+          </div>
+      </ng-template>
+  </p-multiSelect>
   </div>
+  
 <p class="transp">...</p>
 <p class="transp">...</p>
 <p class="transp">...</p>

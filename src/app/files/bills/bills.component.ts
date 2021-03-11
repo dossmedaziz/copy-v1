@@ -16,15 +16,12 @@ import { User } from 'src/app/user';
 export class BillsComponent implements OnInit {
 users:User[];
 user : User ;
-<<<<<<< HEAD
 selectedUser
 
 
-=======
-selectedUser 
+ 
 selecteduser
 filteredusers
->>>>>>> 418947c93d93ff13031d7dcdfc5b24ec247bf8bc
 
 selectedBills: User[];
 displayModal: boolean;
@@ -113,8 +110,6 @@ ShowUser(user:User)
 
 
 
-<<<<<<< HEAD
-=======
 filterCountry(event) {
   //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
   let filtered : any[] = [];
@@ -130,5 +125,4 @@ filterCountry(event) {
 }
 
 
->>>>>>> 418947c93d93ff13031d7dcdfc5b24ec247bf8bc
 }
