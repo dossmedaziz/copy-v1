@@ -47,7 +47,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {EditorModule} from 'primeng/editor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
 import {AutoCompleteModule} from 'primeng/autocomplete';
@@ -111,7 +111,8 @@ import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toas
     SplitButtonModule,
     AutoCompleteModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
 
 
   ],

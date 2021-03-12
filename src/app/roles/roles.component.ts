@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Privilege } from '../privilege';
+import { PrivilegeService } from '../services/privilege.service';
 import { UserService } from '../services/user.service';
 import { User } from '../user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-roles',
@@ -12,75 +15,108 @@ export class RolesComponent implements OnInit {
   displayModal1: boolean;
   displayModal2: boolean;
   displayModal3: boolean;
-  users: User[];
+  roles
+  users :User[]
   selectedUsers: User[];
+  actions 
+  spaces
+  selectedPriv = new Array()
+
+  role_name
+
   
-  
-  groupedCities
-  selectedCities4
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private privilegeService : PrivilegeService ,
+              private toastr:ToastrService )  {}
+
 
   ngOnInit(): void {
 
-    this.userService.getusers().subscribe(data => this.users = data)
-
-
-    
-
-
-    
-
-   
-    this.groupedCities = [
-
-      {
-          label: 'Client', value: '1', 
-          items: [
-              {label: 'Create', value: [{"action_id":"1"},{"space_id":"1"}]},
-              {label: 'Read', value: '2'},
-              {label: 'Update', value: '3'},
-              {label: 'Delete', value: '4'}
-          ]
-      },
-      {
-        label: 'Client', value: '1', 
-        items: [
-            {label: 'Create', value: '1'},
-            {label: 'Read', value: '2'},
-            {label: 'Update', value: '3'},
-            {label: 'Delete', value: '4'}
-        ]
-    },
+    this.userService.getusers().subscribe(data => this.users = data) // stil not done
      
 
-  ];
+          // fetch actions from api
+          this.privilegeService.getAllActions().subscribe(res=>{
+          this.actions = res
+          },err=>{
+            console.log(err)
+          })
+          //fetch spaces from api
+          this.privilegeService.getAllSpaces().subscribe(res=>{
+            this.spaces = res
+            },err=>{
+              console.log(err)
+            })
+
+
+       // fetch all roles from api
+            this.privilegeService.getAllRoles().subscribe(
+              res=>{
+               this.roles = res
+               console.log(this.roles)
+
+              },err=>{
+                console.log(err)
+              }
+            )
+        }
+    
+
+      showModalDialog1() {
+        this.displayModal1 = true;
+      }
+
+        showModalDialog2() {
+          this.displayModal2 = true;
+        }
+
+        showModalDialog3() {
+          this.displayModal3 = true;
+        }
+
+
+
+        saveRole(){
+          this.privilegeService.createRole(this.role_name,this.selectedPriv).subscribe(
+            res=>{
+                console.log(res)
+                this.toastr.success('Role created successfully')
+                this.displayModal3 = false;
+                window.location.reload()
+
+            },err=>{
+              console.log(err)
+
+            }
+          )
+        }
 
 
 
 
-  }
+        selectPriv(space_id,action_id,event)
+       {
+        
+      if(event.target.checked)
+      {
+        this.selectedPriv.push({
+            "space_id" : space_id,
+            "action_id":action_id
+          })
+        
+      }else{
+        let index = this.selectedPriv.findIndex(elt=> elt.action_id == action_id && elt.space_id == space_id);
+        this.selectedPriv.splice(index , 1) ;
+      }
+      console.log(this.selectedPriv)
 
-  showModalDialog() {
-    this.displayModal = true;
-}
 
-showModalDialog1() {
-  this.displayModal1 = true;
-}
+       }
 
-  showModalDialog2() {
-    this.displayModal2 = true;
-  }
 
-  showModalDialog3() {
-    this.displayModal3 = true;
-  }
 
-  test()
-  {
-    let test = this.selectedCities4
-      console.log(test['items'])
-
-  }
- 
+       getSelectedRole() {
+        this.displayModal = true;
+    }
+      
 }

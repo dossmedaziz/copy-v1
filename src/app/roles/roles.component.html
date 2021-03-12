@@ -36,8 +36,8 @@
 <!--Table-->
 <p-table
   #dt
-  [value]="users"
-  [rows]="5"
+  [value]="roles"
+  [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['name', 'age']"
   [(selection)]="selectedUsers"
@@ -63,28 +63,24 @@
       <th pSortableColumn="name">
         Name <p-sortIcon field="name"></p-sortIcon>
       </th>
-      <th pSortableColumn="age">age <p-sortIcon field="age"></p-sortIcon></th>
-      <th pSortableColumn="name">
-        name <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th></th>
+      
+   
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-user>
+  <ng-template pTemplate="body" let-role>
     <tr>
       <td>
-        <p-tableCheckbox [value]="user"></p-tableCheckbox>
+        <p-tableCheckbox [value]="role"></p-tableCheckbox>
       </td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.age }}</td>
-      <td>{{ user.name }}</td>
+      <td>{{ role.role_name }}</td>
       <td>
         <button
           pButton
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
-          (click)="showModalDialog()"
+          (click)="getSelectedRole()"
+          
         ></button>
         <button
           pButton
@@ -110,8 +106,8 @@
   [modal]="true"
   [style]="{ width: '450px' }"
   [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
+  [draggable]="true"
+  [resizable]="true"
   styleClass="p-fluid"
 >
   <div class="p-fluid">
@@ -125,17 +121,27 @@
         placeholder="Name"
         class="brad"
         pInputText
+        [(ngModel)]="role_name"
       />
     </div>
 
-    <div class="p-field">
-      <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select privil eges" scrollHeight="250px" display="chip">
-        <ng-template let-group pTemplate="group">
-            <div class="p-d-flex p-ai-center">
-                <span>{{group.label}}</span>
-            </div>
-        </ng-template>
-    </p-multiSelect>
+ 
+  <div class="p-field"  >
+      
+   
+      <ul *ngFor="let space of spaces" >
+             <li>
+               <input type="checkbox"> 
+               {{ space.space_name}}
+              </li>
+             <ul *ngFor="let action of actions" >
+               <li> <input type="checkbox" name="priv" (change)="selectPriv(space.id,action.id,$event)">
+                 {{ action.action_name}}
+               </li>
+
+             </ul>
+      </ul>
+ 
     </div>
 <p class="transp">...</p>
 <p class="transp">...</p>
@@ -153,7 +159,7 @@
       styleClass="p-button-text"
     ></p-button>
     <p-button
-    (click)="test()"
+    (click)="saveRole()"
       icon="pi pi-check"
       label="Yes"
       styleClass="p-button-text"
@@ -163,58 +169,67 @@
 
 <!-- Update popup-->
 <p-dialog
-  header="Update User"
+  header="Update Role"
   [(visible)]="displayModal"
   [modal]="true"
   [style]="{ width: '450px' }"
   [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
+  [draggable]="true"
+  [resizable]="true"
   styleClass="p-fluid"
 >
-<div class="p-fluid">
-  <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
-  <br />
-  <div class="brad p-field">
-    <label for="firstname1"></label>
-    <input
-      id="firstname1"
-      type="text"
-      placeholder="Name"
-      class="brad"
-      pInputText
-    />
+  <div class="p-fluid">
+    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
+    <br />
+    <div class="brad p-field">
+      <label for="firstname1"></label>
+      <input
+        id="firstname1"
+        type="text"
+        placeholder="Name"
+        class="brad"
+        pInputText
+        [(ngModel)]="role_name"
+      />
+    </div>
+
+ 
+  <div class="p-field"  >
+      
+   
+      <ul *ngFor="let space of spaces" >
+             <li>
+               <input type="checkbox"> 
+               {{ space.space_name}}
+              </li>
+             <ul *ngFor="let action of actions" >
+               <li> <input type="checkbox" name="priv" (change)="selectPriv(space.id,action.id,$event)">
+                 {{ action.action_name}}
+               </li>
+
+             </ul>
+      </ul>
+ 
+    </div>
+<p class="transp">...</p>
+<p class="transp">...</p>
+<p class="transp">...</p>
+<p class="transp">...</p>
+<p class="transp">...</p>
+
   </div>
-
-  <div class="p-field">
-    <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
-      <ng-template let-group pTemplate="group">
-          <div class="p-d-flex p-ai-center">
-              <span>{{group.label}}</span>
-          </div>
-      </ng-template>
-  </p-multiSelect>
-  </div>
-  
-<p class="transp">...</p>
-<p class="transp">...</p>
-<p class="transp">...</p>
-<p class="transp">...</p>
-<p class="transp">...</p>
-
-</div>
-
 
   <ng-template pTemplate="footer">
     <p-button
       icon="pi pi-times"
-      (click)="displayModal = false"
+      (click)="displayModal3 = false"
       label="Cancel"
       styleClass="p-button-text"
     ></p-button>
     <p-button
+    (click)="saveRole()"
       icon="pi pi-check"
-      label="Save"
+      label="Yes"
       styleClass="p-button-text"
     ></p-button>
   </ng-template>
