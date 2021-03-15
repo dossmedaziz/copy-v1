@@ -36,4 +36,17 @@ export class PrivilegeService {
   {
     return this.http.get<any>(this.api.api+'/getRoles',this.header)
   }
+
+
+  getRoleprivileges(id)
+  {
+    return this.http.get<any>(this.api.api+'/getRoleprivileges/'+id,this.header)
+  }
+
+
+  updateRole(id,role_name,table)
+  {
+    return this.http.put<any>(this.api.api+'/updateRole/'+id,{role_name:role_name,table:table},this.header)
+
+  }
 }

@@ -79,7 +79,7 @@
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
-          (click)="getSelectedRole()"
+          (click)="getSelectedRole(role)"
           
         ></button>
         <button
@@ -159,7 +159,7 @@
       styleClass="p-button-text"
     ></p-button>
     <p-button
-    (click)="saveRole()"
+    (click)="addRole()"
       icon="pi pi-check"
       label="Yes"
       styleClass="p-button-text"
@@ -199,11 +199,12 @@
    
       <ul *ngFor="let space of spaces" >
              <li>
-               <input type="checkbox"> 
+               <input type="checkbox"(change)="selectSpace(space.id,$event)" id="{{space.id}}"> 
                {{ space.space_name}}
               </li>
              <ul *ngFor="let action of actions" >
-               <li> <input type="checkbox" name="priv" (change)="selectPriv(space.id,action.id,$event)">
+               <li><input type="checkbox" name="priv" (change)="selectAction(space.id,action.id,$event)" 
+                          id="{{space.id}}{{action.id}}" class="checkBox">
                  {{ action.action_name}}
                </li>
 
@@ -222,12 +223,12 @@
   <ng-template pTemplate="footer">
     <p-button
       icon="pi pi-times"
-      (click)="displayModal3 = false"
+      (click)="hidemodal3()"
       label="Cancel"
       styleClass="p-button-text"
     ></p-button>
     <p-button
-    (click)="saveRole()"
+    (click)="updateRole()"
       icon="pi pi-check"
       label="Yes"
       styleClass="p-button-text"
@@ -308,33 +309,5 @@
   </ng-template>
 </p-dialog>
 
-<!-- Delete popup-->
-<p-dialog
-  header="Delete"
-  [(visible)]="displayModal2"
-  [modal]="true"
-  [style]="{ width: '450px' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
-  <div>
-    <img class="center" src="assets/img/remove_person_user_icon_131751.ico" />
-    <br />
-    <p class="ptag">Do You Want To Delete Role</p>
-  </div>
 
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-times"
-      (click)="displayModal2 = false"
-      label="Cancel"
-      styleClass="p-button-text"
-    ></p-button>
-    <p-button
-      icon="pi pi-check"
-      label="Yes"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>
+

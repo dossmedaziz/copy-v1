@@ -1,39 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { Privilege } from '../privilege';
 import { PrivilegeService } from '../services/privilege.service';
-import { UserService } from '../services/user.service';
-import { User } from '../user';
 import { ToastrService } from 'ngx-toastr';
-
+declare const $: any;
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.css']
 })
 export class RolesComponent implements OnInit {
-  displayModal: boolean;
+  displayModal:  boolean;
   displayModal1: boolean;
   displayModal2: boolean;
   displayModal3: boolean;
+
+
   roles
-  users :User[]
-  selectedUsers: User[];
   actions 
   spaces
   selectedPriv = new Array()
-
   role_name
+  role_privileges
+  tab
+  idOfselectedRole
 
-  
-  constructor(private userService: UserService,
+  action = new Array()
+  constructor(
               private privilegeService : PrivilegeService ,
               private toastr:ToastrService )  {}
 
 
-  ngOnInit(): void {
-
-    this.userService.getusers().subscribe(data => this.users = data) // stil not done
-     
+  ngOnInit(): void {     
 
           // fetch actions from api
           this.privilegeService.getAllActions().subscribe(res=>{
@@ -41,6 +37,8 @@ export class RolesComponent implements OnInit {
           },err=>{
             console.log(err)
           })
+
+
           //fetch spaces from api
           this.privilegeService.getAllSpaces().subscribe(res=>{
             this.spaces = res
@@ -53,7 +51,6 @@ export class RolesComponent implements OnInit {
             this.privilegeService.getAllRoles().subscribe(
               res=>{
                this.roles = res
-               console.log(this.roles)
 
               },err=>{
                 console.log(err)
@@ -76,47 +73,137 @@ export class RolesComponent implements OnInit {
 
 
 
-        saveRole(){
-          this.privilegeService.createRole(this.role_name,this.selectedPriv).subscribe(
-            res=>{
-                console.log(res)
-                this.toastr.success('Role created successfully')
-                this.displayModal3 = false;
-                window.location.reload()
+        addRole(){
 
-            },err=>{
-              console.log(err)
+                this.selectedPriv = []
+                this.privilegeService.createRole(this.role_name,this.selectedPriv).subscribe(
+                  res=>{
+                        console.log(res)
+                        this.toastr.success('Role created successfully')
+                        this.displayModal3 = false;
+                        window.location.reload()
 
+
+                      },err=>{
+                    console.log(err)
+                  })}
+
+
+        selectSpace(space_id,event)
+        {
+          
+            this.actions.map( elt =>{
+            let id = '#'+space_id+elt.id
+            $(id).prop('checked', event.target.checked);
+            this.selectAction(space_id,elt.id,event)
+        })}
+          
+
+
+        selectAction(space_id,action_id,event)
+        {
+              if(event.target.checked){
+                
+                let test = this.selectedPriv.find( elt => elt.action_id == action_id && elt.space_id == space_id)
+                if(!test){
+                  this.selectedPriv.push({
+                      "space_id" : space_id,
+                      "action_id":action_id
+                  })
+                }
+
+         
+              }else{
+                
+                $( "#"+space_id ).prop( "checked", false );
+                let index = this.selectedPriv.findIndex(elt=> elt.action_id == action_id && elt.space_id == space_id);
+                this.selectedPriv.splice(index , 1) ;
+
+              }
+              console.log(this.selectedPriv)
+              let i = 0
+              this.selectedPriv.map(elt=>{
+                if (elt.space_id == space_id){
+                  i++
+                }
+              })
+               if(i == 4 && !($("#"+space_id).prop("checked")))
+               {
+                $( "#"+space_id ).prop( "checked", true );
+               }
+     
             }
-          )
-        }
 
 
 
+        getSelectedRole(role) {
+          this.selectedPriv = []
+          this.idOfselectedRole = role.id
+              this.role_name = role.role_name;
+                      this.privilegeService.getRoleprivileges(role.id).subscribe(
+                        res => {
+              this.role_privileges= res['0'].privilige
 
-        selectPriv(space_id,action_id,event)
-       {
-        
-      if(event.target.checked)
-      {
-        this.selectedPriv.push({
-            "space_id" : space_id,
-            "action_id":action_id
-          })
-        
-      }else{
-        let index = this.selectedPriv.findIndex(elt=> elt.action_id == action_id && elt.space_id == space_id);
-        this.selectedPriv.splice(index , 1) ;
-      }
-      console.log(this.selectedPriv)
+                        
+            setTimeout(() => {
+              $( ".checkBox" ).prop( "checked", false );
+
+              this.role_privileges.forEach(elem => {
+                this.selectedPriv.push({
+                  "space_id": elem.space_id,
+                  "action_id": elem.action_id
+                })
+                
+                let id = '#'+elem.space_id+elem.action_id
+
+                $(id).prop('checked', true);
+                
+              })
+            }, 0);
+
+                           
+              },err=>{
+                          console.log(err)
+                        }
+                      )
 
 
-       }
+                      
+          this.displayModal = true;
+
+            
 
 
+              }
 
-       getSelectedRole() {
-        this.displayModal = true;
-    }
+              
+                
+
+                
+             updateRole()
+             {
+               this.privilegeService.updateRole(this.idOfselectedRole,this.role_name,this.selectedPriv).subscribe(
+                 res=>{
+                   console.log(res)
+                   this.toastr.success("Updated!")
+                 }, err =>{
+                   console.log(err)
+                 }
+               )
+               window.location.reload
+              this.displayModal = false;
+
+
+             }
+            
+
+
+             hidemodal3()
+             {
+               this.selectedPriv = []
+               this.displayModal = false
+             }
+              
       
 }
+
