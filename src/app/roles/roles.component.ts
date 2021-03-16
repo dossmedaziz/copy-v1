@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PrivilegeService } from '../services/privilege.service';
+import Swal from 'sweetalert2'  
 import { ToastrService } from 'ngx-toastr';
 declare const $: any;
 @Component({
@@ -9,11 +10,10 @@ declare const $: any;
 })
 export class RolesComponent implements OnInit {
   displayModal:  boolean;
-  displayModal1: boolean;
   displayModal2: boolean;
   displayModal3: boolean;
 
-
+  selectedRoles
   roles
   actions 
   spaces
@@ -29,7 +29,7 @@ export class RolesComponent implements OnInit {
               private toastr:ToastrService )  {}
 
 
-  ngOnInit(): void {     
+  ngOnInit(): void {   
 
           // fetch actions from api
           this.privilegeService.getAllActions().subscribe(res=>{
@@ -59,10 +59,7 @@ export class RolesComponent implements OnInit {
         }
     
 
-      showModalDialog1() {
-        this.displayModal1 = true;
-      }
-
+   
         showModalDialog2() {
           this.displayModal2 = true;
         }
@@ -75,18 +72,21 @@ export class RolesComponent implements OnInit {
 
         addRole(){
 
-                this.selectedPriv = []
                 this.privilegeService.createRole(this.role_name,this.selectedPriv).subscribe(
                   res=>{
                         console.log(res)
                         this.toastr.success('Role created successfully')
                         this.displayModal3 = false;
-                        window.location.reload()
+                        this.selectedPriv = []
+                        this.role_name = ""
 
+                        this.ngOnInit()
 
                       },err=>{
                     console.log(err)
                   })}
+
+
 
 
         selectSpace(space_id,event)
@@ -190,8 +190,8 @@ export class RolesComponent implements OnInit {
                    console.log(err)
                  }
                )
-               window.location.reload
               this.displayModal = false;
+              this.ngOnInit()
 
 
              }
@@ -203,7 +203,61 @@ export class RolesComponent implements OnInit {
                this.selectedPriv = []
                this.displayModal = false
              }
+             hideAddModal()
+             {
+               this.selectedPriv = []
+               this.role_name = ""
+               this.displayModal3 = false
+             }
               
+
+             deleteRole()
+             {
+               Swal.fire({
+                 title: 'Are you sure?',
+                 text: 'You will not be able to recover this imaginary file!',
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonText: 'Yes, delete it!', 
+                 cancelButtonText: 'No, keep it'
+               }).then((result) => {
+                 if (result.value) {
+                   
+                   let roles_id = []
+                   this.selectedRoles.map(el=>{
+                    roles_id.push({
+                      "role_id": el.id
+                    })
+                   })
+                    this.privilegeService.deleteRole(roles_id).subscribe(
+                      res=>{
+                        console.log(res)
+                        this.toastr.info("role deleted")
+                        this.ngOnInit()
+
+
+
+                      },err=>{
+                        console.log(err)
+                      }
+                    )
+
+                   Swal.fire(
+                     'Deleted!',
+                     'Your imaginary file has been deleted.',
+                     'success',
+                    )
+                 
+                 } else if (result.dismiss === Swal.DismissReason.cancel) {
+                   Swal.fire(
+                     'Cancelled',
+                     'Your imaginary file is safe :)',
+                     'error'
+                   )
+                 }
+
+               })
+             }
       
 }
 

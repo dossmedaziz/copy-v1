@@ -26,9 +26,9 @@
       pRipple
       style="color: white"
       icon="pi pi-trash"
-      [disabled]="!selectedUsers || !selectedUsers.length"
+      [disabled]="!selectedRoles || !selectedRoles.length"
       class="p-button-rounded p-button-warning"
-      (click)="showModalDialog2()"
+      (click)="deleteRole()"
     ></button>
   </ng-template>
 </p-toolbar>
@@ -40,7 +40,7 @@
   [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['name', 'age']"
-  [(selection)]="selectedUsers"
+  [(selection)]="selectedRoles"
   [rowHover]="true"
   dataKey="id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -81,13 +81,6 @@
           class="p-button-rounded p-button-success p-mr-2"
           (click)="getSelectedRole(role)"
           
-        ></button>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-info-circle"
-          class="p-button-rounded p-button-secondary p-mr-2"
-          (click)="showModalDialog1()"
         ></button>
       </td>
     </tr>
@@ -131,11 +124,12 @@
    
       <ul *ngFor="let space of spaces" >
              <li>
-               <input type="checkbox"> 
+               <input type="checkbox" (change)="selectSpace(space.id,$event)" id="{{space.id}}"> 
                {{ space.space_name}}
               </li>
              <ul *ngFor="let action of actions" >
-               <li> <input type="checkbox" name="priv" (change)="selectPriv(space.id,action.id,$event)">
+               <li> <input type="checkbox" name="priv" id="{{space.id}}{{action.id}}" class="checkBox" 
+                (change)="selectAction(space.id,action.id,$event)">
                  {{ action.action_name}}
                </li>
 
@@ -154,7 +148,7 @@
   <ng-template pTemplate="footer">
     <p-button
       icon="pi pi-times"
-      (click)="displayModal3 = false"
+      (click)="hideAddModal()"
       label="Cancel"
       styleClass="p-button-text"
     ></p-button>
@@ -236,78 +230,7 @@
   </ng-template>
 </p-dialog>
 
-<!-- MoreInfo popup-->
-<p-dialog
-  header="More Info"
-  [(visible)]="displayModal1"
-  [modal]="true"
-  [style]="{ width: '650px' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
-  <img
-    class="center"
-    src="assets/img/cog_tools_configuration_settings_icon_131758.ico"
-  />
-  <br />
-<!--Table-->
-<p-table
-  #dt
-  [value]="users"
-  [rows]="5"
-  [paginator]="true"
-  [globalFilterFields]="['name', 'age']"
-  [(selection)]="selectedUsers"
-  [rowHover]="true"
-  dataKey="_id"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [showCurrentPageReport]="true"
->
 
-  <ng-template pTemplate="header">
-    <tr>
-
-
-      <th pSortableColumn="age">Contact <p-sortIcon field="age"></p-sortIcon></th>
-      <th></th>
-      <th></th>
-
-      <th></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-user>
-    <tr>
-
-      <td>{{ user.name }}</td>
-      <td></td>
-      <td></td>
-      <td>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-pencil"
-          class="p-button-rounded p-button-success p-mr-2"
-        ></button>
-
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="summary">
-    <div class="p-d-flex p-ai-center p-jc-between">
-      In total there are {{ users ? users.length : 0 }} Roles.
-    </div>
-  </ng-template>
-</p-table>
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-check"
-      (click)="displayModal1 = false"
-      label="Ok"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>
 
 
 

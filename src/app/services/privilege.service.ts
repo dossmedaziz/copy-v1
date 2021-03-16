@@ -49,4 +49,9 @@ export class PrivilegeService {
     return this.http.put<any>(this.api.api+'/updateRole/'+id,{role_name:role_name,table:table},this.header)
 
   }
+  deleteRole(table)
+  {
+    return this.http.post<any>(this.api.api+'/deleteRole',{roles_id:table},this.header)
+
+  }
 }

@@ -25,7 +25,22 @@ login(email : string, pass:string)
   return this.http.post<any>(this.api.api+'/login' , {email : email , password : pass}) ; 
 }
 
+addUser(user)
+{
+  return this.http.post<any>(this.api.api+'/createUser' , {user : user},this.header) ; 
+}
 
+updateUser(id,user)
+{
+  return this.http.put<any>(this.api.api+'/updateUser/'+id , {user : user},this.header) ; 
+}
+
+
+
+deleteUser(table)
+{
+  return this.http.post<any>(this.api.api+'/deleteUser' , {users_id : table},this.header) ; 
+}
 
 islogged()
 {
