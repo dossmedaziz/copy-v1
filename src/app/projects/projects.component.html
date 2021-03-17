@@ -86,11 +86,8 @@
       <td >
         <p-tableCheckbox [value]="user"></p-tableCheckbox>
       </td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.age }}</td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.age }}</td>
-      <td >{{ user.name }}</td>
+      <!-- <td>{{ user.name }}</td> -->
+      
       <!-- <td><span [class]="'user-badge status-' + user.status.toLowerCase()">{{user.status}}</span></td> -->
       <td>
         <button
@@ -112,7 +109,7 @@
   </ng-template>
   <ng-template pTemplate="summary">
     <div class="p-d-flex p-ai-center p-jc-between">
-      In total there are {{ users ? users.length : 0 }} users.
+      <!-- In total there are {{ users ? users.length : 0 }} users. -->
     </div>
   </ng-template>
 </p-table>

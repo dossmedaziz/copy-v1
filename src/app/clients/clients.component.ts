@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
-import { UserService } from '../services/user.service';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'; 
 import jsPDF from 'jspdf' ;
 import 'jspdf-autotable';
 import Swal from 'sweetalert2'
+import { ToastrService } from 'ngx-toastr';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-clients',
@@ -12,12 +14,11 @@ import Swal from 'sweetalert2'
 })
 export class ClientsComponent implements OnInit {
 
-  users:User[];
-  user : User ;
-  selectedUser 
-  selecteduser
-  filteredusers
-  selectedUsers
+  vis = false
+  clients
+  clientForm: FormGroup;
+  slectedClientId
+  selectedClients
   
   selectedBills: User[];
   displayModal: boolean;
@@ -25,79 +26,177 @@ export class ClientsComponent implements OnInit {
   displayModal3: boolean;
   displayModal4: boolean;
   exportColumns:[];
-   doc = new jsPDF()
-  constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
-    this.userService.getusers().subscribe(data=> this.users = data)
+
+   doc = new jsPDF()
+  constructor(private clientService: ClientService,private fb:FormBuilder,private toastr: ToastrService) {
+    let formControls = {
+      
+      client_name : new FormControl('',[
+         Validators.required,
+         Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+         Validators.minLength(4),
+         Validators.maxLength(16)
+           ]),
+  
+      email : new FormControl ('',[
+            Validators.required,
+            Validators.email
+          ]),
+      matFisc : new FormControl ('',[
+            Validators.required,
+            Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+            Validators.minLength(4),
+            Validators.maxLength(16)
+          ]),
+          address : new FormControl ('',[
+            Validators.required,
+            Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+            Validators.minLength(4),
+          ]),
+          phone : new FormControl ('',[
+            Validators.required,
+            Validators.pattern("[0-9 .'-]+"),
+            Validators.minLength(4),
+          ]),
+          fax : new FormControl ('',[
+            Validators.required,
+            Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+            Validators.minLength(4),
+          ])}
+          
+          this.clientForm = this.fb.group(formControls) ;
+   }
+      get name() { return this.clientForm.get('name') }
+      get email() { return this.clientForm.get('email') }
+      get matFisc() { return this.clientForm.get('matFisc')}
+      get address() { return this.clientForm.get('address')}
+      get fax() { return this.clientForm.get('fax')}
+      get phone() { return this.clientForm.get('phone')}
+
+
+
+      ngOnInit(): void {
+
+        this.clientService.clientWithContacts().subscribe(
+          res=>{
+            this.clients = res
+
+          },err=>{
+            console.log(err)
+          }
+        )
   }
 
+addClient(){
+  let data = this.clientForm.value
+  this.clientService.addClient(data).subscribe(
+    res=>{
+    this.toastr.success('client added successfully')
+ this.displayModal3= false
+
+ this.ngOnInit()
+ 
+ },err=>{
+   console.log(err)
+   
+ })
+
+ }
+
+ getSelectedClient(client)
+{
+this.displayModal = true
+this.slectedClientId= client.id
+this.clientForm.patchValue({
+  client_name: client.client_name,
+  email:client.email,
+  matFisc : client.matFisc,
+  address : client.address,
+  fax : client.fax
+})
+}
+
+updateUser()
+{
+ let data = this.clientForm.value
+
+  this.clientService.updateClient(this.slectedClientId,data).subscribe(
+    res=>{
+      this.toastr.success("updated !")
+      this.ngOnInit()
+    }, err => {
+      console.log(err)
+    }
+  )
+  this.displayModal = false;
+
+}
+deleteClients(){
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You Have Project for that client Do you want to delete it!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!', 
+    cancelButtonText: 'No, keep it'
+  }).then((result) => {
+    if (result.value) {
+
+      let clients_id = []
+      this.selectedClients.map(el=>{
+       clients_id.push({
+         "client_id": el.id
+       })
+      })
+      console.log(clients_id)
+
+      this.clientService.deleteClient(clients_id).subscribe(
+        res=>{
+          console.log(res)
+          this.toastr.success("deleted")
+          this.ngOnInit()
+        }, err=>{
+          console.log(err)
+        }
+      )
+
+
+      Swal.fire(
+        'Deleted!',
+        'Your imaginary file has been deleted.',
+        'success',
+       )
+    
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+        'Your imaginary file is safe :)',
+        'error'
+      )
+    }
+    
+  })
+
+ }
+ 
   showModalDialog3() {
-    this.displayModal3 = true;
+  this.displayModal3 = true;
+  this.clientForm.reset()
+
   }
   
   showModalDialog4() {
     this.displayModal4 = true;
   }
-  exportPdf() {
-    //  this.doc.default(0,0) ; 
-    //  this.doc.autoTable(this.exportColumns,this.selectedBills)
-    
-    this.doc.save('table.pdf')
-  }
-  
-  editUser(user: User) {
-    this.user = user
-   this.displayModal = true;
-  
-  }
-  
-  deleteItem()
-  {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this imaginary file!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Your imaginary file has been deleted.',
-          'success'
-        )
-      // For more information about handling dismissals please visit
-      // https://sweetalert2.github.io/#handling-dismissals
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })
-  }
-  ShowUser(user:User)
-  {
-    this.selectedUser = [user]
-    this.displayModal1 = true;
-  }
 
-  filterCountry(event) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    let filtered : any[] = [];
-    let query = event.query;
-    for(let i = 0; i < this.users.length; i++) {
-        let country = this.users[i];
-        if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            filtered.push(country);
-        }
-    }
-    
-    this.filteredusers = filtered;
-  }
-
+  
+  
+ 
+test()
+{
+  this.vis = true
+}
+  
   
 }
