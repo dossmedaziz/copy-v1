@@ -9,7 +9,7 @@
 
         <ng-template pTemplate="right">
                       
-                       <button pButton pRipple label="Export" icon="pi pi-file-pdf" (click)="exportPdf()" style="background-color: #34495E;border: none;" [disabled]="!selectedUsers || !selectedUsers.length"></button>
+                       <button pButton pRipple label="Export" icon="pi pi-file-pdf"  style="background-color: #34495E;border: none;" [disabled]="!selectedClients || !selectedClients.length"></button>
         </ng-template>
     </p-toolbar>
 
@@ -35,7 +35,8 @@
                     <p-tableCheckbox [value]="client"></p-tableCheckbox>
                 </td>
                 <td>
-                    <button type="button" pButton pRipple [pRowToggler]="client" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    <button type="button" pButton pRipple [pRowToggler]="client" 
+                    class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                 </td>
                 
                 <td>{{client.client_name}}</td>
@@ -46,8 +47,7 @@
                
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="getSelectedClient(client)"></button>
-                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2"(click)="ShowUser(user)"></button>
-                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-warning " (click)="showModalDialog4()"></button>
+                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2"></button>
 
                 </td>
             </tr>
@@ -56,33 +56,82 @@
             <tr>
                 <td colspan="7">
                     <div class="p-p-3">
-                        <p-table [value]="client.contact" dataKey="id">
-                            <ng-template pTemplate="header">
-                                <tr>
-              <th pSortableColumn="project_name"> Contact Name <p-sortIcon field="project_name"></p-sortIcon></th>
-              <th pSortableColumn="start_date"> Position <p-sortIcon field="start_date"></p-sortIcon></th>
-              <th pSortableColumn="status"> Phone <p-sortIcon field="status"></p-sortIcon></th>
-              <th pSortableColumn="status"> Email <p-sortIcon field="status"></p-sortIcon></th>
-              <th pSortableColumn="status"> Note <p-sortIcon field="status"></p-sortIcon></th>
-                                   
-                                    <th style="width: 4rem"></th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-contact>
-                                <tr>
-                                    <td>{{contact.contact_name}}</td>
-                                    <td>{{contact.position}}</td>
-                                    <td>{{contact.phone}}</td>
-                                    <td>{{contact.email}}</td>
-                                    <td>{{contact.description}}</td>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="emptymessage">
-                                <tr>
-                                    <td colspan="6">There are no order for this product yet.</td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
+                      <p-table [value]="client.contact" dataKey="id" editMode="row">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Description</th>
+                        <th style="width:8rem"><button pButton pRipple type="button" icon="pi pi-plus" 
+                          class="p-button-rounded p-button-text" (click)="addContactsModal(client.id)"></button></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-contact let-editing="editing" let-ri="rowIndex">
+                            <tr [pEditableRow]="contact">
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input pInputText type="text" [(ngModel)]="contact.contact_name">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{contact.contact_name}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn>
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input pInputText type="text" [(ngModel)]="contact.position" required>
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{contact.position}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn>
+                                  <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="contact.contact_phone" required>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{contact.contact_phone}}
+                                    </ng-template>
+                                </p-cellEditor>
+                                </td>
+                                <td pEditableColumn>
+                                  
+                                  <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="contact.contact_email" required>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{contact.contact_email}}
+                                    </ng-template>
+                                  </p-cellEditor>
+                              </td>
+                              <td pEditableColumn>
+                                  
+                                <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                      <input pInputText type="text" [(ngModel)]="contact.description" required>
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                      {{contact.description}}
+                                  </ng-template>
+                                </p-cellEditor>
+                            </td>
+                                <td style="text-align:center">
+                                    <button  pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="updateContact(contact)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                                    <button  pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="deleteContact(contact.id)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+
+
+                    </p-table>
                     </div>
                 </td>
             </tr>
@@ -156,27 +205,10 @@
     </div>
   </div>
 
-
-
-
-  <div *ngIf="vis">
-    <div class="p-field p-col-6">      
-      <span class="p-float-label" >
-        <input id="address" type="text" pInputText class="brad"> 
-        <label for="address">Address</label>
-      </span>
-</div>
-
-  </div>
  
 
 
     </form>
-
-
-
-
-  <button class="btn btn-outline-primary" (click)="test()">add Contacts</button>
 
   </div>
   
@@ -195,10 +227,10 @@
 <p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{ width: '650px' }" [baseZIndex]="10000"[draggable]="true"[resizable]="true">
     <img class="center"  src="assets/img/cog_tools_configuration_settings_icon_131758.ico"/>
     <br />
-  <div *ngFor="let user of selectedUser">
+  <!-- <div *ngFor="let user of selectedClient">
     <h1>name: {{ user.name }}</h1>
     <h1>age: {{ user.age }}</h1>
-  </div>
+  </div> -->
   
     <ng-template pTemplate="footer">
       <p-button icon="pi pi-check"  (click)="displayModal1 = false" label="Ok" styleClass="p-button-text"></p-button>
@@ -210,7 +242,7 @@
 
 <!-- Modal add new Client-->
 
-<p-dialog header="Add new Client" [(visible)]="displayModal3" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
+<p-dialog header="Add new Client" [(visible)]="addNewClientModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
     <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
@@ -285,7 +317,7 @@
   </div>
   <ng-template pTemplate="footer">
 
-    <p-button icon="pi pi-times" (click)="displayModal = false" label="Cancel" styleClass="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="addNewClientModal = false" label="Cancel" styleClass="p-button-text"></p-button>
       <p-button icon="pi pi-check" (click)="addClient()" label="Save" styleClass="p-button-text"></p-button>
   </ng-template>
 </p-dialog>
@@ -296,20 +328,71 @@
 
 
 
-<!--Modal for Preview -->
+<!--Modal for ADD Contact-->
 
-<p-dialog header="Preview" [(visible)]="displayModal4" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
-    [draggable]="false" [resizable]="false">
-    
-<div class="p-fluid">
-    Preview for the Bill
-    
-</div>
+<p-dialog header="Add  Contact" [(visible)]="addContactModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
+  [draggable]="false"  [resizable]="false" styleClass="p-fluid">
+  <div class="p-fluid">
+    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
+    <br />
 
-        <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="displayModal4=false" label="Ok" styleClass="p-button-text"></p-button>
-            
-        </ng-template>
+    <form [formGroup]="contactForm" >
+
+      <div class="p-grid p-fluid">  
+              <div class="p-field p-col-6 " >
+                <span class="p-float-label" >
+                  <input id="contact_name" type="text" pInputText class="brad" formControlName="contact_name"> 
+                  <label for="contact_name">Contact Name</label>
+                </span>
+              </div>
+
+              <div class="p-field p-col-6 " >      
+                <span class="p-float-label" >
+                  <input id="psition" type="text" pInputText class="brad" formControlName="position"> 
+                  <label for="psition">Position</label>
+                </span>
+         </div>
+      </div>     
+  
+    
+    <div class="p-grid p-fluid">  
+       <div class="p-field p-col-6">      
+        <span class="p-float-label" >
+          <input id="contact_phone" type="text" pInputText class="brad" formControlName="contact_phone"> 
+          <label for="contact_phone">Phone</label>
+        </span>
+  </div>
+        <div class="p-field p-col-6 ">
+        
+                  <span class="p-float-label" >
+                    <input id="contact_email" type="text" pInputText class="brad" formControlName="contact_email"
+                    > 
+                    <label for="contact_email"> Email</label>
+                  </span>
+        </div>
+  </div>
+
+    <div class="p-grid p-fluid">  
+      <div class="p-field p-col-6">      
+
+      <span class="p-float-label" >
+        <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+        <label for="description"> Description</label>
+      </span>
+      </div>
+    </div>
+
+      
+
+
+
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+
+    <p-button icon="pi pi-times" (click)="addContactModal = false" label="Cancel" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-check" (click)="addContact()" label="Save" styleClass="p-button-text"></p-button>
+  </ng-template>
 </p-dialog>
 
 

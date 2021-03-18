@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'; 
 import jsPDF from 'jspdf' ;
-import 'jspdf-autotable';
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr';
 import { ClientService } from '../services/client.service';
+import { ContactService } from '../services/contact.service';
 
 @Component({
   selector: 'app-clients',
@@ -17,19 +17,24 @@ export class ClientsComponent implements OnInit {
   vis = false
   clients
   clientForm: FormGroup;
+  contactForm : FormGroup;
   slectedClientId
+  slected_Client_Id// for contact
   selectedClients
   
   selectedBills: User[];
   displayModal: boolean;
   displayModal1: boolean;
-  displayModal3: boolean;
-  displayModal4: boolean;
+  addNewClientModal: boolean;
+  addContactModal: boolean;
   exportColumns:[];
-
-
-   doc = new jsPDF()
-  constructor(private clientService: ClientService,private fb:FormBuilder,private toastr: ToastrService) {
+   
+  numbers = []
+  i = 0
+  constructor(private clientService: ClientService,
+              private fb:FormBuilder,
+              private toastr: ToastrService,
+              private contactService :ContactService) {
     let formControls = {
       
       client_name : new FormControl('',[
@@ -64,15 +69,61 @@ export class ClientsComponent implements OnInit {
             Validators.pattern("[A-Z a-z 0-9 .'-]+"),
             Validators.minLength(4),
           ])}
+
+
+          let contactFormControle = {
+      
+            contact_name : new FormControl('',[
+               Validators.required,
+               Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+               Validators.minLength(4),
+               Validators.maxLength(16)
+                 ]),
+        
+                 contact_email : new FormControl ('',[
+                  Validators.required,
+                  Validators.email
+                ]),
+            position : new FormControl ('',[
+                  Validators.required,
+                  Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+                  Validators.minLength(4),
+                  Validators.maxLength(16)
+                ]),
+                contact_phone : new FormControl ('',[
+                  Validators.required,
+                  Validators.pattern("[0-9 .'-]+"),
+                  Validators.minLength(8),
+                ]),
+                description : new FormControl ('',[
+                  Validators.required,
+                  Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+                  Validators.minLength(8),
+                ]),
+                
+              }
           
           this.clientForm = this.fb.group(formControls) ;
+          this.contactForm = this.fb.group(contactFormControle) ;
    }
+
+
+   // client form
       get name() { return this.clientForm.get('name') }
       get email() { return this.clientForm.get('email') }
       get matFisc() { return this.clientForm.get('matFisc')}
       get address() { return this.clientForm.get('address')}
       get fax() { return this.clientForm.get('fax')}
       get phone() { return this.clientForm.get('phone')}
+
+
+      // contact form
+
+      get contact_name() { return this.contactForm.get('contact_name') }
+      get contact_email() { return this.contactForm.get('contact_email') }
+      get contact_phone() { return this.contactForm.get('contact_phone')}
+      get position() { return this.contactForm.get('position')}
+      get description() { return this.contactForm.get('description')}
 
 
 
@@ -93,7 +144,7 @@ addClient(){
   this.clientService.addClient(data).subscribe(
     res=>{
     this.toastr.success('client added successfully')
- this.displayModal3= false
+ this.addNewClientModal = false
 
  this.ngOnInit()
  
@@ -104,18 +155,19 @@ addClient(){
 
  }
 
- getSelectedClient(client)
-{
-this.displayModal = true
-this.slectedClientId= client.id
-this.clientForm.patchValue({
-  client_name: client.client_name,
-  email:client.email,
-  matFisc : client.matFisc,
-  address : client.address,
-  fax : client.fax
-})
-}
+        getSelectedClient(client)
+        {
+                  this.displayModal = true
+                  this.slectedClientId= client.id
+
+                  this.clientForm.patchValue({
+                    client_name: client.client_name,
+                    email:client.email,
+                    matFisc : client.matFisc,
+                    address : client.address,
+                    fax : client.fax
+        })
+        }
 
 updateUser()
 {
@@ -181,22 +233,73 @@ deleteClients(){
  }
  
   showModalDialog3() {
-  this.displayModal3 = true;
+  this.addNewClientModal = true;
   this.clientForm.reset()
 
   }
   
-  showModalDialog4() {
-    this.displayModal4 = true;
+  addContactsModal(client_id) {
+    this.addContactModal = true;
+    this.slected_Client_Id = client_id
   }
 
   
   
  
-test()
+
+
+
+addContact()
 {
-  this.vis = true
+  let contact = this.contactForm.value
+  console.log(contact)
+  this.contactService.createContact(this.slected_Client_Id,contact).subscribe(
+    res=>{
+      console.log(res)
+    this.addContactModal = false;
+    this.toastr.success("contact added!")
+      this.ngOnInit()
+    }, err=>{
+      console.log(err)
+    }
+  )
 }
-  
-  
+
+
+updateContact(contact)
+{
+  let newContact ={
+    "contact_name": contact.contact_name,
+    "position":contact.position,
+    "contact_email":contact.contact_email,
+    "contact_phone":contact.contact_phone,
+    "description":contact.description
+  }
+
+this.contactService.updateContact(contact.id,newContact).subscribe(
+  res=>{
+    console.log(res)
+    this.toastr.success('Updated!')
+    this.ngOnInit()
+    this.contactForm.reset()
+
+  },err=>{
+    console.log(err)
+  }
+)
+}
+
+
+deleteContact(id)
+{
+          this.contactService.deleteContact(id).subscribe(
+            res=>{
+              console.log(res)
+              this.toastr.success("deleted")
+              this.ngOnInit()
+            }, err=>{
+              console.log(err)
+            }
+          )
+}
 }

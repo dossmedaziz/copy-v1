@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import jsPDF from 'jspdf' ;
-import 'jspdf-autotable';
 import { User } from 'src/app/user';
 import Swal from 'sweetalert2'
 @Component({

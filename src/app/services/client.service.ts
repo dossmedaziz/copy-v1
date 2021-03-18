@@ -30,4 +30,10 @@ myToken = localStorage.getItem('token')
   {
     return this.http.post<any>(this.api.api+'/deleteClient' , {clients_id : clients_id},this.header) ; 
   }
+
+
+  getClients()
+  {
+    return this.http.get<any>(this.api.api+'/getClients',this.header)
+  }
 }

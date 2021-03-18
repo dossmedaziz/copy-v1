@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import {User} from'../user' ; 
 import jsPDF from 'jspdf' ;
-import 'jspdf-autotable';
 import Swal from 'sweetalert2'
 @Component({
   selector: 'app-dashboard',
@@ -71,12 +70,6 @@ showModalDialog3() {
 }
 
 
-exportPdf() {
-  //  this.doc.default(0,0) ; 
-  //  this.doc.autoTable(this.exportColumns,this.selectedBills)
-  
-  this.doc.save('table.pdf')
-}
 
 deleteContract()
 {

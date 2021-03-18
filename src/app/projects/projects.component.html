@@ -18,7 +18,7 @@
       pRipple
       label="New"
       icon="pi pi-plus"
-      (click)="showModalDialog3()"
+      (click)="showAddProjectModal()"
       class="p-button-success p-mr-2 p-button-rounded"
     ></button>
     <button
@@ -37,7 +37,7 @@
 <div class="card">
 <p-table
   #dt
-  [value]="users"
+  [value]="projects"
   [rows]="5"
   [paginator]="true"
   [globalFilterFields]="['name', 'age']"
@@ -63,33 +63,35 @@
         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
       <th pSortableColumn="name">
-        Name <p-sortIcon field="name"></p-sortIcon>
+        Project Name <p-sortIcon field="name"></p-sortIcon>
       </th>
       <th pSortableColumn="age">
-        Manager <p-sortIcon field="age"></p-sortIcon>
+        Client  <p-sortIcon field="age"></p-sortIcon>
       </th>
       <th pSortableColumn="name">
         Start Date <p-sortIcon field="name"></p-sortIcon>
       </th>
       <th pSortableColumn="name">
-        End Date <p-sortIcon field="name"></p-sortIcon>
+        Status<p-sortIcon field="name"></p-sortIcon>
       </th>
       <th pSortableColumn="age">
-        Status <p-sortIcon field="age"></p-sortIcon>
+        Description <p-sortIcon field="age"></p-sortIcon>
       </th>
 
       <th></th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-user>
+  <ng-template pTemplate="body" let-project>
     <tr>
       <td >
-        <p-tableCheckbox [value]="user"></p-tableCheckbox>
+        <p-tableCheckbox [value]="project"></p-tableCheckbox>
       </td>
-      <!-- <td>{{ user.name }}</td> -->
-      
-      <!-- <td><span [class]="'user-badge status-' + user.status.toLowerCase()">{{user.status}}</span></td> -->
-      <td>
+       <td>{{ project.project_name }}</td> 
+       <td>{{ project.client.client_name }}</td> 
+       <td>{{ project.start_date }}</td> 
+       <td>{{ project.status }}</td> 
+       <td>{{ project.descritpion }}</td> 
+            <td>
         <button
           pButton
           pRipple
@@ -115,100 +117,84 @@
 </p-table>
 </div>
 
-<!-- New popup-->
-<p-dialog
-  header="Add new Project"
-  [(visible)]="displayModal3"
-  [modal]="true"
-  [style]="{ width: '450px' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
-  styleClass="p-fluid"
->
+<!-- New project modal-->
+<p-dialog header="Add new Project" [(visible)]="addNewProjectModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
+  [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
     <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
     <br />
-    <div class="brad p-field">
-      <label for="ProjectName"></label>
-      <input
-        id="ProjectName"
-        type="text"
-        placeholder="Project Name"
-        class="brad"
-        pInputText
 
-      />
-    </div>
+    <form [formGroup]="projectForm" >
 
-    <div class="p-field">
-      <p-multiSelect
-        [style]="{ 'border-radius': '10px' }"
-        [options]="users"
-        [(ngModel)]="selectedUsers"
-        placeholder="Select the client"
-        optionLabel="name"
-      ></p-multiSelect>
-    </div>
-
-    <div class="p-field">
-      <p-multiSelect
-        [style]="{ 'border-radius': '10px' }"
-        [options]="users"
-        [(ngModel)]="selectedUsers"
-        placeholder="Select the User Manager of this project"
-        optionLabel="name"
-      ></p-multiSelect>
-    </div>
-
-    <div class="p-field">
-      <label for="Start Date"></label>
-      <input
-        id="Start Date"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="Start Date"
-      />
-    </div>
-
-    <div class="p-field">
-      <label for="End Date"></label>
-      <input
-        id="End Date"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="End Date"
-      />
-    </div>
-
-    <span class="p-float-label">
-      <textarea
-      style="border-radius: 10px;"
-       id="float-input" 
-      rows="5" 
-      cols="72" 
-      pInputTextarea 
-      placeholder="Description"></textarea>
+      <div class="p-grid p-fluid">  
+<div class="p-field p-col-6 " >
+   <span class="p-float-label" >
+    <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
+    <label for="project_name">Project Name</label>
   </span>
+</div>
+  
+      <div class="p-field p-col-6 " >      
+        <span class="p-float-label" >
+          <input id="status" type="text" pInputText class="brad" formControlName="status"> 
+          <label for="status">Status</label>
+        </span>
+        </div>
 
+
+    </div>
+    
+    
+    <div class="p-grid p-fluid">  
+
+
+      <div class="p-field p-col-6 ">
+  
+          <label for="icon">Start Date</label>
+              <input id="start_date" type="date" pInputText class="brad" formControlName="start_date"> 
+      </div>
+      <div class="p-field p-col-6 ">
+      <label for="client_id"> Client :</label>
+      <select class="form-select" aria-label="Default select example" formControlName="client_id">
+          <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
+      </select>
+    </div>
+    
+    </div>
+
+    <div class="p-grid p-fluid">  
+
+      <div class="p-field p-col-6 ">
+  
+        <span class="p-float-label" >
+          <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+          <label for="description">Description</label>
+        </span>
+            </div>
+ 
+ 
+
+
+            </div>
+
+
+      
+
+
+
+    </form>
   </div>
-
   <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-times"
-      (click)="displayModal3 = false"
-      label="Cancel"
-      styleClass="p-button-text"
-    ></p-button>
-    <p-button
-      icon="pi pi-check"
-      label="Yes"
-      styleClass="p-button-text"
-    ></p-button>
+
+    <p-button icon="pi pi-times" (click)="addNewProjectModal = false" label="Cancel" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-check" (click)="addProject()" label="Save" styleClass="p-button-text"></p-button>
   </ng-template>
 </p-dialog>
+
+
+
+
+
 
 <!-- Update popup-->
 <p-dialog *ngIf="user"

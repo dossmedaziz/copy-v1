@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf' ;
-import 'jspdf-autotable';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/user';
 import Swal from 'sweetalert2'
@@ -46,12 +45,7 @@ showModalDialog3() {
   this.displayModal3 = true;
 }
 
-exportPdf() {
-  //  this.doc.default(0,0) ;
-  //  this.doc.autoTable(this.exportColumns,this.selectedBills)
 
-  this.doc.save('table.pdf')
-}
 
 
 
