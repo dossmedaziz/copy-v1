@@ -53,6 +53,7 @@ import { AddBillComponent } from './files/add-bill/add-bill.component';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { LoginComponent } from './login/login.component';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
+import { PaperManagerComponent } from './paper-manager/paper-manager.component';
 
 
 
@@ -72,6 +73,7 @@ import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toas
     RolesComponent,
     AddBillComponent,
     LoginComponent,
+    PaperManagerComponent,
 
   ],
   imports: [

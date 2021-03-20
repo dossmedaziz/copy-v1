@@ -26,9 +26,9 @@
       pRipple
       style="color: white"
       icon="pi pi-trash"
-      [disabled]="!selectedUsers || !selectedUsers.length"
+      [disabled]="!selectedProjects || !selectedProjects.length"
       class="p-button-rounded p-button-warning"
-      (click)="showModalDialog2()"
+      (click)="deleteProject()"
     ></button>
   </ng-template>
 </p-toolbar>
@@ -41,9 +41,9 @@
   [rows]="5"
   [paginator]="true"
   [globalFilterFields]="['name', 'age']"
-  [(selection)]="selectedUsers"
+  [(selection)]="selectedProjects"
   [rowHover]="true"
-  dataKey="_id"
+  dataKey="id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   [showCurrentPageReport]="true"
   styleClass="p-datatable-responsive-demo"
@@ -88,16 +88,17 @@
       </td>
        <td>{{ project.project_name }}</td> 
        <td>{{ project.client.client_name }}</td> 
-       <td>{{ project.start_date }}</td> 
-       <td>{{ project.status }}</td> 
-       <td>{{ project.descritpion }}</td> 
-            <td>
+       <td>{{ project.start_date | date: 'mediumDate'}}</td> 
+       <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(project.status).icon }}"  severity="{{ filterStatus(project.status).color }}" value="{{ filterStatus(project.status).status_name}}" [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></td> 
+       <td>{{ project.description }}</td> 
+       
+        <td>
         <button
           pButton
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
-          (click)="editUser(user)"
+          (click)="selectedProject(project)"
         ></button>
         <button
           pButton
@@ -111,7 +112,7 @@
   </ng-template>
   <ng-template pTemplate="summary">
     <div class="p-d-flex p-ai-center p-jc-between">
-      <!-- In total there are {{ users ? users.length : 0 }} users. -->
+      In total there are {{ projects ? projects.length : 0 }} projects.
     </div>
   </ng-template>
 </p-table>
@@ -125,24 +126,25 @@
     <br />
 
     <form [formGroup]="projectForm" >
-
+    
       <div class="p-grid p-fluid">  
-<div class="p-field p-col-6 " >
-   <span class="p-float-label" >
-    <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
-    <label for="project_name">Project Name</label>
-  </span>
-</div>
-  
-      <div class="p-field p-col-6 " >      
-        <span class="p-float-label" >
-          <input id="status" type="text" pInputText class="brad" formControlName="status"> 
-          <label for="status">Status</label>
-        </span>
+
+
+        <div class="p-field p-col-6 ">
+    
+            <label for="icon">Project Name</label>
+                <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
         </div>
-
-
-    </div>
+        <div class="p-field p-col-6 ">
+          <label for="client_id"> Status :</label>
+          <select class="form-select" aria-label="Default select example" formControlName="status">
+              <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"  
+                severity="{{ status.color }}" value="{{ status.status_name}}" 
+                [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
+          </select>
+      </div>
+      
+      </div>
     
     
     <div class="p-grid p-fluid">  
@@ -152,6 +154,8 @@
   
           <label for="icon">Start Date</label>
               <input id="start_date" type="date" pInputText class="brad" formControlName="start_date"> 
+              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"dateFormat="dd.mm.yy"></p-calendar> -->
+
       </div>
       <div class="p-field p-col-6 ">
       <label for="client_id"> Client :</label>
@@ -195,125 +199,98 @@
 
 
 
-
-<!-- Update popup-->
-<p-dialog *ngIf="user"
-  header="Update User"
-  [(visible)]="displayModal"
-  [modal]="true"
-  [style]="{ width: '450px' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
-  styleClass="p-fluid"
->
+ <!-- update project-->
+<p-dialog header="Update Project" [(visible)]="updateModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
+  [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
-    <img
-      class="center"
-      src="assets/img/wrench_tools_settings_icon_131761.ico"
-    />
+    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
     <br />
-    <div class="brad p-field">
-      <label for="ProjectName"></label>
-      <input
-        id="ProjectName"
-        type="text"
-        placeholder="Project Name"
-        class="brad"
-        pInputText
-        [(ngModel)]="user.name"
 
-      />
+    <form [formGroup]="projectForm" >
+    
+      <div class="p-grid p-fluid">  
+
+
+        <div class="p-field p-col-6 ">
+    
+            <label for="icon">Project Name</label>
+                <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
+        </div>
+        <div class="p-field p-col-6 ">
+          <label for="client_id"> Status :</label>
+          <select class="form-select" aria-label="Default select example" formControlName="status">
+              <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"  
+                severity="{{ status.color }}" value="{{ status.status_name}}" 
+                [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
+          </select>
+      </div>
+      
+      </div>
+    
+    
+    <div class="p-grid p-fluid">  
+
+
+      <div class="p-field p-col-6 ">
+  
+          <label for="icon">Start Date </label>
+              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date" ></p-calendar> -->
+              <input id="start_date" type="date" pInputText class="brad" formControlName="start_date"> 
+
+      </div>
+      <div class="p-field p-col-6 ">
+      <label for="client_id"> Client :</label>
+      <select class="form-select" aria-label="Default select example" formControlName="client_id">
+          <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
+      </select>
+    </div>
+    
     </div>
 
-    <div class="p-field">
-      <p-multiSelect
-        [style]="{ 'border-radius': '10px' }"
-        [options]="users"
-        [(ngModel)]="selectedUsers"
-        placeholder="Select the client"
-        optionLabel="name"
-      ></p-multiSelect>
-    </div>
+    <div class="p-grid p-fluid">  
 
-    <div class="p-field">
-      <p-multiSelect
-        [style]="{ 'border-radius': '10px' }"
-        [options]="users"
-        [(ngModel)]="selectedUsers"
-        placeholder="Select the User Manager of this project"
-        optionLabel="name"
-        [(ngModel)]="user.age"
-
-      ></p-multiSelect>
-    </div>
+      <div class="p-field p-col-6 ">
+  
+        <span class="p-float-label" >
+          <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+          <label for="description">Description</label>
+        </span>
+            </div>
+ 
+ 
 
 
-    <div class="p-field">
-      <label for="Start Date"></label>
-      <input
-        id="Start Date"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="Start Date"
-        [(ngModel)]="user.name"
+            </div>
 
-      />
-    </div>
 
-    <div class="p-field">
-      <label for="End Date"></label>
-      <input
-        id="End Date"
-        type="text"
-        pInputText
-        class="brad"
-        placeholder="End Date"
-        [(ngModel)]="user.age"
+      
 
-      />
-    </div>
-    <div class="brad p-field">
-      <label for="Status"></label>
-      <input
-        id="Status"
-        type="text"
-        placeholder="Status"
-        class="brad"
-        pInputText
-        [(ngModel)]="user.name"
 
-      />
-    </div>
 
-    <span class="p-float-label">
-      <textarea
-      style="border-radius: 10px;"
-       id="float-input" 
-      rows="5" 
-      cols="72" 
-      pInputTextarea 
-      [(ngModel)]="user.name"
-      placeholder="Description"></textarea>
-  </span>
-
+    </form>
   </div>
-
   <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-times"
-      (click)="displayModal = false"
-      label="Cancel"
-      styleClass="p-button-text"
-    ></p-button>
-    <p-button
-      icon="pi pi-check"
-      label="Save"
-      styleClass="p-button-text"
-    ></p-button>
+
+    <p-button icon="pi pi-times" (click)="updateModal = false" label="Cancel" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-check" (click)="updateProject()" label="Save" styleClass="p-button-text"></p-button>
   </ng-template>
 </p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- MoreInfo popup-->
 <p-dialog
@@ -359,33 +336,6 @@
   </ng-template>
 </p-dialog>
 
-<!-- Delete popup-->
-<p-dialog
-  header="Delete"
-  [(visible)]="displayModal2"
-  [modal]="true"
-  [style]="{ width: '450px' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
-  <div>
-    <img class="center" src="assets/img/remove_person_user_icon_131751.ico" />
-    <br />
-    <p class="ptag">Do You Want To Delete Project</p>
-  </div>
 
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-times"
-      (click)="displayModal2 = false"
-      label="Cancel"
-      styleClass="p-button-text"
-    ></p-button>
-    <p-button
-      icon="pi pi-check"
-      label="Yes"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>
+
+

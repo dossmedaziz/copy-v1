@@ -1,0 +1,227 @@
+<h1 class="title_erp">Manage Papers</h1>
+
+<!--Toolbar-->
+<p-toolbar
+  [style]="{
+    width: '70rem',
+    'margin-bottom': '2rem',
+    'margin-right': '2rem',
+    height: '4rem',
+    'background-color': '',
+    border: 'none'
+  }"
+  styleClass="p-mb-4"
+>
+  <ng-template pTemplate="left">
+    <button
+      pButton
+      pRipple
+      label="New"
+      icon="pi pi-plus"
+      (click)="showAddPaperModal()"
+      class="p-button-success p-mr-2 p-button-rounded"
+    ></button>
+    <button
+      pButton
+      pRipple
+      style="color: white"
+      icon="pi pi-trash"
+      [disabled]="!selectedPapers|| !selectedPapers.length"
+      class="p-button-rounded p-button-warning"
+      (click)="deletePaper()"
+    ></button>
+  </ng-template>
+</p-toolbar>
+
+<!--Table-->
+<div class="card">
+<p-table
+  #dt
+  [value]="papers"
+  [rows]="5"
+  [paginator]="true"
+  [globalFilterFields]="['name', 'age']"
+  [(selection)]="selectedProjects"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+  styleClass="p-datatable-responsive-demo"
+>
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <h5 class="p-m-0 title_erp"> Projects List</h5>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" class="brad" placeholder="Search..." />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th pSortableColumn="name">
+        Paper Name <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="age">
+        Type  <p-sortIcon field="age"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">
+        Expiration Date <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">
+        Project<p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="age">
+        Description <p-sortIcon field="age"></p-sortIcon>
+      </th>
+
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-paper>
+    <tr>
+      <td >
+        <p-tableCheckbox [value]="paper"></p-tableCheckbox>
+      </td>
+       <td>{{ paper.paper_name }}</td> 
+       <td>{{ paper.paper_type.paper_type}}</td> 
+       <td>{{ paper.expiration_date | date: 'mediumDate'}}</td> 
+       <td>{{ paper.description }}</td> 
+       <td>{{ paper.project.project_name}}</td> 
+       
+        <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success p-mr-2"
+          (click)="selectedPaper(paper)"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-info-circle"
+          class="p-button-rounded p-button-secondary p-mr-2"
+          (click)="showModalDialog1()"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      In total there are {{ papers ? papers.length : 0 }} papers.
+    </div>
+  </ng-template>
+</p-table>
+</div>
+
+
+
+
+
+
+
+<!-- New project modal-->
+<p-dialog header="Add new Paper" [(visible)]="addNewPaperModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
+  [draggable]="false"  [resizable]="false" styleClass="p-fluid">
+  <div class="p-fluid">
+    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
+    <br />
+
+    <form [formGroup]="paperForm" >
+    
+      <div class="p-grid p-fluid">  
+
+
+        <div class="p-field p-col-6 ">
+    
+            <label for="paper_name">Paper Name</label>
+                <input id="paper_name" type="text" pInputText class="brad" formControlName="paper_name"> 
+        </div>
+        <div class="p-field p-col-6 ">
+          <label for="paper_type"> Paper Type :</label>
+          <select class="form-select" aria-label="Default select example" formControlName="paper_type">
+              <option *ngFor="let type of papersType" value="{{ type.id }}" >{{ type.paper_type }}</option>
+          </select>
+      </div>
+      
+      </div>
+    
+    
+    <div class="p-grid p-fluid">  
+
+
+      <div class="p-field p-col-6 ">
+  
+          <label for="icon">Expiration Date</label>
+              <input id="start_date" type="date" pInputText class="brad" formControlName="expiration_date"> 
+              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"dateFormat="dd.mm.yy"></p-calendar> -->
+
+      </div>
+      <div class="p-field p-col-6 ">
+      <label for="project_id"> Project :</label>
+      <select class="form-select" aria-label="Default select example" formControlName="project_id">
+          <option *ngFor="let project of projects" value="{{ project.id }}">{{ project.project_name }}</option>
+      </select>
+    </div>
+    
+    </div>
+
+    <div class="p-grid p-fluid">  
+
+      <div class="p-field p-col-6 ">
+  
+        <span class="p-float-label" >
+          <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+          <label for="description">Description</label>
+        </span>
+            </div>
+ 
+ 
+
+
+            </div>
+
+
+      
+
+
+
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+
+    <p-button icon="pi pi-times" (click)="addNewPaperModal = false" label="Cancel" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-check" (click)="addPaper()" label="Save" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

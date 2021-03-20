@@ -22,4 +22,16 @@ myToken = localStorage.getItem('token')
   {
     return this.http.get<any>(this.api.api+'/getProjectsWithClient',this.header)
   }
+
+
+  deleteProject(projects)
+  {
+    return this.http.post<any>(this.api.api+'/deleteProject',{ projects: projects},this.header)
+ 
+  }
+
+  updateProject(project_id,newProject)
+  {
+    return this.http.put<any>(this.api.api+'/updateProject',{project_id:project_id,newProject:newProject},this.header)
+  }
 }

@@ -9,6 +9,7 @@ import { ContractsComponent } from './files/contracts/contracts.component';
 import { OthersComponent } from './files/others/others.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
+import { PaperManagerComponent } from './paper-manager/paper-manager.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { RolesComponent } from './roles/roles.component';
 import { SpaceGuard } from './space.guard';
@@ -61,19 +62,28 @@ const routes: Routes = [
       },
       {
         path:'bills',
-        component:BillsComponent
+        component:BillsComponent,
+        canActivate:[SpaceGuard]
       },
       {
         path:'contracts',
-        component:ContractsComponent
+        component:ContractsComponent,
+        canActivate:[SpaceGuard]
       },
       {
         path:'others',
-        component:OthersComponent
+        component:OthersComponent,
+        canActivate:[SpaceGuard]
       },
       {
         path:'addBill',
-        component:AddBillComponent
+        component:AddBillComponent,
+        canActivate:[SpaceGuard]
+      },
+      {
+        path:'paperManager',
+        component:PaperManagerComponent,
+        canActivate:[SpaceGuard]
       }
     ]
   },

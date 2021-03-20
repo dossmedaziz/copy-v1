@@ -78,16 +78,4 @@ deleteItem()
 
 
 }
-ShowUser(user:User)
-{
-  this.selectedUser = [user]
-  console.log(this.selectedUser)
-  this.displayModal1 = true;
-}
-editUser(user: User) {
-  this.user = user
-  console.log(this.user.name)
- this.displayModal = true;
-
-}
 }

@@ -1,0 +1,33 @@
+import { Injectable } from '@angular/core';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { Api } from '../api';
+@Injectable({
+  providedIn: 'root'
+})
+export class PaperTypeService {
+
+  api = new Api();
+  myToken = localStorage.getItem('token')
+  header = {headers: new HttpHeaders().append('Authorization','Bearer '+this.myToken )}
+  constructor(private http : HttpClient) { }
+
+
+
+
+  getPaperTypes()
+  {
+           return this.http.get<any>(this.api.api+'/getPaperTypes',this.header)
+  }
+
+
+  getPapers()
+  {
+    return this.http.get<any>(this.api.api+'/getPapers',this.header)
+  }
+
+
+  createType(paper)
+  {
+    return this.http.post<any>(this.api.api+'/createPaper',{paper : paper},this.header)
+  }
+}

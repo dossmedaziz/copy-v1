@@ -11,6 +11,11 @@ import Swal from 'sweetalert2'
 export class ContractsComponent implements OnInit {
 
 
+  addnewPaperType: boolean;
+
+
+
+
   users:User[];
   
   user : User ;
@@ -20,7 +25,6 @@ export class ContractsComponent implements OnInit {
   selectedUsers: User[];
 displayModal: boolean;
 displayModal1: boolean;
-// displayModal2: boolean;
 displayModal3: boolean;
 exportColumns:[];
 doc = new jsPDF()
@@ -62,11 +66,7 @@ exportPdf() {
 
 
 
-editUser(user: User) {
-  this.user = user
-  console.log(this.user.name)
- this.displayModal = true;
-}
+
 
 deleteUser()
 {
@@ -100,18 +100,10 @@ deleteUser()
   
 }
 
-filterCountry(event) {
-  //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-  let filtered : any[] = [];
-  let query = event.query;
-  for(let i = 0; i < this.users.length; i++) {
-      let country = this.users[i];
-      if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          filtered.push(country);
-      }
-  }
-  
-  this.filteredusers = filtered;
+
+showModal()
+{
+  this.addnewPaperType =  true
 }
 
 }

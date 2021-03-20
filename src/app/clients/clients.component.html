@@ -227,10 +227,6 @@
 <p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{ width: '650px' }" [baseZIndex]="10000"[draggable]="true"[resizable]="true">
     <img class="center"  src="assets/img/cog_tools_configuration_settings_icon_131758.ico"/>
     <br />
-  <!-- <div *ngFor="let user of selectedClient">
-    <h1>name: {{ user.name }}</h1>
-    <h1>age: {{ user.age }}</h1>
-  </div> -->
   
     <ng-template pTemplate="footer">
       <p-button icon="pi pi-check"  (click)="displayModal1 = false" label="Ok" styleClass="p-button-text"></p-button>
@@ -253,7 +249,13 @@
       <div class="p-grid p-fluid">  
 <div class="p-field p-col-6 " >
    <span class="p-float-label" >
-    <input id="name" type="text" pInputText class="brad" formControlName="client_name"> 
+    <input id="client_name" type="text" pInputText class="brad" formControlName="client_name" name="client_name">
+    <div *ngIf="client_name.touched && client_name.invalid"> 
+      <small *ngIf="client_name.errors.required"class="text-danger">Name is required <br> </small> 
+      <small  *ngIf="client_name.errors.pattern" class="text-danger">Invalid name <br></small> 
+      <small *ngIf="client_name.errors.minlength" class="text-danger">Name must contain 4 characters at least<br></small> 
+      <small *ngIf="client_name.errors.maxlength" class="text-danger">Name must contain max 20 characters</small> 
+    </div> 
     <label for="name">Client Name</label>
   </span>
 </div>
@@ -262,8 +264,11 @@
 <div class="p-field p-col-6 ">
   
   <span class="p-float-label" >
-    <input id="email" type="text" pInputText class="brad" formControlName="email"
-    > 
+    <input id="email" type="text" pInputText class="brad" formControlName="email"> 
+    <div *ngIf="email.touched && email.invalid"> 
+      <small *ngIf="email.errors.required" class="text-danger">email is required<br> </small> 
+      <small *ngIf="email.errors.email" class="text-danger">Invalid email<br> </small> 
+    </div>
     <label for="email"> Email</label>
   </span>
       </div>
@@ -275,6 +280,10 @@
         <span class="p-float-label" >
           <input id="phone" type="text" pInputText class="brad" formControlName="phone"> 
           <label for="phone">Phone</label>
+          <div *ngIf="phone.touched && phone.invalid"> 
+            <small *ngIf="phone.errors.required" class="text-danger">Phone is required<br> </small> 
+            <small *ngIf="phone.errors.pattern" class="text-danger">Invalid Phone<br> </small> 
+          </div>
         </span>
   </div>
        
@@ -282,6 +291,10 @@
       <div class="p-field p-col-6 " >      
         <span class="p-float-label" >
           <input id="fax" type="text" pInputText class="brad" formControlName="fax"> 
+          <div *ngIf="fax.touched && fax.invalid"> 
+            <small *ngIf="fax.errors.required" class="text-danger">Fax is required<br> </small> 
+            <small *ngIf="fax.errors.pattern" class="text-danger">Invalid Fax <br> </small> 
+          </div>
           <label for="fax">Fax</label>
         </span>
         </div>
@@ -292,8 +305,11 @@
       <div class="p-field p-col-6 ">
   
         <span class="p-float-label" >
-          <input id="matFisc" type="text" pInputText class="brad"  formControlName="matFisc"
-          > 
+          <input id="matFisc" type="text" pInputText class="brad"  formControlName="matFisc"> 
+          <div *ngIf="matFisc.touched && matFisc.invalid"> 
+            <small *ngIf="matFisc.errors.required" class="text-danger">matFisc is required<br> </small> 
+            <small *ngIf="matFisc.errors.pattern" class="text-danger">Invalid matFisc <br> </small> 
+          </div>
           <label for="matFisc">MatFisc</label>
         </span>
             </div>
@@ -318,7 +334,7 @@
   <ng-template pTemplate="footer">
 
     <p-button icon="pi pi-times" (click)="addNewClientModal = false" label="Cancel" styleClass="p-button-text"></p-button>
-      <p-button icon="pi pi-check" (click)="addClient()" label="Save" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-check" *ngIf="!clientForm.invalid" [disabled]="clientForm.invalid" (click)="addClient()" label="Save" styleClass="p-button-text"></p-button>
   </ng-template>
 </p-dialog>
 

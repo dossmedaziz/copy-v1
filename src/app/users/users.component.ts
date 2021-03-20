@@ -185,6 +185,5 @@ delete()
 
   })
 
- console.log( this.selectedUsers)
 }
 }
