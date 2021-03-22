@@ -34,7 +34,7 @@ selectedUsers
        Validators.required,
        Validators.pattern("[A-Z a-z 0-9 .'-]+"),
        Validators.minLength(4),
-       Validators.maxLength(16)
+       Validators.maxLength(20)
          ]),
 
     email : new FormControl ('',[
@@ -42,9 +42,9 @@ selectedUsers
           Validators.email
         ]),
     role_id : new FormControl ('',[
-          Validators.required,
-          Validators.email
-        ]),}
+          Validators.required
+                ])}
+
         this.userForm = this.fb.group(formControls) ;
       
       }
@@ -95,7 +95,12 @@ this.displayModal3= false
 this.ngOnInit()
 
 },err=>{
-  console.log(err)
+  if(err.status == 409)
+  {
+    this.toastr.warning(err.error.message)
+  }else{
+    this.toastr.error("Serveur issue")
+  }
   
 })
  
@@ -103,10 +108,10 @@ this.ngOnInit()
 
 
 
-showdisplayModal3()
+addUserModal()
 {
-  this.displayModal3 = true
   this.userForm.reset()
+  this.displayModal3 = true
 }
 
 
@@ -131,12 +136,15 @@ updateUser()
     res=>{
       this.toastr.success("updated !")
       this.ngOnInit()
+  this.displayModal = false;
+
     }, err => {
-      console.log(err)
+      if(err.status == 409)
+      {
+        this.toastr.warning(err.error.message)
+      }
     }
   )
-  console.log(data)
-  this.displayModal = false;
 
 }
 

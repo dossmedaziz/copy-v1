@@ -41,7 +41,7 @@
   [rows]="5"
   [paginator]="true"
   [globalFilterFields]="['name', 'age']"
-  [(selection)]="selectedProjects"
+  [(selection)]="selectedPapers"
   [rowHover]="true"
   dataKey="id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -89,8 +89,8 @@
        <td>{{ paper.paper_name }}</td> 
        <td>{{ paper.paper_type.paper_type}}</td> 
        <td>{{ paper.expiration_date | date: 'mediumDate'}}</td> 
+       <td>{{ paper.project.project_name  }}</td> 
        <td>{{ paper.description }}</td> 
-       <td>{{ paper.project.project_name}}</td> 
        
         <td>
         <button
@@ -98,7 +98,7 @@
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
-          (click)="selectedPaper(paper)"
+          (click)="getSelectedPaper(paper)"
         ></button>
         <button
           pButton
@@ -202,6 +202,83 @@
 
 
 
+
+<!-- update paper model-->
+
+
+<p-dialog header="Update Paper" [(visible)]="updatePaperModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
+  [draggable]="false"  [resizable]="false" styleClass="p-fluid">
+  <div class="p-fluid">
+    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
+    <br />
+
+    <form [formGroup]="paperForm" >
+    
+      <div class="p-grid p-fluid">  
+
+
+        <div class="p-field p-col-6 ">
+    
+            <label for="paper_name">Paper Name</label>
+                <input id="paper_name" type="text" pInputText class="brad" formControlName="paper_name"> 
+        </div>
+        <div class="p-field p-col-6 ">
+          <label for="paper_type"> Paper Type :</label>
+          <select class="form-select" aria-label="Default select example" formControlName="paper_type">
+              <option *ngFor="let type of papersType" value="{{ type.id }}" >{{ type.paper_type }}</option>
+          </select>
+      </div>
+      
+      </div>
+    
+    
+    <div class="p-grid p-fluid">  
+
+
+      <div class="p-field p-col-6 ">
+  
+          <label for="icon">Expiration Date</label>
+              <input id="start_date" type="date" pInputText class="brad" formControlName="expiration_date"> 
+              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"dateFormat="dd.mm.yy"></p-calendar> -->
+
+      </div>
+      <div class="p-field p-col-6 ">
+      <label for="project_id"> Project :</label>
+      <select class="form-select" aria-label="Default select example" formControlName="project_id">
+          <option *ngFor="let project of projects" value="{{ project.id }}">{{ project.project_name }}</option>
+      </select>
+    </div>
+    
+    </div>
+
+    <div class="p-grid p-fluid">  
+
+      <div class="p-field p-col-6 ">
+  
+        <span class="p-float-label" >
+          <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+          <label for="description">Description</label>
+        </span>
+            </div>
+ 
+ 
+
+
+            </div>
+
+
+      
+
+
+
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+
+    <p-button icon="pi pi-times" (click)="updatePaperModal = false" label="Cancel" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-check" (click)="updatePaper()" label="Update" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
 
 
 

@@ -42,9 +42,7 @@ export class ClientsComponent implements OnInit {
                           ]),
                       matFisc : new FormControl ('',[
                           Validators.required,
-                          Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                          Validators.minLength(10),
-                          Validators.maxLength(16)
+                          Validators.minLength(7),
                           ]),
                       address : new FormControl ('',[
                           Validators.required,
@@ -69,28 +67,23 @@ export class ClientsComponent implements OnInit {
                           Validators.required,
                           Validators.pattern("[A-Z a-z 0-9 .'-]+"),
                           Validators.minLength(4),
-                          Validators.maxLength(16)
+                          Validators.maxLength(20)
                           ]),
                   
                           contact_email : new FormControl ('',[
-                          Validators.required,
                           Validators.email
                           ]),
                       position : new FormControl ('',[
-                          Validators.required,
                           Validators.pattern("[A-Z a-z 0-9 .'-]+"),
                           Validators.minLength(4),
-                          Validators.maxLength(16)
+                          Validators.maxLength(50)
                           ]),
                       contact_phone : new FormControl ('',[
-                          Validators.required,
                           Validators.pattern("[0-9 .'-]+"),
                           Validators.minLength(8),
                           ]),
                       description : new FormControl ('',[
-                          Validators.required,
                           Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                          Validators.minLength(8),
                           ])}
           
                 this.clientForm = this.fb.group(formControls) ;
@@ -140,8 +133,9 @@ export class ClientsComponent implements OnInit {
                   
                   },err=>{
                     console.log(err)
-                    
-                  })}
+                     })
+                     this.clientForm.reset()
+                    }
 
         getSelectedClient(client){
                       this.displayModal = true
@@ -238,23 +232,26 @@ export class ClientsComponent implements OnInit {
 
 
           updateContact(contact){
-                  let newContact ={
-                    "contact_name": contact.contact_name,
-                    "position":contact.position,
-                    "contact_email":contact.contact_email,
-                    "contact_phone":contact.contact_phone,
-                    "description":contact.description}
 
-                  this.contactService.updateContact(contact.id,newContact).subscribe(
-                    res=>{
-                      console.log(res)
-                      this.toastr.success('Updated!')
-                      this.ngOnInit()
-                      this.contactForm.reset()
+            console.log(contact)
+                  // let newContact ={
+                  //   "contact_name": contact.contact_name,
+                  //   "position":contact.position,
+                  //   "contact_email":contact.contact_email,
+                  //   "contact_phone":contact.contact_phone,
+                  //   "description":contact.description}
 
-                    },err=>{
-                      console.log(err)
-                    })}
+                  // this.contactService.updateContact(contact.id,newContact).subscribe(
+                  //   res=>{
+                  //     console.log(res)
+                  //     this.toastr.success('Updated!')
+                  //     this.ngOnInit()
+                  //     this.contactForm.reset()
+
+                  //   },err=>{
+                  //     console.log(err)
+                  //   })
+                  }
 
 
                 deleteContact(id)

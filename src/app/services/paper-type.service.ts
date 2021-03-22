@@ -30,4 +30,14 @@ export class PaperTypeService {
   {
     return this.http.post<any>(this.api.api+'/createPaper',{paper : paper},this.header)
   }
+
+  
+
+  updatePaper(paper_id,newPaper)
+  {
+         return   this.http.put<any>(this.api.api+'/updatePaper',{ newPaper: newPaper,paper_id :paper_id},this.header)
+  }
+  deletePaper(papers_id){
+    return this.http.post<any>(this.api.api+'/deletePaper',{papers_id : papers_id },this.header)
+  }
 }

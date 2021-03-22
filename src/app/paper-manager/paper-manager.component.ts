@@ -12,11 +12,15 @@ import { ProjectService } from '../services/project.service';
 export class PaperManagerComponent implements OnInit {
 
   addNewPaperModal
+  updatePaperModal
   paperForm : FormGroup
   papersType
   projects
   papers
   selectedPapers
+  selectedPaper
+  selectedPaperId
+  
   constructor( private fb:FormBuilder,private toastr :ToastrService,private paperTypeService:PaperTypeService,private projectService: ProjectService) { 
 
 
@@ -68,13 +72,14 @@ export class PaperManagerComponent implements OnInit {
     this.paperTypeService.getPaperTypes().subscribe(
       res=>{
        this.papersType = res   
+      
         }, err =>{
         console.log(err)
       }
     )
     this.projectService.getProjectsWithClient().subscribe(
       res =>{
-      this.projects = res     
+      this.projects = res   
  }, err =>{
         console.log(err)
       }
@@ -93,6 +98,7 @@ export class PaperManagerComponent implements OnInit {
   showAddPaperModal()
   {
     this.addNewPaperModal = true
+    this.paperForm.reset()
   }
 
   addPaper()
@@ -112,5 +118,80 @@ export class PaperManagerComponent implements OnInit {
       }
     )
   }
+
+  getSelectedPaper(paper)
+  { 
+    this.selectedPaperId = paper.id 
+    this.updatePaperModal = true
+    this.paperForm.patchValue({
+      paper_name: paper.paper_name,
+      paper_type:paper.paper_type.id,
+      expiration_date : paper.expiration_dat,
+      project_id : paper.project.id,
+      description : paper.description,
+      })
+      
+
+  }
+
+  updatePaper()
+  {
+              let newPaper = this.paperForm.value
+              this.paperTypeService.updatePaper(this.selectedPaperId,newPaper).subscribe(
+                res => {
+                  console.log(res)
+                  this.toastr.success('Paper Updated!')
+                  this.updatePaperModal = false
+                  this.ngOnInit()
+                }, err => {
+                  console.log(err)
+                }
+              )
+  }
+
+
+
+
+
+  deletePaper(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You Have Project for that client Do you want to delete it!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!', 
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+
+        let papers_id = []
+        this.selectedPapers.map(el=>{
+        papers_id.push({
+          "paper_id": el.id
+        })
+        })
+        console.log(papers_id)
+        this.paperTypeService.deletePaper(papers_id).subscribe(
+          res=>{
+            console.log(res)
+            this.toastr.success("deleted")
+            this.ngOnInit()
+          }, err=>{
+            console.log(err)
+          }
+          )
+          Swal.fire(
+            'Deleted!',
+            'Your imaginary file has been deleted.',
+            'success',
+          )
+        
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }})}
 
 }

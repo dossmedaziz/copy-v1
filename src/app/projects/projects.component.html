@@ -126,77 +126,73 @@
     <br />
 
     <form [formGroup]="projectForm" >
-    
       <div class="p-grid p-fluid">  
 
-
         <div class="p-field p-col-6 ">
-    
-            <label for="icon">Project Name</label>
-                <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
+          <label for="icon">Project Name</label>
+          <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
+          <div *ngIf="project_name.touched && project_name.invalid"> 
+            <small *ngIf="project_name.errors.required"class="text-danger">Name is required <br> </small> 
+            <small  *ngIf="project_name.errors.pattern" class="text-danger">Invalid name <br></small> 
+            <small *ngIf="project_name.errors.minlength" class="text-danger">Name must contain 4 characters at least<br></small> 
+            <small *ngIf="project_name.errors.maxlength" class="text-danger">Name must contain max 20 characters</small> 
+          </div> 
         </div>
         <div class="p-field p-col-6 ">
-          <label for="client_id"> Status :</label>
+          <label for="status"> Status :</label>
           <select class="form-select" aria-label="Default select example" formControlName="status">
               <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"  
                 severity="{{ status.color }}" value="{{ status.status_name}}" 
                 [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
           </select>
+          <div *ngIf="status.touched && status.invalid"> 
+            <small *ngIf="status.errors.required"class="text-danger">Status is required <br> </small> 
+          </div> 
       </div>
       
       </div>
     
     
     <div class="p-grid p-fluid">  
-
-
       <div class="p-field p-col-6 ">
-  
-          <label for="icon">Start Date</label>
-              <input id="start_date" type="date" pInputText class="brad" formControlName="start_date"> 
+        <label for="icon">Start Date</label>       
+          <input id="start_date" type="date" pInputText class="brad" formControlName="start_date"> 
+        <div *ngIf="start_date.touched && start_date.invalid"> 
+          <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small> 
+        </div> 
               <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"dateFormat="dd.mm.yy"></p-calendar> -->
 
       </div>
       <div class="p-field p-col-6 ">
+       
       <label for="client_id"> Client :</label>
       <select class="form-select" aria-label="Default select example" formControlName="client_id">
           <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
       </select>
+      <div *ngIf="client_id.touched && client_id.invalid"> 
+        <small *ngIf="client_id.errors.required"class="text-danger">Client is required <br> </small> 
+      </div> 
     </div>
     
     </div>
 
     <div class="p-grid p-fluid">  
-
       <div class="p-field p-col-6 ">
-  
         <span class="p-float-label" >
           <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
           <label for="description">Description</label>
         </span>
             </div>
- 
- 
-
-
             </div>
-
-
-      
-
-
 
     </form>
   </div>
   <ng-template pTemplate="footer">
 
-    <p-button icon="pi pi-times" (click)="addNewProjectModal = false" label="Cancel" styleClass="p-button-text"></p-button>
-      <p-button icon="pi pi-check" (click)="addProject()" label="Save" styleClass="p-button-text"></p-button>
-  </ng-template>
+    <button type="button"(click)="addNewProjectModal = false" class="btn btn-outline-primary"style="border:none;">Cancel</button>
+    <button type="button"(click)="addProject()"class="btn btn-outline-primary" [disabled]="projectForm.invalid"style="border:none;">Save</button>
+</ng-template>
 </p-dialog>
-
-
-
 
 
  <!-- update project-->
@@ -207,89 +203,68 @@
     <br />
 
     <form [formGroup]="projectForm" >
-    
       <div class="p-grid p-fluid">  
-
-
         <div class="p-field p-col-6 ">
-    
-            <label for="icon">Project Name</label>
-                <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
+          <label for="icon">Project Name</label>
+          <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
+          <div *ngIf="project_name.touched && project_name.invalid"> 
+            <small *ngIf="project_name.errors.required"class="text-danger">Name is required <br> </small> 
+            <small  *ngIf="project_name.errors.pattern" class="text-danger">Invalid name <br></small> 
+            <small *ngIf="project_name.errors.minlength" class="text-danger">Name must contain 4 characters at least<br></small> 
+            <small *ngIf="project_name.errors.maxlength" class="text-danger">Name must contain max 20 characters</small> 
+          </div> 
         </div>
         <div class="p-field p-col-6 ">
-          <label for="client_id"> Status :</label>
+          <label for="status"> Status :</label>
           <select class="form-select" aria-label="Default select example" formControlName="status">
               <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"  
                 severity="{{ status.color }}" value="{{ status.status_name}}" 
                 [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
           </select>
+          <div *ngIf="status.touched && status.invalid"> 
+            <small *ngIf="status.errors.required"class="text-danger">Status is required <br> </small> 
+          </div> 
       </div>
-      
       </div>
     
     
     <div class="p-grid p-fluid">  
-
-
       <div class="p-field p-col-6 ">
-  
-          <label for="icon">Start Date </label>
-              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date" ></p-calendar> -->
-              <input id="start_date" type="date" pInputText class="brad" formControlName="start_date"> 
+        <label for="icon">Start Date</label>       
+          <input id="start_date" type="date" pInputText class="brad" formControlName="start_date"> 
+        <div *ngIf="start_date.touched && start_date.invalid"> 
+          <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small> 
+        </div> 
+              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"dateFormat="dd.mm.yy"></p-calendar> -->
 
       </div>
-      <div class="p-field p-col-6 ">
+      <div class="p-field p-col-6 "> 
       <label for="client_id"> Client :</label>
       <select class="form-select" aria-label="Default select example" formControlName="client_id">
           <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
       </select>
+      <div *ngIf="client_id.touched && client_id.invalid"> 
+        <small *ngIf="client_id.errors.required"class="text-danger">Client is required <br> </small> 
+      </div> 
     </div>
-    
     </div>
 
     <div class="p-grid p-fluid">  
-
       <div class="p-field p-col-6 ">
-  
         <span class="p-float-label" >
           <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
           <label for="description">Description</label>
         </span>
             </div>
- 
- 
-
-
             </div>
-
-
-      
-
-
-
-    </form>
+    </form> 
   </div>
+
   <ng-template pTemplate="footer">
-
-    <p-button icon="pi pi-times" (click)="updateModal = false" label="Cancel" styleClass="p-button-text"></p-button>
-      <p-button icon="pi pi-check" (click)="updateProject()" label="Save" styleClass="p-button-text"></p-button>
-  </ng-template>
+    <button type="button"(click)="updateModal = false" class="btn btn-outline-primary"style="border:none;">Cancel</button>
+    <button type="button"(click)="updateProject()"class="btn btn-outline-primary" [disabled]="projectForm.invalid"style="border:none;">Save</button>
+</ng-template>
 </p-dialog>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- MoreInfo popup-->

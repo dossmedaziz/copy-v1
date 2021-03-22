@@ -37,28 +37,20 @@ export class ProjectsComponent implements OnInit {
                      Validators.required,
                      Validators.pattern("[A-Z a-z 0-9 .'-]+"),
                      Validators.minLength(4),
-                     Validators.maxLength(16)
+                     Validators.maxLength(20)
                        ]),
                   start_date : new FormControl('',[
                       Validators.required,
-                     
                           ]),
-                          status : new FormControl('',[
-                      Validators.required,
-                      Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                      Validators.minLength(4),
-                      Validators.maxLength(16)
+                  status : new FormControl('',[
+                      Validators.required,                    
                                 ]),  
                   description : new FormControl('',[
-                    Validators.required,
-                    Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                    Validators.minLength(4),
+
                         ]), 
                         
                   client_id : new FormControl('',[
-                          Validators.required,
-                          Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                          Validators.minLength(4),
+                    Validators.required,
                               ]),        
   
                       

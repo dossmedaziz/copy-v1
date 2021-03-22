@@ -104,7 +104,7 @@
                                   
                                   <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText type="text" [(ngModel)]="contact.contact_email" required>
+                                        <input pInputText type="email" [(ngModel)]="contact.contact_email" required>
                                     </ng-template>
                                     <ng-template pTemplate="output">
                                         {{contact.contact_email}}
@@ -140,112 +140,13 @@
 
 </div>
 
-
 <!-- Modal for  editing-->
 <p-dialog header="Update Client" [(visible)]="displayModal" [modal]="true"[style]="{ width: '120vh','height':'80vh  ' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
     <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
     <br />
-
-    <form [formGroup]="clientForm">
-
-      <div class="p-grid p-fluid">  
-<div class="p-field p-col-6 " >
-   <span class="p-float-label" >
-    <input id="name" type="text" pInputText class="brad" formControlName="client_name"> 
-    <label for="name">Client Name</label>
-  </span>
-</div>
-
-
-<div class="p-field p-col-6 ">
-  
-  <span class="p-float-label" >
-    <input id="email" type="text" pInputText class="brad" formControlName="email"
-    > 
-    <label for="email"> Email</label>
-  </span>
-      </div>
-    </div>
-    
-    
-    <div class="p-grid p-fluid">  
-       <div class="p-field p-col-6">      
-        <span class="p-float-label" >
-          <input id="phone" type="text" pInputText class="brad" formControlName="phone"> 
-          <label for="phone">Phone</label>
-        </span>
-  </div>
-       
-      
-      <div class="p-field p-col-6 " >      
-        <span class="p-float-label" >
-          <input id="fax" type="text" pInputText class="brad" formControlName="fax"> 
-          <label for="fax">Fax</label>
-        </span>
-        </div>
-    </div>
-
-    <div class="p-grid p-fluid">  
-
-      <div class="p-field p-col-6 ">
-  
-        <span class="p-float-label" >
-          <input id="matFisc" type="text" pInputText class="brad"  formControlName="matFisc"
-          > 
-          <label for="matFisc">MatFisc</label>
-        </span>
-            </div>
-    <div class="p-field p-col-6">      
-          <span class="p-float-label" >
-            <input id="address" type="text" pInputText class="brad" formControlName="address"> 
-            <label for="address">Address</label>
-          </span>
-    </div>
-  </div>
-
- 
-
-
-    </form>
-
-  </div>
-  
-  <ng-template pTemplate="footer">
-
-
-    <p-button icon="pi pi-times" (click)="displayModal = false" label="Cancel" styleClass="p-button-text" ></p-button>
-    <p-button icon="pi pi-check" (click)="updateUser()" label="Save" styleClass="p-button-text" ></p-button>
-</ng-template>
-
-</p-dialog>
-
-
-<!-- Modal More info-->
-
-<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{ width: '650px' }" [baseZIndex]="10000"[draggable]="true"[resizable]="true">
-    <img class="center"  src="assets/img/cog_tools_configuration_settings_icon_131758.ico"/>
-    <br />
-  
-    <ng-template pTemplate="footer">
-      <p-button icon="pi pi-check"  (click)="displayModal1 = false" label="Ok" styleClass="p-button-text"></p-button>
-    </ng-template>
-  </p-dialog>
-  
-
-
-
-<!-- Modal add new Client-->
-
-<p-dialog header="Add new Client" [(visible)]="addNewClientModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
-  [draggable]="false"  [resizable]="false" styleClass="p-fluid">
-  <div class="p-fluid">
-    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
-    <br />
-
     <form [formGroup]="clientForm" >
-
       <div class="p-grid p-fluid">  
 <div class="p-field p-col-6 " >
    <span class="p-float-label" >
@@ -262,7 +163,6 @@
 
 
 <div class="p-field p-col-6 ">
-  
   <span class="p-float-label" >
     <input id="email" type="text" pInputText class="brad" formControlName="email"> 
     <div *ngIf="email.touched && email.invalid"> 
@@ -283,6 +183,7 @@
           <div *ngIf="phone.touched && phone.invalid"> 
             <small *ngIf="phone.errors.required" class="text-danger">Phone is required<br> </small> 
             <small *ngIf="phone.errors.pattern" class="text-danger">Invalid Phone<br> </small> 
+            <small *ngIf="phone.errors.minlength" class="text-danger">Phone must contain min 8 digits<br> </small> 
           </div>
         </span>
   </div>
@@ -294,6 +195,7 @@
           <div *ngIf="fax.touched && fax.invalid"> 
             <small *ngIf="fax.errors.required" class="text-danger">Fax is required<br> </small> 
             <small *ngIf="fax.errors.pattern" class="text-danger">Invalid Fax <br> </small> 
+            <small *ngIf="fax.errors.minlength" class="text-danger">Fax must contain min 8 digits<br> </small> 
           </div>
           <label for="fax">Fax</label>
         </span>
@@ -301,13 +203,118 @@
     </div>
 
     <div class="p-grid p-fluid">  
-
       <div class="p-field p-col-6 ">
-  
         <span class="p-float-label" >
           <input id="matFisc" type="text" pInputText class="brad"  formControlName="matFisc"> 
           <div *ngIf="matFisc.touched && matFisc.invalid"> 
             <small *ngIf="matFisc.errors.required" class="text-danger">matFisc is required<br> </small> 
+            <small *ngIf="matFisc.errors.minlength" class="text-danger">matFisc must contain min 7 digits<br> </small> 
+            <small *ngIf="matFisc.errors.pattern" class="text-danger">Invalid matFisc <br> </small> 
+          </div>
+          <label for="matFisc">MatFisc</label>
+        </span>
+            </div>
+    <div class="p-field p-col-6">      
+          <span class="p-float-label" >
+            <input id="address" type="text" pInputText class="brad" formControlName="address"> 
+            <div *ngIf="address.touched && address.invalid"> 
+              <small *ngIf="address.errors.required" class="text-danger">address is required<br> </small> 
+            </div>
+            <label for="address">Address</label>
+          </span>
+    </div>
+            </div>
+    </form>
+
+  </div>
+  
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-times" (click)="displayModal = false" label="Cancel" styleClass="p-button-text" ></p-button>
+    <p-button icon="pi pi-check" (click)="updateUser()" label="Save" styleClass="p-button-text" ></p-button>
+</ng-template>
+
+</p-dialog>
+
+<!-- Modal More info-->
+<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{ width: '650px' }" [baseZIndex]="10000"[draggable]="true"[resizable]="true">
+    <img class="center"  src="assets/img/cog_tools_configuration_settings_icon_131758.ico"/>
+    <br />
+  
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check"  (click)="displayModal1 = false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+  
+<!-- Modal add new Client-->
+<p-dialog header="Add new Client" [(visible)]="addNewClientModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
+  [draggable]="false"  [resizable]="false" styleClass="p-fluid">
+  <div class="p-fluid">
+    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
+    <br />
+
+    <form [formGroup]="clientForm" >
+      <div class="p-grid p-fluid">  
+<div class="p-field p-col-6 " >
+   <span class="p-float-label" >
+    <input id="client_name" type="text" pInputText class="brad" formControlName="client_name" name="client_name">
+    <div *ngIf="client_name.touched && client_name.invalid"> 
+      <small *ngIf="client_name.errors.required"class="text-danger">Name is required <br> </small> 
+      <small  *ngIf="client_name.errors.pattern" class="text-danger">Invalid name <br></small> 
+      <small *ngIf="client_name.errors.minlength" class="text-danger">Name must contain 4 characters at least<br></small> 
+      <small *ngIf="client_name.errors.maxlength" class="text-danger">Name must contain max 20 characters</small> 
+    </div> 
+    <label for="name">Client Name</label>
+  </span>
+</div>
+
+
+<div class="p-field p-col-6 ">
+  <span class="p-float-label" >
+    <input id="email" type="text" pInputText class="brad" formControlName="email"> 
+    <div *ngIf="email.touched && email.invalid"> 
+      <small *ngIf="email.errors.required" class="text-danger">email is required<br> </small> 
+      <small *ngIf="email.errors.email" class="text-danger">Invalid email<br> </small> 
+    </div>
+    <label for="email"> Email</label>
+  </span>
+      </div>
+    </div>
+    
+    
+    <div class="p-grid p-fluid">  
+       <div class="p-field p-col-6">      
+        <span class="p-float-label" >
+          <input id="phone" type="text" pInputText class="brad" formControlName="phone"> 
+          <label for="phone">Phone</label>
+          <div *ngIf="phone.touched && phone.invalid"> 
+            <small *ngIf="phone.errors.required" class="text-danger">Phone is required<br> </small> 
+            <small *ngIf="phone.errors.pattern" class="text-danger">Invalid Phone<br> </small> 
+            <small *ngIf="phone.errors.minlength" class="text-danger">Phone must contain min 8 digits<br> </small> 
+          </div>
+        </span>
+  </div>
+       
+      
+      <div class="p-field p-col-6 " >      
+        <span class="p-float-label" >
+          <input id="fax" type="text" pInputText class="brad" formControlName="fax"> 
+          <div *ngIf="fax.touched && fax.invalid"> 
+            <small *ngIf="fax.errors.required" class="text-danger">Fax is required<br> </small> 
+            <small *ngIf="fax.errors.pattern" class="text-danger">Invalid Fax <br> </small> 
+            <small *ngIf="fax.errors.minlength" class="text-danger">Fax must contain min 8 digits<br> </small> 
+          </div>
+          <label for="fax">Fax</label>
+        </span>
+        </div>
+    </div>
+
+    <div class="p-grid p-fluid">  
+      <div class="p-field p-col-6 ">
+        <span class="p-float-label" >
+          <input id="matFisc" type="text" pInputText class="brad"  formControlName="matFisc"> 
+          <div *ngIf="matFisc.touched && matFisc.invalid"> 
+            <small *ngIf="matFisc.errors.required" class="text-danger">matFisc is required<br> </small> 
+            <small *ngIf="matFisc.errors.minlength" class="text-danger">matFisc must contain min 7 digits<br> </small> 
             <small *ngIf="matFisc.errors.pattern" class="text-danger">Invalid matFisc <br> </small> 
           </div>
           <label for="matFisc">MatFisc</label>
@@ -317,35 +324,22 @@
           <span class="p-float-label" >
             <input id="address" type="text" pInputText class="brad" formControlName="address"> 
             <label for="address">Address</label>
+            <div *ngIf="address.touched && address.invalid"> 
+              <small *ngIf="address.errors.required" class="text-danger">address is required<br> </small> 
+            </div>
           </span>
     </div>
- 
-
-
             </div>
-
-
-      
-
-
-
     </form>
   </div>
   <ng-template pTemplate="footer">
 
-    <p-button icon="pi pi-times" (click)="addNewClientModal = false" label="Cancel" styleClass="p-button-text"></p-button>
-      <p-button icon="pi pi-check" *ngIf="!clientForm.invalid" [disabled]="clientForm.invalid" (click)="addClient()" label="Save" styleClass="p-button-text"></p-button>
+      <button type="button"(click)="addNewClientModal = false" class="btn btn-outline-primary"style="border:none;">Cancel</button>
+      <button type="button"(click)="addClient()"class="btn btn-outline-primary" [disabled]="clientForm.invalid"style="border:none;">Save</button>
   </ng-template>
 </p-dialog>
 
-
-
-
-
-
-
 <!--Modal for ADD Contact-->
-
 <p-dialog header="Add  Contact" [(visible)]="addContactModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
@@ -358,6 +352,12 @@
               <div class="p-field p-col-6 " >
                 <span class="p-float-label" >
                   <input id="contact_name" type="text" pInputText class="brad" formControlName="contact_name"> 
+                  <div *ngIf="contact_name.touched && contact_name.invalid"> 
+                    <small *ngIf="contact_name.errors.required"class="text-danger">Name is required <br> </small> 
+                    <small  *ngIf="contact_name.errors.pattern" class="text-danger">Invalid name <br></small> 
+                    <small *ngIf="contact_name.errors.minlength" class="text-danger">Name must contain 4 characters at least<br></small> 
+                    <small *ngIf="contact_name.errors.maxlength" class="text-danger">Name must contain max 20 characters</small> 
+                  </div> 
                   <label for="contact_name">Contact Name</label>
                 </span>
               </div>
@@ -405,10 +405,7 @@
     </form>
   </div>
   <ng-template pTemplate="footer">
-
-    <p-button icon="pi pi-times" (click)="addContactModal = false" label="Cancel" styleClass="p-button-text"></p-button>
-      <p-button icon="pi pi-check" (click)="addContact()" label="Save" styleClass="p-button-text"></p-button>
-  </ng-template>
+    <button type="button"(click)="addContactModal = false" class="btn btn-outline-primary"style="border:none;">Cancel</button>
+    <button type="button"(click)="addContact()"class="btn btn-outline-primary" [disabled]="contactForm.invalid"style="border:none;">Save</button>
+</ng-template>
 </p-dialog>
-
-

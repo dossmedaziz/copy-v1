@@ -26,7 +26,8 @@ export class RolesComponent implements OnInit {
   action = new Array()
   constructor(
               private privilegeService : PrivilegeService ,
-              private toastr:ToastrService )  {}
+              private toastr:ToastrService
+               )  {}
 
 
   ngOnInit(): void {   
