@@ -4,10 +4,12 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import Swal from 'sweetalert2'
 import { PaperTypeService } from '../services/paper-type.service';
 import { ProjectService } from '../services/project.service';
+import { ConfigService } from '../services/config.service';
+
 @Component({
   selector: 'app-paper-manager',
   templateUrl: './paper-manager.component.html',
-  styleUrls: ['./paper-manager.component.css']
+  styleUrls: ['./paper-manager.component.scss']
 })
 export class PaperManagerComponent implements OnInit {
 
@@ -20,8 +22,13 @@ export class PaperManagerComponent implements OnInit {
   selectedPapers
   selectedPaper
   selectedPaperId
+  status_paper
   
-  constructor( private fb:FormBuilder,private toastr :ToastrService,private paperTypeService:PaperTypeService,private projectService: ProjectService) { 
+  constructor( private fb:FormBuilder,
+                private toastr :ToastrService,
+                private paperTypeService:PaperTypeService,
+                private projectService: ProjectService,
+                private configService:ConfigService) { 
 
 
                   let formControls = {
@@ -32,27 +39,23 @@ export class PaperManagerComponent implements OnInit {
                       Validators.minLength(4),
                       Validators.maxLength(16)
                         ]),
-                        paper_type : new FormControl('',[
+                    paper_type : new FormControl('',[
                         Validators.required,
                       
                             ]),
-                        expiration_date : new FormControl('',[
+                    expiration_date : new FormControl('',[
                         Validators.required,
-                        Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                        Validators.minLength(4),
-                        Validators.maxLength(16)
                                   ]),  
                     description : new FormControl('',[
-                      Validators.required,
-                      Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                      Validators.minLength(4),
+                   
                           ]), 
                           
-                          project_id : new FormControl('',[
+                     project_id : new FormControl('',[
                             Validators.required,
-                            Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                            Validators.minLength(4),
-                                ]),        
+                                ]),   
+                      status : new FormControl('',[
+                                  Validators.required,
+                                      ]),      
 
                         
                             }
@@ -65,6 +68,7 @@ export class PaperManagerComponent implements OnInit {
               get expiration_date() { return this.paperForm.get('expiration_date')}
               get description() { return this.paperForm.get('description')}
               get project_id() { return this.paperForm.get('project_id')}
+              get status() { return this.paperForm.get('status')}
 
 
   ngOnInit(): void {
@@ -77,7 +81,7 @@ export class PaperManagerComponent implements OnInit {
         console.log(err)
       }
     )
-    this.projectService.getProjectsWithClient().subscribe(
+    this.projectService.getProjectsWithinfo().subscribe(
       res =>{
       this.projects = res   
  }, err =>{
@@ -93,6 +97,8 @@ export class PaperManagerComponent implements OnInit {
       }
     )
    
+
+    this.status_paper= this.configService.status_paper
   }
   
   showAddPaperModal()
@@ -129,6 +135,7 @@ export class PaperManagerComponent implements OnInit {
       expiration_date : paper.expiration_dat,
       project_id : paper.project.id,
       description : paper.description,
+      status : paper.status,
       })
       
 
@@ -194,4 +201,11 @@ export class PaperManagerComponent implements OnInit {
           )
         }})}
 
+
+
+        filterStatus(id)
+        {
+          let status =  this.status_paper.find( el => el.id == id )
+          return status
+        }
 }

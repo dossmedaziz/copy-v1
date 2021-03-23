@@ -41,29 +41,13 @@
             <span class="align-middle">Roles</span>
           </a>
         </li>
-
         <li class="sidebar-item">
-          <a
-            data-target="#ui"
-            data-toggle="collapse"
-            class="sidebar-link collapsed"
-          >
+          <a class="sidebar-link" [routerLink]="['/bills']">
             <i class="align-middle" data-feather="file"></i>
-            <span class="align-middle">Files</span>
+            <span class="align-middle">Bills</span>
           </a>
-          <ul id="ui" class="sidebar-dropdown list-unstyled collapse"data-parent="#sidebar">
-
-            <li class="sidebar-item">
-              <a class="sidebar-link" [routerLink]="['bills']">Bills</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" [routerLink]="['contracts']">Contracts</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" [routerLink]="['others']">Others</a>
-            </li>
-          </ul>
         </li>
+
 
         <li class="sidebar-item">
           <a class="sidebar-link" [routerLink]="['/paperManager']">

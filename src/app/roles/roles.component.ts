@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { PrivilegeService } from '../services/privilege.service';
 import Swal from 'sweetalert2'  
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'; 
+
 declare const $: any;
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.css']
+  styleUrls: ['./roles.component.scss']
 })
 export class RolesComponent implements OnInit {
   displayModal:  boolean;
@@ -22,13 +24,24 @@ export class RolesComponent implements OnInit {
   role_privileges
   tab
   idOfselectedRole
+  nameValidator
+
+  
 
   action = new Array()
   constructor(
               private privilegeService : PrivilegeService ,
               private toastr:ToastrService
-               )  {}
+               )  {
 
+              
+               }
+               role : FormControl = new FormControl('',[
+                Validators.required,
+                Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+                Validators.minLength(4),
+                Validators.maxLength(20)
+                ])
 
   ngOnInit(): void {   
 
@@ -259,6 +272,14 @@ export class RolesComponent implements OnInit {
 
                })
              }
-      
-}
+      NameValidator(){
 
+        if(this.role_name)
+        {
+         this.nameValidator= false
+        }else{
+          this.nameValidator= true
+
+        }
+      }
+    }

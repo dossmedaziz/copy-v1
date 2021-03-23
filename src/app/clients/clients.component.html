@@ -15,7 +15,19 @@
 
 
 
-    <p-table [value]="clients" dataKey="id" [(selection)]="selectedClients">
+    <p-table
+    #dt
+    [value]="clients"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'age']"
+    [(selection)]="selectedClients"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    styleClass="p-datatable-responsive-demo"
+  >
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem">
@@ -27,6 +39,7 @@
                 <th pSortableColumn="matFisc"> MatFisc <p-sortIcon field="matFisc"></p-sortIcon></th>
                 <th pSortableColumn="address"> Address <p-sortIcon field="address"></p-sortIcon></th>
                 <th pSortableColumn="fax"> Fax <p-sortIcon field="fax"></p-sortIcon></th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-client let-expanded="expanded">
@@ -54,9 +67,17 @@
         </ng-template>
         <ng-template pTemplate="rowexpansion" let-client>
             <tr>
-                <td colspan="7">
+                <td colspan="8">
                     <div class="p-p-3">
-                      <p-table [value]="client.contact" dataKey="id" editMode="row">
+                      <p-table
+                      #dt
+                      [value]="client.contact"
+                      [rowHover]="true"
+                      dataKey="id"
+                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                      [showCurrentPageReport]="true"
+                      styleClass="p-datatable-responsive-demo"
+                    >
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Name</th>
@@ -64,16 +85,19 @@
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Description</th>
+                              
+
                         <th style="width:8rem"><button pButton pRipple type="button" icon="pi pi-plus" 
                           class="p-button-rounded p-button-text" (click)="addContactsModal(client.id)"></button></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-contact let-editing="editing" let-ri="rowIndex">
                             <tr [pEditableRow]="contact">
+                              
                                 <td pEditableColumn>
-                                    <p-cellEditor>
+                                  <p-cellEditor>
                                         <ng-template pTemplate="input">
-                                            <input pInputText type="text" [(ngModel)]="contact.contact_name">
+                                            <input pInputText type="text" [(ngModel)]="contact.contact_name" required>
                                         </ng-template>
                                         <ng-template pTemplate="output">
                                             {{contact.contact_name}}
@@ -83,7 +107,7 @@
                                 <td pEditableColumn>
                                     <p-cellEditor>
                                         <ng-template pTemplate="input">
-                                            <input pInputText type="text" [(ngModel)]="contact.position" required>
+                                            <input pInputText type="text" [(ngModel)]="contact.position" >
                                         </ng-template>
                                         <ng-template pTemplate="output">
                                             {{contact.position}}
@@ -93,7 +117,7 @@
                                 <td pEditableColumn>
                                   <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText type="text" [(ngModel)]="contact.contact_phone" required>
+                                        <input pInputText type="text" [(ngModel)]="contact.contact_phone" >
                                     </ng-template>
                                     <ng-template pTemplate="output">
                                         {{contact.contact_phone}}
@@ -104,7 +128,7 @@
                                   
                                   <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText type="email" [(ngModel)]="contact.contact_email" required>
+                                        <input pInputText type="text" [(ngModel)]="contact.contact_email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                                     </ng-template>
                                     <ng-template pTemplate="output">
                                         {{contact.contact_email}}
@@ -115,17 +139,19 @@
                                   
                                 <p-cellEditor>
                                   <ng-template pTemplate="input">
-                                      <input pInputText type="text" [(ngModel)]="contact.description" required>
+                                      <input pInputText type="text" [(ngModel)]="contact.description" >
                                   </ng-template>
                                   <ng-template pTemplate="output">
                                       {{contact.description}}
                                   </ng-template>
                                 </p-cellEditor>
                             </td>
+                         
                                 <td style="text-align:center">
-                                    <button  pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="updateContact(contact)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                                    <button  pButton pRipple type="button"  *ngIf="active(contact)"pSaveEditableRow icon="pi pi-check" (click)="updateContact(contact)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
                                     <button  pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="deleteContact(contact.id)" class="p-button-rounded p-button-text p-button-danger"></button>
                                 </td>
+
                             </tr>
                         </ng-template>
 

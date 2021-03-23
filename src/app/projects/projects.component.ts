@@ -4,6 +4,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { ProjectService } from '../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2'
+import { Status } from '../user';
+import { ConfigService } from '../services/config.service';
 
 
 
@@ -14,7 +16,7 @@ import Swal from 'sweetalert2'
 })
 export class ProjectsComponent implements OnInit {
   
-  status_table: any[]
+  status_table 
   selectedProjectId
   clients
   projects
@@ -25,12 +27,12 @@ export class ProjectsComponent implements OnInit {
   displayModal1: boolean;
   addNewProjectModal: boolean;
 
-  color = 'danger'
 
               constructor(private  clientService : ClientService,
                 private fb:FormBuilder,
                 private projectService :ProjectService,
-                private toastr :ToastrService) {
+                private toastr :ToastrService,
+                private configService : ConfigService) {
                 let formControls = {
       
                   project_name : new FormControl('',[
@@ -80,37 +82,19 @@ export class ProjectsComponent implements OnInit {
 
       // fetch projects with client form api =>
       
-             this.projectService.getProjectsWithClient().subscribe(
+             this.projectService.getProjectsWithinfo().subscribe(
                res=>{
                  this.projects = res
+                 console.log(res)
                }, err=>{
                  console.log(err)
                }
+
              )
 
 
+             this.status_table = this.configService.status_project
             
-             this.status_table = [
-             {
-              "id":1,
-              "status_name":"New",
-              "color":"success",
-              "icon" : "pi-check"
-             },
-             {
-              "id":2,
-              "status_name":"Canceled",
-              "color":"danger",
-              "icon":"pi-times"
-               },
-             {
-              "id":3,
-              "status_name":"Expired",
-              "color":"warning",
-              "icon":"pi-exclamation-triangle"
-              }
-          
-            ]
 
        }
 
@@ -238,5 +222,8 @@ deleteProject()
   })
 }
 
-  
+addPaper()
+{
+  console.log("test")
+}
 }

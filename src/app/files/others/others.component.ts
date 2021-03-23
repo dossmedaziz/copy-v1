@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import jsPDF from 'jspdf' ;
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/user';
@@ -21,6 +21,7 @@ export class OthersComponent implements OnInit {
   exportColumns:[];
   doc = new jsPDF()
 
+  @Input() client
   constructor(private  userService:UserService) { }
 
   ngOnInit(): void {

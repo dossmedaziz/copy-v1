@@ -8,7 +8,7 @@ import { ContactService } from '../services/contact.service';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css']
+  styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
 
@@ -22,7 +22,7 @@ export class ClientsComponent implements OnInit {
   displayModal1: boolean;
   addNewClientModal: boolean;
   addContactModal: boolean;
-   
+   btnable
 
             constructor(private clientService: ClientService,
                         private fb:FormBuilder,
@@ -120,6 +120,8 @@ export class ClientsComponent implements OnInit {
                     console.log(err)
                   }
                 )
+
+
   }
 
         addClient(){
@@ -231,26 +233,36 @@ export class ClientsComponent implements OnInit {
           }
 
 
+
+
+
+          active(contact)
+          {
+            if(!contact.contact_name || !contact.contact_email)
+            {
+              return false
+            }else{ return true}
+          }
+
           updateContact(contact){
+   
+                  let newContact ={
+                    "contact_name": contact.contact_name,
+                    "position":contact.position,
+                    "contact_email":contact.contact_email,
+                    "contact_phone":contact.contact_phone,
+                    "description":contact.description}
 
-            console.log(contact)
-                  // let newContact ={
-                  //   "contact_name": contact.contact_name,
-                  //   "position":contact.position,
-                  //   "contact_email":contact.contact_email,
-                  //   "contact_phone":contact.contact_phone,
-                  //   "description":contact.description}
+                  this.contactService.updateContact(contact.id,newContact).subscribe(
+                    res=>{
+                      console.log(res)
+                      this.toastr.success('Updated!')
+                      this.ngOnInit()
+                      this.contactForm.reset()
 
-                  // this.contactService.updateContact(contact.id,newContact).subscribe(
-                  //   res=>{
-                  //     console.log(res)
-                  //     this.toastr.success('Updated!')
-                  //     this.ngOnInit()
-                  //     this.contactForm.reset()
-
-                  //   },err=>{
-                  //     console.log(err)
-                  //   })
+                    },err=>{
+                      console.log(err)
+                    })
                   }
 
 
@@ -266,4 +278,7 @@ export class ClientsComponent implements OnInit {
                             }
                           )
                 }
+
+
+               
 }

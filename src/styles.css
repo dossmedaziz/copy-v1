@@ -27,6 +27,10 @@ margin-left: auto;
 margin-right: auto;
 width: 10%;
 }
+
+.p-tag{
+  background: none !important;
+}
 /*!
 
 * AdminKit v2.0.1 (https://adminkit.io/)

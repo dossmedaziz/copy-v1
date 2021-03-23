@@ -35,10 +35,11 @@
 
 <!--Table-->
 <div class="card">
-<p-table
+
+  <p-table
   #dt
   [value]="projects"
-  [rows]="5"
+  [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['name', 'age']"
   [(selection)]="selectedProjects"
@@ -48,78 +49,82 @@
   [showCurrentPageReport]="true"
   styleClass="p-datatable-responsive-demo"
 >
-  <ng-template pTemplate="caption">
-    <div class="p-d-flex p-ai-center p-jc-between">
-      <h5 class="p-m-0 title_erp"> Projects List</h5>
-      <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input pInputText type="text" class="brad" placeholder="Search..." />
-      </span>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="header">
-    <tr>
-      <th style="width: 3rem">
-        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-      </th>
-      <th pSortableColumn="name">
-        Project Name <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th pSortableColumn="age">
-        Client  <p-sortIcon field="age"></p-sortIcon>
-      </th>
-      <th pSortableColumn="name">
-        Start Date <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th pSortableColumn="name">
-        Status<p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th pSortableColumn="age">
-        Description <p-sortIcon field="age"></p-sortIcon>
-      </th>
+      <ng-template pTemplate="header">
+          <tr>
+              <th style="width: 3rem">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox> 
+              </th>
+              <th style="width: 3rem"></th>
+              <th pSortableColumn="name"> Project Name <p-sortIcon field="name"></p-sortIcon></th>
+              <th pSortableColumn="email"> Client <p-sortIcon field="email"></p-sortIcon></th>
+              <th pSortableColumn="matFisc"> Start Date <p-sortIcon field="matFisc"></p-sortIcon></th>
+              <th pSortableColumn="address"> Status <p-sortIcon field="address"></p-sortIcon></th>
+              <th pSortableColumn="fax"> Description <p-sortIcon field="fax"></p-sortIcon></th>
+              <th></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-project let-expanded="expanded">
+          <tr>
+              <td>
+                  <p-tableCheckbox [value]="project"></p-tableCheckbox>
+              </td>
+              <td>
+                  <button type="button" pButton pRipple [pRowToggler]="project" 
+                  class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+              </td>
+              
+              <td>{{ project.project_name }}</td> 
+              <td>{{ project.client?.client_name  }}</td> 
+              <td>{{ project.start_date | date: 'mediumDate'}}</td> 
+              <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(project.status).icon }}" class="tags"  [style.background]="filterStatus(project.status).color" value="{{ filterStatus(project.status).status_name}}" [rounded]="false" ></p-tag></td> 
+              <td>{{ project.description }}</td> 
+             
+              <td>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="getSelectedClient(client)"></button>
+                  <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2"></button>
 
-      <th></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-project>
-    <tr>
-      <td >
-        <p-tableCheckbox [value]="project"></p-tableCheckbox>
-      </td>
-       <td>{{ project.project_name }}</td> 
-       <td>{{ project.client.client_name }}</td> 
-       <td>{{ project.start_date | date: 'mediumDate'}}</td> 
-       <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(project.status).icon }}"  severity="{{ filterStatus(project.status).color }}" value="{{ filterStatus(project.status).status_name}}" [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></td> 
-       <td>{{ project.description }}</td> 
-       
-        <td>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-pencil"
-          class="p-button-rounded p-button-success p-mr-2"
-          (click)="selectedProject(project)"
-        ></button>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-info-circle"
-          class="p-button-rounded p-button-secondary p-mr-2"
-          (click)="showModalDialog1()"
-        ></button>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="summary">
-    <div class="p-d-flex p-ai-center p-jc-between">
-      In total there are {{ projects ? projects.length : 0 }} projects.
-    </div>
-  </ng-template>
-</p-table>
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="rowexpansion" let-project>
+          <tr>
+              <td colspan="8">
+                  <div class="p-p-3">
+                    <p-table [value]="project.paper" dataKey="id">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th pSortableColumn="id">Paper name<p-sortIcon field="price"></p-sortIcon></th>
+                              <th pSortableColumn="customer">Type <p-sortIcon field="customer"></p-sortIcon></th>
+                              <th pSortableColumn="date">Description <p-sortIcon field="date"></p-sortIcon></th>
+                              <th pSortableColumn="amount">Status <p-sortIcon field="amount"></p-sortIcon></th>
+                              <th style="width: 4rem"></th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-paper>
+                          <tr>
+                              <td>{{paper.paper_name}}</td>
+                              <td>{{paper.paper_type}}</td>
+                              <td>{{paper.description}}</td>
+                              <td>{{paper.status}}</td>
+                              <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+                              <td><p-button type="button" icon="pi pi-search"></p-button></td>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage">
+                          <tr>
+                              <td colspan="6">There are no order for this product yet.</td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+                  </div>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
 </div>
 
 <!-- New project modal-->
-<p-dialog header="Add new Project" [(visible)]="addNewProjectModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
+<p-dialog header="Add new Project" [(visible)]="addNewProjectModal" [modal]="true"[style]="{ width: '150vh','height':'150vh' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
     <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
@@ -139,16 +144,15 @@
           </div> 
         </div>
         <div class="p-field p-col-6 ">
-          <label for="status"> Status :</label>
-          <select class="form-select" aria-label="Default select example" formControlName="status">
-              <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"  
-                severity="{{ status.color }}" value="{{ status.status_name}}" 
-                [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
+       
+          <label for="client_id"> Client :</label>
+          <select class="form-select" aria-label="Default select example" formControlName="client_id">
+              <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
           </select>
-          <div *ngIf="status.touched && status.invalid"> 
-            <small *ngIf="status.errors.required"class="text-danger">Status is required <br> </small> 
+          <div *ngIf="client_id.touched && client_id.invalid"> 
+            <small *ngIf="client_id.errors.required"class="text-danger">Client is required <br> </small> 
           </div> 
-      </div>
+        </div>
       
       </div>
     
@@ -164,22 +168,23 @@
 
       </div>
       <div class="p-field p-col-6 ">
-       
-      <label for="client_id"> Client :</label>
-      <select class="form-select" aria-label="Default select example" formControlName="client_id">
-          <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
-      </select>
-      <div *ngIf="client_id.touched && client_id.invalid"> 
-        <small *ngIf="client_id.errors.required"class="text-danger">Client is required <br> </small> 
-      </div> 
+        <label for="status"> Status :</label>
+        <select class="form-select" aria-label="Default select example" formControlName="status">
+            <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"  
+              severity="{{ status.color }}" value="{{ status.status_name}}" 
+              [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
+        </select>
+        <div *ngIf="status.touched && status.invalid"> 
+          <small *ngIf="status.errors.required"class="text-danger">Status is required <br> </small> 
+        </div> 
     </div>
     
     </div>
 
     <div class="p-grid p-fluid">  
-      <div class="p-field p-col-6 ">
+      <div class="p-field p-col-12 ">
         <span class="p-float-label" >
-          <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+          <textarea [rows]="5" [cols]="30" pInputTextarea  formControlName="description" [style]="{'height':'5em'}"></textarea>
           <label for="description">Description</label>
         </span>
             </div>
@@ -204,6 +209,7 @@
 
     <form [formGroup]="projectForm" >
       <div class="p-grid p-fluid">  
+
         <div class="p-field p-col-6 ">
           <label for="icon">Project Name</label>
           <input id="project_name" type="text" pInputText class="brad" formControlName="project_name"> 
@@ -215,16 +221,16 @@
           </div> 
         </div>
         <div class="p-field p-col-6 ">
-          <label for="status"> Status :</label>
-          <select class="form-select" aria-label="Default select example" formControlName="status">
-              <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"  
-                severity="{{ status.color }}" value="{{ status.status_name}}" 
-                [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
+       
+          <label for="client_id"> Client :</label>
+          <select class="form-select" aria-label="Default select example" formControlName="client_id">
+              <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
           </select>
-          <div *ngIf="status.touched && status.invalid"> 
-            <small *ngIf="status.errors.required"class="text-danger">Status is required <br> </small> 
+          <div *ngIf="client_id.touched && client_id.invalid"> 
+            <small *ngIf="client_id.errors.required"class="text-danger">Client is required <br> </small> 
           </div> 
-      </div>
+        </div>
+      
       </div>
     
     
@@ -238,15 +244,18 @@
               <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"dateFormat="dd.mm.yy"></p-calendar> -->
 
       </div>
-      <div class="p-field p-col-6 "> 
-      <label for="client_id"> Client :</label>
-      <select class="form-select" aria-label="Default select example" formControlName="client_id">
-          <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
-      </select>
-      <div *ngIf="client_id.touched && client_id.invalid"> 
-        <small *ngIf="client_id.errors.required"class="text-danger">Client is required <br> </small> 
-      </div> 
+      <div class="p-field p-col-6 ">
+        <label for="status"> Status :</label>
+        <select class="form-select" aria-label="Default select example" formControlName="status">
+            <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"  
+              severity="{{ status.color }}" value="{{ status.status_name}}" 
+              [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
+        </select>
+        <div *ngIf="status.touched && status.invalid"> 
+          <small *ngIf="status.errors.required"class="text-danger">Status is required <br> </small> 
+        </div> 
     </div>
+    
     </div>
 
     <div class="p-grid p-fluid">  
@@ -257,7 +266,8 @@
         </span>
             </div>
             </div>
-    </form> 
+
+    </form>
   </div>
 
   <ng-template pTemplate="footer">
@@ -267,49 +277,7 @@
 </p-dialog>
 
 
-<!-- MoreInfo popup-->
-<p-dialog
-  header="More Info"
-  [(visible)]="displayModal1"
-  [modal]="true"
-  [style]="{ width: '650px' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
-  <img
-    class="center"
-    src="assets/img/cog_tools_configuration_settings_icon_131758.ico"
-  />
-  <br />
 
-  <!--Client-->
-<span>
-  <h4 style="color: grey; font-size: 15px;">Client: </h4>
-  <h4 style="color: grey; font-size: 15px;" >Contacts: </h4>
-
-</span>
-
-  <!--Specification-->
-  <span class="p-float-label">
-    <textarea
-    style="border-radius: 10px;"
-     id="float-input" 
-    rows="5" 
-    cols="72" 
-    pInputTextarea 
-    placeholder="Description"></textarea>
-</span>
-
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-check"
-      (click)="displayModal1 = false"
-      label="Ok"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>
 
 
 

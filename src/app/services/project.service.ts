@@ -18,9 +18,9 @@ myToken = localStorage.getItem('token')
   }
 
 
-  getProjectsWithClient()
+  getProjectsWithinfo()
   {
-    return this.http.get<any>(this.api.api+'/getProjectsWithClient',this.header)
+    return this.http.get<any>(this.api.api+'/getProjectsWithinfo',this.header)
   }
 
 
@@ -34,4 +34,8 @@ myToken = localStorage.getItem('token')
   {
     return this.http.put<any>(this.api.api+'/updateProject',{project_id:project_id,newProject:newProject},this.header)
   }
+
+
+
+
 }
