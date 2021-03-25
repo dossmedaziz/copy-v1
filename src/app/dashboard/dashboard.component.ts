@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import {User} from'../user' ; 
 import jsPDF from 'jspdf' ;
 import Swal from 'sweetalert2'
 @Component({
@@ -10,9 +9,10 @@ import Swal from 'sweetalert2'
 })
 export class DashboardComponent implements OnInit {
   text: string = '<h1>bonjour</h2>';
-  users: User[];
-  selectedUser 
-  selectedUsers: User[];
+
+  selectedUsers
+  selectedUser
+ 
   displayModal: boolean;
   displayModal1: boolean;
   displayModal2: boolean;
@@ -25,11 +25,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userService.getusers().subscribe(
-      data => {
-        this.users = data
-        
-      }) ; 
+   
       this.items = [
         {
             label: 'Update',
@@ -100,12 +96,6 @@ deleteContract()
   })
 }
 
-
-ShowUser(user:User)
-{
-  this.selectedUser = [user]
-  this.displayModal1 = true;
-}
 test()
 {
   alert("contract list")

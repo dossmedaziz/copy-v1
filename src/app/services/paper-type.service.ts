@@ -26,9 +26,9 @@ export class PaperTypeService {
   }
 
 
-  createType(paper)
+  createPaper(paper,file_path)
   {
-    return this.http.post<any>(this.api.api+'/createPaper',{paper : paper},this.header)
+    return this.http.post<any>(this.api.api+'/createPaper',{paper : paper, file_path: file_path},this.header)
   }
 
   
@@ -41,5 +41,9 @@ export class PaperTypeService {
     return this.http.post<any>(this.api.api+'/deletePaper',{papers_id : papers_id },this.header)
   }
 
+  uploadFile(data)
+  {
+    return this.http.post<any>(this.api.api+'/uploadFile',data,this.header)
+  }
 
 }

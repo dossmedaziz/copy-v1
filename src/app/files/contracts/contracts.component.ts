@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import jsPDF from 'jspdf' ;
-import { User } from 'src/app/user';
 import Swal from 'sweetalert2'
 @Component({
   selector: 'app-contracts',
@@ -16,13 +15,10 @@ export class ContractsComponent implements OnInit {
 
 
 
-  users:User[];
   
-  user : User ;
   selectedUser
   selecteduser
   filteredusers
-  selectedUsers: User[];
 displayModal: boolean;
 displayModal1: boolean;
 displayModal3: boolean;
@@ -32,7 +28,6 @@ doc = new jsPDF()
   constructor(private  userService:UserService) { }
 
   ngOnInit(): void {
-    this.userService.getusers().subscribe(data=> this.users = data)
   }
 
 
@@ -50,12 +45,7 @@ showModalDialog3() {
 }
 
 
-ShowUser(user:User)
-{
-  this.selectedUser = [user]
-  console.log(this.selectedUser)
-  this.displayModal1 = true;
-}
+
 
 exportPdf() {
   //  this.doc.default(0,0) ; 

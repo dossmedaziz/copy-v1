@@ -76,11 +76,11 @@
               <td>{{ project.project_name }}</td> 
               <td>{{ project.client?.client_name  }}</td> 
               <td>{{ project.start_date | date: 'mediumDate'}}</td> 
-              <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(project.status).icon }}" class="tags"  [style.background]="filterStatus(project.status).color" value="{{ filterStatus(project.status).status_name}}" [rounded]="false" ></p-tag></td> 
+              <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus1(project.status).icon }}" class="tags"  [style.background]="filterStatus1(project.status).color" value="{{ filterStatus1(project.status).status_name}}" [rounded]="false" ></p-tag></td> 
               <td>{{ project.description }}</td> 
              
               <td>
-                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="getSelectedClient(client)"></button>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="selectedProject(project)"></button>
                   <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2"></button>
 
               </td>
@@ -97,7 +97,9 @@
                               <th pSortableColumn="customer">Type <p-sortIcon field="customer"></p-sortIcon></th>
                               <th pSortableColumn="date">Description <p-sortIcon field="date"></p-sortIcon></th>
                               <th pSortableColumn="amount">Status <p-sortIcon field="amount"></p-sortIcon></th>
-                              <th style="width: 4rem"></th>
+                              <th style="width:8rem"><button pButton pRipple type="button" icon="pi pi-plus" 
+                                class="p-button-rounded p-button-text" (click)="addPaperModal(project.id)"></button></th>
+                                
                           </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-paper>
@@ -105,9 +107,9 @@
                               <td>{{paper.paper_name}}</td>
                               <td>{{paper.paper_type}}</td>
                               <td>{{paper.description}}</td>
-                              <td>{{paper.status}}</td>
-                              <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
-                              <td><p-button type="button" icon="pi pi-search"></p-button></td>
+                              <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus2(paper.status).icon }}" class="tags"  [style.background]="filterStatus2(paper.status).color" value="{{ filterStatus2(project.status).status_name}}" [rounded]="false" ></p-tag></td> 
+
+                           
                           </tr>
                       </ng-template>
                       <ng-template pTemplate="emptymessage">
@@ -277,6 +279,11 @@
 </p-dialog>
 
 
+
+
+
+<!-- add new paper component-->
+<app-add-paper [addNewPaperModal]="addNewPaperModal" [projectId]="projectId"  (hideModal)="hideModal()" (updatePage)="updatePage()"></app-add-paper>
 
 
 

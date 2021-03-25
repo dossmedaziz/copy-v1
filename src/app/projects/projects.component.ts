@@ -4,7 +4,6 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { ProjectService } from '../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2'
-import { Status } from '../user';
 import { ConfigService } from '../services/config.service';
 
 
@@ -15,15 +14,16 @@ import { ConfigService } from '../services/config.service';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-  
+  projectId
+  status_paper
   status_table 
   selectedProjectId
   clients
   projects
   projectForm: FormGroup;
   selectedProjects
-  
- updateModal : boolean;
+  addNewPaperModal
+  updateModal : boolean;
   displayModal1: boolean;
   addNewProjectModal: boolean;
 
@@ -74,7 +74,6 @@ export class ProjectsComponent implements OnInit {
               this.clientService.getClients().subscribe(
                 res => {
                   this.clients = res;
-                
                 }, err =>  {
                   console.log(err)
                 }
@@ -85,7 +84,6 @@ export class ProjectsComponent implements OnInit {
              this.projectService.getProjectsWithinfo().subscribe(
                res=>{
                  this.projects = res
-                 console.log(res)
                }, err=>{
                  console.log(err)
                }
@@ -94,6 +92,7 @@ export class ProjectsComponent implements OnInit {
 
 
              this.status_table = this.configService.status_project
+             this.status_paper= this.configService.status_paper
             
 
        }
@@ -133,11 +132,7 @@ this.projectService.createProject(project).subscribe(
 
   }
 
-  filterStatus(id)
-  {
-      let status =  this.status_table.find( el => el.id == id )
-      return status
-  }
+ 
 
 
 
@@ -222,8 +217,35 @@ deleteProject()
   })
 }
 
-addPaper()
+filterStatus1(id)
 {
-  console.log("test")
+    let status =  this.status_table.find( el => el.id == id )
+    return status
 }
+
+filterStatus2(id)
+{
+    let status =  this.status_paper.find( el => el.id == id )
+    return status
+}
+
+      addPaperModal(id)
+      {
+        this.addNewPaperModal = true
+        this.projectId  = id
+      }
+
+      
+      hideModal()
+      {
+        this.addNewPaperModal = false
+        this.projectForm.reset()
+      }
+      
+      updatePage()
+      {
+        this.ngOnInit()
+        this.hideModal()
+      }
+
 }

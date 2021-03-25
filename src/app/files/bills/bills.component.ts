@@ -6,23 +6,19 @@ import Swal from 'sweetalert2'
 
 
 
-import { User } from 'src/app/user';
 @Component({
   selector: 'app-bills',
   templateUrl: './bills.component.html',
   styleUrls: ['./bills.component.scss']
 })
 export class BillsComponent implements OnInit {
-users:User[];
-user : User ;
-selectedUser
+
 
 
  
 selecteduser
 filteredusers
 
-selectedBills: User[];
 displayModal: boolean;
 displayModal1: boolean;
 displayModal2: boolean;
@@ -36,7 +32,6 @@ exportColumns:[];
   constructor(private  userService:UserService) { }
 
   ngOnInit(): void {
-    this.userService.getusers().subscribe(data=> this.users = data)
   }
 
 
@@ -68,11 +63,6 @@ exportPdf() {
   this.doc.save('table.pdf')
 }
 
-editUser(user: User) {
-  this.user = user
- this.displayModal = true;
-
-}
 
 deleteItem()
 {
@@ -100,11 +90,6 @@ deleteItem()
       )
     }
   })
-}
-ShowUser(user:User)
-{
-  this.selectedUser = [user]
-  this.displayModal1 = true;
 }
 
 

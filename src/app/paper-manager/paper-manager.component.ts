@@ -23,6 +23,7 @@ export class PaperManagerComponent implements OnInit {
   selectedPaper
   selectedPaperId
   status_paper
+  files
   
   constructor( private fb:FormBuilder,
                 private toastr :ToastrService,
@@ -56,7 +57,8 @@ export class PaperManagerComponent implements OnInit {
                       status : new FormControl('',[
                                   Validators.required,
                                       ]),      
-
+                                      file : new FormControl('',[
+                                      ]), 
                         
                             }
                     this.paperForm = this.fb.group(formControls) ;
@@ -69,6 +71,7 @@ export class PaperManagerComponent implements OnInit {
               get description() { return this.paperForm.get('description')}
               get project_id() { return this.paperForm.get('project_id')}
               get status() { return this.paperForm.get('status')}
+              get file() { return this.paperForm.get('file')}
 
 
   ngOnInit(): void {
@@ -107,23 +110,7 @@ export class PaperManagerComponent implements OnInit {
     this.paperForm.reset()
   }
 
-  addPaper()
-  {
-    let paper = (this.paperForm.value)
-    console.log(paper)
-    this.paperTypeService.createType(paper).subscribe(
-      res=>{
-        console.log(res)
-        this.addNewPaperModal =  false
-        this.toastr.success("Paper added!")
-        this.ngOnInit()
-
-      },err=>{
-        console.log(err)
-
-      }
-    )
-  }
+  
 
   getSelectedPaper(paper)
   { 
@@ -208,4 +195,31 @@ export class PaperManagerComponent implements OnInit {
           let status =  this.status_paper.find( el => el.id == id )
           return status
         }
+
+
+        updatePage(){
+    this.ngOnInit()      
+  this.paperForm.reset() 
+  this.addNewPaperModal = false
 }
+
+  hideTheModal()
+  {
+    this.addNewPaperModal = false
+    
+
+  }
+
+
+  test(tes)
+  {
+    console.log(tes)
+  }
+
+
+  uploadFile(event)
+  {
+    this.files = event.target.files[0]
+    
+  }
+    }
