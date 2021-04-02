@@ -33,17 +33,27 @@ export class PaperTypeService {
 
   
 
-  updatePaper(paper_id,newPaper)
+  updatePaper(paper_id,newPaper,file_path)
   {
-         return   this.http.put<any>(this.api.api+'/updatePaper',{ newPaper: newPaper,paper_id :paper_id},this.header)
+         return   this.http.put<any>(this.api.api+'/updatePaper',{ newPaper: newPaper,paper_id :paper_id,file_path:file_path},this.header)
   }
   deletePaper(papers_id){
     return this.http.post<any>(this.api.api+'/deletePaper',{papers_id : papers_id },this.header)
   }
+  uploadFile(data) {
+    return  this.http.post<any>(this.api.api+'/uploadFile',data,this.header).toPromise();
 
-  uploadFile(data)
+  }
+  createType(paper_type,is_renewing)
   {
-    return this.http.post<any>(this.api.api+'/uploadFile',data,this.header)
+   return this.http.post<any>(this.api.api+'/createType',{paper_type:paper_type , is_renewing:is_renewing},this.header)
+  }
+
+
+
+  getJustContracts()
+  {
+    return this.http.get<any>(this.api.api+'/getJustContracts',this.header)
   }
 
 }

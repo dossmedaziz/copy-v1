@@ -20,12 +20,12 @@ export class RolesComponent implements OnInit {
   actions 
   spaces
   selectedPriv = new Array()
-  role_name
+  
   role_privileges
   tab
   idOfselectedRole
   nameValidator
-
+role_name
   
 
   action = new Array()
@@ -86,19 +86,23 @@ export class RolesComponent implements OnInit {
 
         addRole(){
 
-                this.privilegeService.createRole(this.role_name,this.selectedPriv).subscribe(
+          if(!this.role.value)
+          {
+           this.toastr.error("Role name is required")
+          }else{
+
+                this.privilegeService.createRole(this.role.value,this.selectedPriv).subscribe(
                   res=>{
                         console.log(res)
                         this.toastr.success('Role created successfully')
                         this.displayModal3 = false;
                         this.selectedPriv = []
-                        this.role_name = ""
-
+                        this.role.setValue("") 
                         this.ngOnInit()
 
                       },err=>{
                     console.log(err)
-                  })}
+                  })}}
 
 
 
@@ -153,12 +157,10 @@ export class RolesComponent implements OnInit {
         getSelectedRole(role) {
           this.selectedPriv = []
           this.idOfselectedRole = role.id
-              this.role_name = role.role_name;
-                      this.privilegeService.getRoleprivileges(role.id).subscribe(
+          this.role_name = role.role_name
+          this.privilegeService.getRoleprivileges(role.id).subscribe(
                         res => {
               this.role_privileges= res['0'].privilige
-
-                        
             setTimeout(() => {
               $( ".checkBox" ).prop( "checked", false );
 

@@ -66,16 +66,6 @@ const routes: Routes = [
         canActivate:[SpaceGuard]
       },
       {
-        path:'contracts',
-        component:ContractsComponent,
-        canActivate:[SpaceGuard]
-      },
-      {
-        path:'others',
-        component:OthersComponent,
-        canActivate:[SpaceGuard]
-      },
-      {
         path:'addBill',
         component:AddBillComponent,
         canActivate:[SpaceGuard]

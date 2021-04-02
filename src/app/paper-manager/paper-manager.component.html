@@ -40,7 +40,7 @@
   [value]="papers"
   [rows]="10"
   [paginator]="true"
-  [globalFilterFields]="['name', 'age']"
+  [globalFilterFields]="['paper_name','type','expiration_date','project','description','status']"
   [(selection)]="selectedPapers"
   [rowHover]="true"
   dataKey="id"
@@ -62,23 +62,26 @@
       <th style="width: 3rem">
         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
-      <th pSortableColumn="name">
-        Paper Name <p-sortIcon field="name"></p-sortIcon>
+      <th pSortableColumn="paper_name">
+        Paper Name <p-sortIcon field="paper_name"></p-sortIcon>
       </th>
-      <th pSortableColumn="age">
-        Type  <p-sortIcon field="age"></p-sortIcon>
+      <th pSortableColumn="type">
+        Type  <p-sortIcon field="type"></p-sortIcon>
       </th>
-      <th pSortableColumn="name">
-        Expiration Date <p-sortIcon field="name"></p-sortIcon>
+      <th pSortableColumn="start_date">
+        Start Date  <p-sortIcon field="start_date"></p-sortIcon>
       </th>
-      <th pSortableColumn="name">
-        Project<p-sortIcon field="name"></p-sortIcon>
+      <th pSortableColumn="end_date">
+        End Date <p-sortIcon field="end_date"></p-sortIcon>
       </th>
-      <th pSortableColumn="age">
-        Description <p-sortIcon field="age"></p-sortIcon>
+      <th pSortableColumn="project">
+        Project<p-sortIcon field="project"></p-sortIcon>
       </th>
-      <th pSortableColumn="age">
-        Status <p-sortIcon field="age"></p-sortIcon>
+      <th pSortableColumn="description">
+        Description <p-sortIcon field="description"></p-sortIcon>
+      </th>
+      <th pSortableColumn="status">
+        Status <p-sortIcon field="status"></p-sortIcon>
       </th>
 
       <th></th>
@@ -90,8 +93,9 @@
         <p-tableCheckbox [value]="paper"></p-tableCheckbox>
       </td>
        <td>{{ paper.paper_name }}</td> 
-       <td>{{ paper.paper_type.paper_type}}</td> 
-       <td>{{ paper.expiration_date | date: 'mediumDate'}}</td> 
+       <td>{{ paper.paper_type.paper_type.toUpperCase()}}</td> 
+       <td>{{ paper.start_date | date: 'mediumDate'}}</td> 
+       <td>{{ paper.end_date | date: 'mediumDate'}}</td> 
        <td>{{ paper.project.project_name  }}</td> 
        <td>{{ paper.description }}</td> 
        <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(paper.status).icon }}" class="tags"   
@@ -105,13 +109,11 @@
           class="p-button-rounded p-button-success p-mr-2"
           (click)="getSelectedPaper(paper)"
         ></button>
-        <button
+        <a href="{{ fileGenralLink }}{{ paper.paper_file}}" target="blank"><button
           pButton
           pRipple
-          icon="pi pi-info-circle"
-          class="p-button-rounded p-button-secondary p-mr-2"
-          (click)="test(paper.paper_file)"
-        ></button>
+          icon="pi {{filterExt(paper.paper_file)}}"
+          class="p-button-rounded p-button-danger p-mr-2" ></button></a>
       </td>
     </tr>
   </ng-template>
@@ -123,13 +125,14 @@
 </p-table>
 </div>
 
+<!-- add new paper -->
+<app-add-paper *ngIf="addNewPaperModal" [addNewPaperModal]="addNewPaperModal" (updatePage)="updatePage()" (hideModal)="hideTheModal()"></app-add-paper>
 
-<app-add-paper [addNewPaperModal]="addNewPaperModal" (updatePage)="updatePage()" (hideModal)="hideTheModal()"></app-add-paper>
+
 
 
 <!-- update paper model-->
-
-
+<!--
 <p-dialog header="Update Paper" [(visible)]="updatePaperModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
@@ -165,11 +168,10 @@
     <div class="p-grid p-fluid">  
       <div class="p-field p-col-6 ">
           <label for="icon">Expiration Date</label>
-              <input id="expiration_date" type="date" pInputText class="brad" formControlName="expiration_date"> 
+              <p-calendar  [showIcon]="true" inputId="icon" formControlName="expiration_date"></p-calendar>
               <div *ngIf="expiration_date.touched && expiration_date.invalid"> 
                 <small *ngIf="expiration_date.errors.required"class="text-danger">Expiration Date is required <br> </small> 
               </div> 
-              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"dateFormat="dd.mm.yy"></p-calendar> -->
       </div>
 
       <div class="p-field p-col-6 ">
@@ -195,8 +197,8 @@
         </div> 
       </div>
       <div class="p-field p-col-6 ">
-        <label for="file">File:</label><br>
-        <input class="form-control" type="file" id="formFile" formControlName="file" (change)="uploadFile($event)">           
+        <label for="file">File: (<a href="{{ fileGenralLink }}{{ selectedFilePath}}" target="blank">current file </a> )</label><br>
+        <input class="form-control" type="file" id="formFile" formControlName="file" (change)="selectFile($event)">           
       </div>
 
      
@@ -218,11 +220,11 @@
     <button type="button" (click)="updatePaper()"class="btn btn-outline-primary" [disabled]="paperForm.invalid"style="border:none;">Update</button>
 </ng-template>
 </p-dialog>
+-->
 
 
 
-
-
+    <app-update-paper *ngIf="updatePaperModal" [updatePaperModal]="updatePaperModal"  [selectedPaper]="selectedPaper" [newTest]="newTest"(refreshPage)="refreshPage()" (hideModal)="hideTheModal2()"></app-update-paper>
 
 
 

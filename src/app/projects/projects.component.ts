@@ -27,6 +27,10 @@ export class ProjectsComponent implements OnInit {
   displayModal1: boolean;
   addNewProjectModal: boolean;
 
+  
+  selectedPaper
+  updatePaperModal
+  fileGenralLink = 'http://localhost:8000/'
 
               constructor(private  clientService : ClientService,
                 private fb:FormBuilder,
@@ -231,8 +235,8 @@ filterStatus2(id)
 
       addPaperModal(id)
       {
-        this.addNewPaperModal = true
         this.projectId  = id
+        this.addNewPaperModal = true
       }
 
       
@@ -247,5 +251,36 @@ filterStatus2(id)
         this.ngOnInit()
         this.hideModal()
       }
+
+
+      getSelectedPaper(paper){
+        this.selectedPaper = paper
+        console.log(paper)
+        this.updatePaperModal = true
+        
+      }
+
+      refreshPage(){
+        this.ngOnInit()
+        this.updatePaperModal
+      }
+      hideTheModal2(){
+        this.updatePaperModal = false
+      }
+
+      filterExt(file)
+{
+  let ext =  file.split('.').pop();
+ if(ext == "pdf")
+ {
+   return 'pi-file-pdf'
+ }else if( ext == "png" || ext == "jpg"){
+    return 'pi-image'
+}else if(ext == "docx" || ext == "txt"){
+   return 'pi-file'
+ }else if( ext == "xlsx"){
+   return 'pi-file-excel'
+ }
+}
 
 }

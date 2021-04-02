@@ -1,0 +1,39 @@
+<p-dialog header="Add new Type" [(visible)]="addnewTypeModal" [modal]="true" [style]="{width: '100vh'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+
+<div class="p-grid p-fluid" [style]="{'margin-top':'50px'}">  
+
+  <div class="p-field p-col-6 ">
+    
+
+          <span class="p-float-label">
+            <input id="float-input" type="text" pInputText [formControl]="type_name" >
+            <div *ngIf="type_name.invalid && (type_name.touched || type_name.dirty)">
+              <small *ngIf="type_name.errors.required" style="color : red "> name is required</small>
+              <small *ngIf="type_name.errors.pattern" style="color : red "> name is invalid</small>
+              <small *ngIf="type_name.errors.minLength" style="color : red ">Name must contain 4 characters at least</small>
+              <small *ngIf="type_name.errors.maxLength" style="color : red "> Name must contain max 20 characters</small>
+            </div> 
+            <label for="float-input">Type Name</label>
+        </span>
+  </div>
+
+  <div class="p-field p-col-6 ">
+
+
+            <div class="form-check form-switch">
+              <label class="form-check-label" for="flexSwitchCheckDefault">Alert :</label>
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" (change)="check($event)">
+            </div>
+  </div>
+      
+</div>
+    
+   
+       
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" (click)="hideTheModal()" label="Cancel" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" (click)="addType()" label="Save" styleClass="p-button-text" ></p-button>
+        </ng-template>
+</p-dialog>

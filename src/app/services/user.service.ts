@@ -20,10 +20,12 @@ getusers()
 
 
 
+
 login(email : string, pass:string)
 {
   return this.http.post<any>(this.api.api+'/login' , {email : email , password : pass}) ; 
 }
+
 
 addUser(user)
 {

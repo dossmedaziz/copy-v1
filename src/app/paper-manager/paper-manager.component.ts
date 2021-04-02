@@ -24,8 +24,13 @@ export class PaperManagerComponent implements OnInit {
   selectedPaperId
   status_paper
   files
+  selectedFilePath
+  fileGenralLink = 'http://localhost:8000/'
+
+  newTest
   
-  constructor( private fb:FormBuilder,
+  
+          constructor( private fb:FormBuilder,
                 private toastr :ToastrService,
                 private paperTypeService:PaperTypeService,
                 private projectService: ProjectService,
@@ -108,40 +113,54 @@ export class PaperManagerComponent implements OnInit {
   {
     this.addNewPaperModal = true
     this.paperForm.reset()
+    this.newTest = true
   }
 
   
 
+
   getSelectedPaper(paper)
   { 
-    this.selectedPaperId = paper.id 
+    // this.selectedPaperId = paper.id 
     this.updatePaperModal = true
-    this.paperForm.patchValue({
-      paper_name: paper.paper_name,
-      paper_type:paper.paper_type.id,
-      expiration_date : paper.expiration_dat,
-      project_id : paper.project.id,
-      description : paper.description,
-      status : paper.status,
-      })
-      
-
+    // this.paperForm.patchValue({
+    //   paper_name: paper.paper_name,
+    //   paper_type:paper.paper_type.id,
+    //   expiration_date : new Date(paper.expiration_date),
+    //   project_id : paper.project.id,
+    //   description : paper.description,
+    //   status : paper.status,
+    //   })
+    //   this.selectedFilePath = paper.paper_file
+    this.selectedPaper = paper
+  
   }
 
-  updatePaper()
-  {
-              let newPaper = this.paperForm.value
-              this.paperTypeService.updatePaper(this.selectedPaperId,newPaper).subscribe(
-                res => {
-                  console.log(res)
-                  this.toastr.success('Paper Updated!')
-                  this.updatePaperModal = false
-                  this.ngOnInit()
-                }, err => {
-                  console.log(err)
-                }
-              )
-  }
+         async updatePaper()
+        {
+          let path=''
+          let formData = new FormData();
+          if(this.files){
+          (formData.append("file",this.files,this.files.name))
+          await this.paperTypeService.uploadFile(formData).then( 
+          res => {
+            path = res.path
+            }, err => { console.log(err);})
+            
+          }let newPaper = this.paperForm.value
+                        this.paperTypeService.updatePaper(this.selectedPaperId,newPaper,path).subscribe(
+                          res => {
+                            console.log(res)
+
+                            this.toastr.success('Paper Updated!')
+                            this.updatePaperModal = false
+                            this.ngOnInit()
+                          }, err => {
+                            console.log(err)
+                          }
+                        )
+                   
+          }
 
 
 
@@ -211,15 +230,36 @@ export class PaperManagerComponent implements OnInit {
   }
 
 
-  test(tes)
+  hideTheModal2()
   {
-    console.log(tes)
+    this.updatePaperModal = false
+  }
+  
+  refreshPage()
+  {
+    this.hideTheModal2()
+    this.ngOnInit()
   }
 
+selectFile(event)
+{
+  this.files = event.target.files[0]
+  
+}
+ 
 
-  uploadFile(event)
-  {
-    this.files = event.target.files[0]
-    
-  }
+filterExt(file)
+{
+  let ext =  file.split('.').pop();
+ if(ext == "pdf")
+ {
+   return 'pi-file-pdf'
+ }else if( ext == "png" || ext == "jpg"){
+    return 'pi-image'
+}else if(ext == "docx" || ext == "txt"){
+   return 'pi-file'
+ }else if( ext == "xlsx"){
+   return 'pi-file-excel'
+ }
+}
     }

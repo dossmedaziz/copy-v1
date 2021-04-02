@@ -75,7 +75,7 @@ export class ClientsComponent implements OnInit {
                           ]),
                       position : new FormControl ('',[
                           Validators.pattern("[A-Z a-z 0-9 .'-]+"),
-                          Validators.minLength(4),
+                          Validators.minLength(3),
                           Validators.maxLength(50)
                           ]),
                       contact_phone : new FormControl ('',[

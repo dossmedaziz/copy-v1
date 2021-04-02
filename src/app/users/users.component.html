@@ -40,7 +40,7 @@
   [value]="users"
   [rows]="10"
   [paginator]="true"
-  [globalFilterFields]="['name', 'age']"
+  [globalFilterFields]="['user_name', 'email','role']"
   [(selection)]="selectedUsers"
   [rowHover]="true"
   dataKey="id"
@@ -62,13 +62,13 @@
       <th style="width: 3rem">
         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
-      <th pSortableColumn="name">
-        Name <p-sortIcon field="name"></p-sortIcon>
+      <th pSortableColumn="user_name">
+        Name <p-sortIcon field="user_name"></p-sortIcon>
       </th>
-      <th pSortableColumn="name">
-        Email <p-sortIcon field="name"></p-sortIcon>
+      <th pSortableColumn="email">
+        Email <p-sortIcon field="email"></p-sortIcon>
       </th>
-      <th pSortableColumn="name">
+      <th pSortableColumn="role">
         Role <p-sortIcon field="name"></p-sortIcon>
       </th>
     

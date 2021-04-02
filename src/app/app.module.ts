@@ -55,6 +55,8 @@ import { LoginComponent } from './login/login.component';
 import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
 import { PaperManagerComponent } from './paper-manager/paper-manager.component';
 import { AddPaperComponent } from './components/add-paper/add-paper.component';
+import { AddPaperTypeComponent } from './components/add-paper-type/add-paper-type.component';
+import { UpdatePaperComponent } from './components/update-paper/update-paper.component';
 
 
 
@@ -76,6 +78,8 @@ import { AddPaperComponent } from './components/add-paper/add-paper.component';
     LoginComponent,
     PaperManagerComponent,
     AddPaperComponent,
+    AddPaperTypeComponent,
+    UpdatePaperComponent,
 
   ],
   imports: [
@@ -116,7 +120,8 @@ import { AddPaperComponent } from './components/add-paper/add-paper.component';
     AutoCompleteModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
 
 
   ],

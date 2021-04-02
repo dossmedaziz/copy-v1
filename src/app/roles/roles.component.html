@@ -102,8 +102,7 @@
   [baseZIndex]="10000"
   [draggable]="true"
   [resizable]="true"
-  styleClass="p-fluid"
->
+  styleClass="p-fluid">
   <div class="p-fluid">
     <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
     <br />
@@ -117,14 +116,14 @@
         pInputText
         [formControl]="role"
         />
-        
+
       <div *ngIf="role.invalid && (role.touched || role.dirty)">
-        <small style="color : red "> name is required</small>
+            <small *ngIf="role.errors.required" style="color : red "> name is required</small><br>
       </div>
     </div>
 
  
-  <div class="p-field"  >  
+  <div class="p-field">  
       <ul *ngFor="let space of spaces" >
              <li>
                <input type="checkbox" (change)="selectSpace(space.id,$event)" id="{{space.id}}"> 
@@ -153,14 +152,12 @@
       icon="pi pi-times"
       (click)="hideAddModal()"
       label="Cancel"
-      styleClass="p-button-text"
-    ></p-button>
+      styleClass="p-button-text"></p-button>
     <p-button
     (click)="addRole()"
       icon="pi pi-check"
       label="Yes"
-      styleClass="p-button-text"
-    ></p-button>
+      styleClass="p-button-text"></p-button>
   </ng-template>
 </p-dialog>
 
@@ -173,8 +170,7 @@
   [baseZIndex]="10000"
   [draggable]="true"
   [resizable]="true"
-  styleClass="p-fluid"
->
+  styleClass="p-fluid">
   <div class="p-fluid">
     <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
     <br />

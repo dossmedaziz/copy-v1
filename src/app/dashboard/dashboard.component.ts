@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
-import jsPDF from 'jspdf' ;
-import Swal from 'sweetalert2'
+import { ConfigService } from '../services/config.service';
+import { PaperTypeService } from '../services/paper-type.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,94 +9,78 @@ import Swal from 'sweetalert2'
 export class DashboardComponent implements OnInit {
   text: string = '<h1>bonjour</h2>';
 
-  selectedUsers
-  selectedUser
- 
-  displayModal: boolean;
-  displayModal1: boolean;
-  displayModal2: boolean;
-  displayModal3: boolean;
-  exportColumns:[];
-  doc = new jsPDF()
+      emailEditModal
+      moreInfoModal
+      previewModal
+      contractsModal
 
-  items
-  constructor(private userService :UserService) { }
+selectedContractsType
+      contracts
+      status_paper
+      selectedContracts
+      response
+      maintContracts
+      hostingtContracts
+      updateContracts
 
-  ngOnInit(): void {
 
-   
-      this.items = [
-        {
-            label: 'Update',
-            icon: 'pi pi-refresh'
-        },
-        {
-            label: 'Delete',
-            icon: 'pi pi-times'
-        },
-        {
-            label: 'Angular',
-            icon: 'pi pi-external-link',
-            url: 'http://angular.io'
-        },
-        {
-            label: 'Router',
-            icon: 'pi pi-upload',
-            routerLink: '/fileupload'
-        }
-    ];
+  constructor(private paperTypeService:PaperTypeService,private configService:ConfigService) { }
 
+  async ngOnInit() {
+ await  this.paperTypeService.getJustContracts().subscribe(
+    res => {
+      this.response = res
+        this.contracts = this.response.contracts
+        this.maintContracts = this.response.maintenance
+        this.hostingtContracts = this.response.hosting
+        this.updateContracts =  this.response.update
+      }, err => {
+      console.log(err)
+    }
+  )   
+    this.status_paper= this.configService.status_paper
 
   }
 
 
-  showModalDialog() {
-    this.displayModal = true;
-}
-
-// showModalDialog1() {
-//   this.displayModal1 = true;
-// }
-showModalDialog2() {
-  this.displayModal2 = true;
-}
-showModalDialog3() {
-  this.displayModal3 = true;
-}
 
 
 
-deleteContract()
+
+
+  showcContracts(selectedContracts)
 {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: 'You will not be able to recover this imaginary file!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'No, keep it'
-  }).then((result) => {
-    if (result.value) {
-      alert("deleted")
-      Swal.fire(
-        'Deleted!',
-        'Your imaginary file has been deleted.',
-        'success'
-      )
-    // For more information about handling dismissals please visit
-    // https://sweetalert2.github.io/#handling-dismissals
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire(
-        'Cancelled',
-        'Your imaginary file is safe :)',
-        'error'
-      )
-    }
-  })
+  this.contractsModal = true
+  this.selectedContractsType = selectedContracts
 }
 
-test()
+
+filterStatus(id)
 {
-  alert("contract list")
+  let status =  this.status_paper.find( el => el.id == id )
+  return status
 }
+
+
+
+showEmail()
+{
+  this.emailEditModal = true
+}
+
+ShowContract(contract)
+{
+  this.moreInfoModal = true
+}
+preview()
+{
+  this.previewModal = true
+}
+
+
+
+
+
+
+
 }
