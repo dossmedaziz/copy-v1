@@ -63,7 +63,7 @@
             </ng-template>
         </p-toolbar>
 
-        <p-table #dt [value]="contracts" [rows]="5" [paginator]="true" [globalFilterFields]="['name','start_date','end_date','type','status']"
+        <p-table #dt [value]="contracts" [rows]="5" [paginator]="true" [globalFilterFields]="['name','start_date','end_date','type','status','client_name']"
         [(selection)]="selectedContracts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
         styleClass="p-datatable-responsive-demo">
@@ -82,6 +82,7 @@
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th pSortableColumn="name">Contract Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="client_name">Client Name <p-sortIcon field="client_name"></p-sortIcon></th>
                 <th pSortableColumn="start_date">Start Date <p-sortIcon field="start_date"></p-sortIcon></th>
                 <th pSortableColumn="end_date">End Date <p-sortIcon field="end_date"></p-sortIcon></th>
                 <th pSortableColumn="type">Type <p-sortIcon field="type"></p-sortIcon></th>
@@ -95,11 +96,12 @@
                     <p-tableCheckbox [value]="contract"></p-tableCheckbox>
                 </td>
                 <td>{{contract.paper_name}}</td>
+                <td>{{contract.project.client.client_name}}</td>
                 <td>{{contract.start_date  | date: 'mediumDate' }}</td>
                 <td>{{contract.end_date  | date: 'mediumDate' }}</td>
                 <td>{{ contract.type.paper_type.toUpperCase() }}</td>
-                <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(contract.status).icon }}" class="tags"   
-                    [style.background]="filterStatus(contract.status).color" value="{{ filterStatus(contract.status).status_name}}" [rounded]="false" ></p-tag></td> 
+                <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(contract.isReminded).icon }}" class="tags"   
+                    [style.background]="filterStatus(contract.isReminded).color" value="{{ filterStatus(contract.isReminded).status_name}}" [rounded]="false" ></p-tag></td> 
                    
                 <td>
                     <button pButton pRipple icon="pi pi-send" class="p-button-rounded p-button-success p-mr-2"  (click)="showEmail()"></button>

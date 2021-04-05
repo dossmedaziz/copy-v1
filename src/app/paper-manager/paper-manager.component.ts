@@ -27,7 +27,6 @@ export class PaperManagerComponent implements OnInit {
   selectedFilePath
   fileGenralLink = 'http://localhost:8000/'
 
-  newTest
   
   
           constructor( private fb:FormBuilder,
@@ -113,7 +112,6 @@ export class PaperManagerComponent implements OnInit {
   {
     this.addNewPaperModal = true
     this.paperForm.reset()
-    this.newTest = true
   }
 
   

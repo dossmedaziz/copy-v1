@@ -48,14 +48,30 @@
           </a>
         </li>
 
-
         <li class="sidebar-item">
-          <a class="sidebar-link" [routerLink]="['/paperManager']">
+          <a
+            data-target="#forms"
+            data-toggle="collapse"
+            class="sidebar-link collapsed"
+          >
             <i class="align-middle" data-feather="clipboard"></i>
-            <span class="align-middle">Paper Manager</span>
+            <span class="align-middle">Papers </span>
           </a>
+          <ul
+            id="forms"
+            class="sidebar-dropdown list-unstyled collapse"
+            data-parent="#sidebar"
+          >
+            <li class="sidebar-item">
+              <a class="sidebar-link" [routerLink]="['/paperManager']">Paper Manager</a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" [routerLink]="['/addPaperType']"
+                >Paper Types</a
+              >
+            </li>
+          </ul>
         </li>
-
 
 
         <li class="sidebar-header">Tools & Components</li>

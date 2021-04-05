@@ -2,9 +2,8 @@
 <p-dialog header="Add new Paper " [(visible)]="addNewPaperModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid" (onHide)="hideTheModal()">
   
-  <div class="p-fluid">
-    <!-- <img class="center" src="assets/img/add_person_user_icon_131752.ico" /> -->
-    <br />
+  <div class="p-fluid">   
+     <br />
 
     <form [formGroup]="paperForm" >
     
@@ -31,7 +30,7 @@
           </div> 
       </div>
       <div class="p-field p-col-2" [style]="{'margin-top':'35px'}">
-        <button type="button" (click)="addType()" class="btn btn-outline-primary"style="border:none;"icon="pi pi-plus">Add Type</button>
+        <button type="button" [routerLink]="['/addPaperType']" class="btn btn-outline-primary"style="border:none;"icon="pi pi-plus">Add Type</button>
       </div>
 
       </div>
@@ -86,14 +85,20 @@
     <div class="p-grid p-fluid">  
       <div class="p-field p-col-6 ">
         <label for="file">File:</label><br>
-        <input class="form-control" type="file" id="formFile" formControlName="file" (change)="uploadFile($event)">           
+        <input class="form-control" type="file" id="formFile" formControlName="file" (change)="selectFile($event)">           
       </div>
+      <div class="form-check form-switch" style="margin-top: 25px;">
+        <label class="form-check-label" for="flexSwitchCheckDefault" >Active Notification :</label><br>
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"formControlName="auto_email" >
+      </div>
+    </div>
+    <div class="p-grid p-fluid"> 
       <div class="p-field p-col-12">
         <span class="p-float-label" >
           <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
           <label for="description">Description</label>
         </span>
-            </div>
+            </div> 
     </div>
     </form>
 
@@ -101,7 +106,7 @@
 
   <ng-template pTemplate="footer">
     <button type="button" (click)="hideTheModal()" class="btn btn-outline-primary"style="border:none;">Cancel</button>
-    <button type="button" (click)="addPaper()"class="btn btn-outline-primary" [disabled]="paperForm.invalid"style="border:none;">Save</button>
+    <button type="button" (click)="addPaper()"class="btn btn-outline-primary" [disabled]="paperForm.invalid || !files "style="border:none;">Save</button>
 
 
 </ng-template>
@@ -109,4 +114,3 @@
 
 
 
-<app-add-paper-type [addnewTypeModal]="addnewTypeModal" (updatePage)="refreshPage()" (hideModal)="hideModal1()"></app-add-paper-type>

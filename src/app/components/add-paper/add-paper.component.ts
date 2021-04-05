@@ -22,7 +22,7 @@ export class AddPaperComponent implements OnInit {
   projects
   status_paper
   files
-  addnewTypeModal
+  
 
   constructor(private fb: FormBuilder,
     private paperTypeService: PaperTypeService,
@@ -59,6 +59,8 @@ export class AddPaperComponent implements OnInit {
         Validators.required,
       ]),
       file: new FormControl('', [
+      ]),
+      auto_email: new FormControl(false, [
       ])
     }
     this.paperForm = this.fb.group(formControls);
@@ -71,6 +73,7 @@ export class AddPaperComponent implements OnInit {
   get project_id() { return this.paperForm.get('project_id') }
   get status() { return this.paperForm.get('status') }
   get file() { return this.paperForm.get('file') }
+  get auto_email() { return this.paperForm.get('auto_email') }
   ngOnInit(): void {
     this.paperTypeService.getPaperTypes().subscribe(
       res => {
@@ -107,7 +110,13 @@ export class AddPaperComponent implements OnInit {
 
    
     let paper = (this.paperForm.value)
-    console.log(paper)
+    let start_date =  new Date(paper.start_date).getTime()
+    let end_date = new Date(paper.end_date).getTime()
+    let diff = (end_date - start_date )/86400000
+    if( diff < 31 )
+    {
+     this.toastr.error("End date must be Bigger than Start date at least 31 days")
+    }else{
     let formData = new FormData();
       formData.append("file",this.files,this.files.name)
       this.paperTypeService.uploadFile(formData).then(
@@ -123,32 +132,17 @@ export class AddPaperComponent implements OnInit {
         },err => {
             console.log(err)
           }) 
+      
+    }
+
   
 }
 
-  uploadFile(event) {
+  selectFile(event) {
     this.files = event.target.files[0]
 
   }
 
-
-
-  addType() {
-    this.addnewTypeModal = true;
-  }
-
-
-  refreshPage() {
-    this.ngOnInit()
-    this.toastr.success(' Type added!')
-    this.addnewTypeModal = false
-  }
-
-
-
-  hideModal1() {
-    this.addnewTypeModal = false
-  }
 
 
 }

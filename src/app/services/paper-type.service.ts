@@ -44,16 +44,22 @@ export class PaperTypeService {
     return  this.http.post<any>(this.api.api+'/uploadFile',data,this.header).toPromise();
 
   }
-  createType(paper_type,is_renewing)
+  createType(type,email)
   {
-   return this.http.post<any>(this.api.api+'/createType',{paper_type:paper_type , is_renewing:is_renewing},this.header)
+   return this.http.post<any>(this.api.api+'/createType',{type:type , email:email},this.header)
   }
 
 
 
   getJustContracts()
   {
-    return this.http.get<any>(this.api.api+'/getJustContracts',this.header)
+    return this.http.get<any>(this.api.api+'/getJustContracts',this.header).toPromise()
+  }
+
+
+  sendMail(contracts)
+  {
+    return this.http.post<any>(this.api.api+'/sendMail',{contracts : contracts }, this.header).toPromise()
   }
 
 }

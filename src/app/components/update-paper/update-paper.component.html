@@ -1,9 +1,6 @@
 <p-dialog header="Update Paper" [(visible)]="updatePaperModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid" (onHide)="hideTheModal()">
-  <div class="p-fluid">
-    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
-    <br />
-    
+  <div class="p-fluid">    
     <form [formGroup]="paperForm" >
     
       <div class="p-grid p-fluid">  
@@ -81,18 +78,25 @@
            
             </div>
 
-    <div class="p-grid p-fluid">  
-      <div class="p-field p-col-6 ">
-        <label for="file">File: <a href="{{ fileGenralLink}}{{selectedFilePath}}" target="blank">(Current File)</a></label><br>
-        <input class="form-control" type="file" id="formFile" formControlName="file" (change)="selectFile($event)">           
-      </div>
-      <div class="p-field p-col-12">
-        <span class="p-float-label" >
-          <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
-          <label for="description">Description</label>
-        </span>
+            <div class="p-grid p-fluid">  
+              <div class="p-field p-col-6 ">
+                <label for="file">File:</label><br>
+                <input class="form-control" type="file" id="formFile" formControlName="file" (change)="selectFile($event)">           
+              </div>
+              <div class="form-check form-switch" style="margin-top: 25px;">
+                <label class="form-check-label" for="flexSwitchCheckDefault" >Active Notification :</label><br>
+                <input type="checkbox" id="check"  formControlName="auto_email">
+              </div>
             </div>
-    </div>
+            <div class="p-grid p-fluid"> 
+              <div class="p-field p-col-12">
+                <span class="p-float-label" >
+                  <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+                  <label for="description">Description</label>
+                </span>
+                    </div> 
+                    </div>
+
     </form>
   </div>
 

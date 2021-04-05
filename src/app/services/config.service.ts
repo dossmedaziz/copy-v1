@@ -52,6 +52,19 @@ export class ConfigService {
 
   ]
 
-
+  contract_status = [
+    {
+      "id": 1,
+      "status_name" : "Sent",
+      "color" : "#20bf6b" , 
+      "icon":"pi-check"
+       },
+       {
+        "id": 2,
+        "status_name" : "Not yet",
+        "color" : "#f7d794" , 
+        "icon":"pi-exclamation-triangle"
+         }
+  ]
   constructor() { }
 }

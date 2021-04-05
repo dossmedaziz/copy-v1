@@ -57,6 +57,8 @@ import { PaperManagerComponent } from './paper-manager/paper-manager.component';
 import { AddPaperComponent } from './components/add-paper/add-paper.component';
 import { AddPaperTypeComponent } from './components/add-paper-type/add-paper-type.component';
 import { UpdatePaperComponent } from './components/update-paper/update-paper.component';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 
@@ -121,7 +123,8 @@ import { UpdatePaperComponent } from './components/update-paper/update-paper.com
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    
+    ConfirmPopupModule,
+    TooltipModule,
 
 
   ],

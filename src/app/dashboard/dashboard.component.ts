@@ -14,20 +14,22 @@ export class DashboardComponent implements OnInit {
       previewModal
       contractsModal
 
-selectedContractsType
+      selectedContractsType
       contracts
-      status_paper
+      contract_status
       selectedContracts
       response
       maintContracts
       hostingtContracts
       updateContracts
+   
 
+    
 
   constructor(private paperTypeService:PaperTypeService,private configService:ConfigService) { }
 
   async ngOnInit() {
- await  this.paperTypeService.getJustContracts().subscribe(
+ await  this.paperTypeService.getJustContracts().then(
     res => {
       this.response = res
         this.contracts = this.response.contracts
@@ -38,7 +40,10 @@ selectedContractsType
       console.log(err)
     }
   )   
-    this.status_paper= this.configService.status_paper
+
+  await this.sendMail()
+    this.contract_status= this.configService.contract_status
+    
 
   }
 
@@ -57,8 +62,11 @@ selectedContractsType
 
 filterStatus(id)
 {
-  let status =  this.status_paper.find( el => el.id == id )
-  return status
+  if(id == 0){
+    return this.contract_status['1']
+  }else {
+    return this.contract_status['0']
+  }
 }
 
 
@@ -80,7 +88,29 @@ preview()
 
 
 
+sendMail()
+  {
 
+    let autoContracts = new Array() 
+    
+    this.contracts.forEach(element => {
+        if((element.auto_email == 1 )&& (element.isReminded == 0)){
+          autoContracts.push(element)
+        }
+    })    
+if(autoContracts.length != 0)
+    {
+         this.paperTypeService.sendMail(autoContracts).then(
+       res => {
+         console.log(res);         
+       }, err => {
+         console.log(err);
+         
+       })
+      
+
+    }
+  }
 
 
 }

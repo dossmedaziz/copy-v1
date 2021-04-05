@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'; 
 import { PaperTypeService } from 'src/app/services/paper-type.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -9,27 +10,62 @@ import { PaperTypeService } from 'src/app/services/paper-type.service';
   styleUrls: ['./add-paper-type.component.css']
 })
 export class AddPaperTypeComponent implements OnInit {
-  @Input()  addnewTypeModal
   typeForm : FormGroup
-  alert = "Activated"
   checked
-  @Output() updatePage : EventEmitter<any> = new EventEmitter()
-  @Output() hideModal : EventEmitter<any> = new EventEmitter()
+  paperTypes 
+  selectedTypes
+  addTypeModal
+  updateTypeModal
 
+  constructor(private fb:FormBuilder,private paperTypeSrvice :PaperTypeService,private toastr : ToastrService) 
+  {
+    let formControls = {
 
-  constructor(private fb:FormBuilder,private paperTypeSrvice :PaperTypeService,) {}
-
-
-
-
-  type_name : FormControl = new FormControl('',[
+    type_name  : new FormControl('',[
     Validators.required,
     Validators.pattern("[A-Z a-z 0-9 .'-]+"),
     Validators.minLength(4),
     Validators.maxLength(20)
-    ])
+    ]),
+    alert  : new FormControl(false,[
+      ]),
+    receiver  : new FormControl('',[
+      ]),
+
+    subject  : new FormControl('',[
+    ]),
+    content  : new FormControl('',[
+      Validators.required,
+      Validators.pattern("[A-Z a-z 0-9 .'-]+"),
+    ]),
+   }
+
+    this.typeForm = this.fb.group(formControls);
+
+  }
+              get type_name() { return this.typeForm.get('type_name')}
+              get alert() { return this.typeForm.get('alert')}
+              get receiver() { return this.typeForm.get('receiver')}
+              get subject() { return this.typeForm.get('subject')}
+              get content() { return this.typeForm.get('content')}
+
+
+
+          
+  
 
   ngOnInit(): void {
+    this.paperTypeSrvice.getPaperTypes().subscribe(
+      res =>{ 
+        this.paperTypes = res          
+      }, err => {
+        console.log(err);
+        
+      }
+      
+    )
+
+    
   }
 
 
@@ -37,28 +73,52 @@ export class AddPaperTypeComponent implements OnInit {
 
   addType()
   {
-   let type_name = this.type_name.value
-   this.paperTypeSrvice.createType(type_name,this.checked).subscribe(
-     res=>{
-       console.log(res)
-       this.updatePage.emit()
-       
-     }, err =>{
-       console.log(err)
+     let type = {
+       paper_type : this.typeForm.get('type_name').value,
+       is_renewing : this.typeForm.get('alert').value
      }
-   )
+     let email = {
+      subject : this.typeForm.get('subject').value,
+      content : this.typeForm.get('content').value
+     }
+    this.paperTypeSrvice.createType(type,email).subscribe(
+      res => {
+        console.log(res);
+        this.toastr.success("Type added!")
+        this.ngOnInit()
+        this.addTypeModal = false
+        
+        }, err => {
+          console.log(err);
+          
+        }
+    )
 
+    console.log(email);
+    
  }
 
- check(event){
-   this.checked = event.target.checked
+
+ openTypeModal()
+ {
+   this.addTypeModal = true
  }
+
+
+
+ getSelectedType(type)
+ {
+
+  this.updateTypeModal = true
+   console.log(type);
+   
+   this.typeForm.patchValue({
+     type_name : type.paper_type,
+     alert : type.is_renewing
+   })
+   
+ }
+
 
  
-
- hideTheModal()
-{
-  this.hideModal.emit()
-}
-
 }
