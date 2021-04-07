@@ -18,8 +18,7 @@ export class ClientsComponent implements OnInit {
   selectedClients
   clientForm: FormGroup;
   contactForm : FormGroup;
-  displayModal: boolean;
-  displayModal1: boolean;
+  updateModal: boolean;
   addNewClientModal: boolean;
   addContactModal: boolean;
    btnable
@@ -140,7 +139,7 @@ export class ClientsComponent implements OnInit {
                     }
 
         getSelectedClient(client){
-                      this.displayModal = true
+                      this.updateModal = true
                       this.slectedClientId= client.id
 
                       this.clientForm.patchValue({
@@ -160,7 +159,7 @@ export class ClientsComponent implements OnInit {
                   this.toastr.success("updated !")
                   this.ngOnInit()
                     }, err => { console.log(err) })
-              this.displayModal = false;}
+              this.updateModal = false;}
 
         deleteClients(){
                 Swal.fire({

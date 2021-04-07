@@ -97,7 +97,9 @@
        <td>{{ paper.start_date | date: 'mediumDate'}}</td> 
        <td>{{ paper.end_date | date: 'mediumDate'}}</td> 
        <td>{{ paper.project.project_name  }}</td> 
-       <td>{{ paper.description }}</td> 
+       <td>{{ paper.description ? paper.description : 'No description' }}
+
+       </td> 
        <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(paper.status).icon }}" class="tags"   
         [style.background]="filterStatus(paper.status).color" value="{{ filterStatus(paper.status).status_name}}" [rounded]="false" ></p-tag></td> 
        

@@ -18,7 +18,7 @@
       pRipple
       label="New"
       icon="pi pi-plus"
-      (click)="addUserModal()"
+      (click)="ShowaddUserModal()"
       class="p-button-success p-mr-2 p-button-rounded"
     ></button>
     <button
@@ -94,13 +94,6 @@
           class="p-button-rounded p-button-success p-mr-2"
           (click)="getSelectedUser(user)"
         ></button>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-info-circle"
-          class="p-button-rounded p-button-secondary p-mr-2"
-          (click)="showModalDialog1()"
-        ></button>
       </td>
     </tr>
   </ng-template>
@@ -115,7 +108,7 @@
 <!-- New popup-->
 <p-dialog
   header="Add new User"
-  [(visible)]="displayModal3"
+  [(visible)]="addUserModal"
   [modal]="true"
   [style]="{ width: '450px' }"
   [baseZIndex]="10000"
@@ -177,7 +170,7 @@
 
 <ng-template pTemplate="footer">
 
-  <button type="button" (click)="displayModal3 = false" class="btn btn-outline-primary"style="border:none;">Cancel</button>
+  <button type="button" (click)="addUserModal = false" class="btn btn-outline-primary"style="border:none;">Cancel</button>
   <button type="button" [disabled]="userForm.invalid"  (click)="addUser()" class="btn btn-outline-primary" style="border:none;">Save</button>
 </ng-template>
 
@@ -187,7 +180,7 @@
 <!-- Update popup-->
 <p-dialog
   header="Update User"
-  [(visible)]="displayModal"
+  [(visible)]="updateModal"
   [modal]="true"
   [style]="{ width: '450px' }"
   [baseZIndex]="10000"
@@ -248,40 +241,13 @@
 
 <ng-template pTemplate="footer">
 
-  <button type="button" (click)="displayModal3 = false" class="btn btn-outline-primary"style="border:none;">Cancel</button>
+  <button type="button" (click)="updateModal = false" class="btn btn-outline-primary"style="border:none;">Cancel</button>
   <button type="button" (click)="updateUser()" class="btn btn-outline-primary" [disabled]="userForm.invalid" style="border:none;">Save</button>
 </ng-template>
 
 
 </p-dialog>
 
-<!-- MoreInfo popup-->
-<p-dialog
-  header="More Info"
-  [(visible)]="displayModal1"
-  [modal]="true"
-  [style]="{ width: '650px' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
-  <img
-    class="center"
-    src="assets/img/cog_tools_configuration_settings_icon_131758.ico"
-  />
-  <br />
-<div>
-  <h4>Contact: </h4>
-</div>
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-check"
-      (click)="displayModal1 = false"
-      label="Ok"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>
 
 
 

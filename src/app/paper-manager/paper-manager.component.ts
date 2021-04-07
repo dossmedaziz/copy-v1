@@ -98,7 +98,7 @@ export class PaperManagerComponent implements OnInit {
 
     this.paperTypeService.getPapers().subscribe(
       res=>{
-        this.papers =  res
+        this.papers =  res        
       }, err=>{
         console.log(err)
       }
@@ -260,4 +260,5 @@ filterExt(file)
    return 'pi-file-excel'
  }
 }
+
     }

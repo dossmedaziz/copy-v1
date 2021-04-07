@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'; 
 import { PaperTypeService } from 'src/app/services/paper-type.service';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -16,7 +17,9 @@ export class AddPaperTypeComponent implements OnInit {
   selectedTypes
   addTypeModal
   updateTypeModal
-
+  displayBasic
+  showMailForm
+  selectedType
   constructor(private fb:FormBuilder,private paperTypeSrvice :PaperTypeService,private toastr : ToastrService) 
   {
     let formControls = {
@@ -64,7 +67,7 @@ export class AddPaperTypeComponent implements OnInit {
       }
       
     )
-
+  this.showMailForm = this.typeForm.get('alert').value 
     
   }
 
@@ -75,7 +78,7 @@ export class AddPaperTypeComponent implements OnInit {
   {
      let type = {
        paper_type : this.typeForm.get('type_name').value,
-       is_renewing : this.typeForm.get('alert').value
+       is_renewing : this.typeForm.get('alert').value ? this.typeForm.get('alert').value : false
      }
      let email = {
       subject : this.typeForm.get('subject').value,
@@ -83,18 +86,16 @@ export class AddPaperTypeComponent implements OnInit {
      }
     this.paperTypeSrvice.createType(type,email).subscribe(
       res => {
-        console.log(res);
         this.toastr.success("Type added!")
-        this.ngOnInit()
+        this.typeForm.reset()
         this.addTypeModal = false
+        this.ngOnInit()
         
         }, err => {
           console.log(err);
           
         }
     )
-
-    console.log(email);
     
  }
 
@@ -102,23 +103,116 @@ export class AddPaperTypeComponent implements OnInit {
  openTypeModal()
  {
    this.addTypeModal = true
+   this.typeForm.reset()   
+  this.showMailForm = false
  }
-
+ hideTheModal()
+ {
+   this.addTypeModal = false
+   this.updateTypeModal = false
+   this.typeForm.reset()   
+ }
 
 
  getSelectedType(type)
  {
 
-  this.updateTypeModal = true
-   console.log(type);
-   
+
+  this.selectedType = type 
    this.typeForm.patchValue({
      type_name : type.paper_type,
-     alert : type.is_renewing
+     alert : type.is_renewing,
+     subject : type.email ? type.email.subject : "" ,
+     content : type.email ? type.email.content  : "",
    })
-   
+   this.showMailForm = type.is_renewing
+  this.updateTypeModal = true
+
  }
 
+ isRenewing(event)
+  {
+    if(event.target.checked)
+    {
+      this.showMailForm = true
+      
+    } else {
+      this.showMailForm = false
 
+      
+    }
+  }
  
+  updateType()
+    {
+      let type = {
+        paper_type : this.typeForm.get('type_name').value,
+        is_renewing : this.typeForm.get('alert').value,
+        id : this.selectedType.id
+      }
+      let email = {
+       subject : this.typeForm.get('subject').value,
+       content : this.typeForm.get('content').value
+      }
+    this.paperTypeSrvice.updateType(type,email).subscribe(
+      res => {
+        console.log(res);
+        this.toastr.success("updated")
+        this.updateTypeModal = false
+        this.typeForm.reset()
+        this.showMailForm = false
+        this.ngOnInit()
+        
+      }, err => {
+        console.log(err);
+        
+      }
+    )
+      
+    }
+
+    deleteType(){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this imaginary file!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!', 
+        cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.value) {
+          let types_id = []
+          this.selectedTypes.map(el=>{
+            types_id.push({
+             "type_id": el.id
+           })
+          })
+    
+          this.paperTypeSrvice.deleteType(types_id).subscribe(
+            res=>{
+              this.toastr.success("deleted")
+              this.ngOnInit()
+            }, err=>{
+              console.log(err)
+            }
+          )
+    
+    
+          Swal.fire(
+            'Deleted!',
+            'Your imaginary file has been deleted.',
+            'success',
+           )
+        
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+    
+      })
+      
+    }
 }

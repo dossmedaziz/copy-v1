@@ -56,8 +56,6 @@
                
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="getSelectedClient(client)"></button>
-                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2"></button>
-
                 </td>
             </tr>
         </ng-template>
@@ -138,8 +136,9 @@
                                       <input pInputText type="text" [(ngModel)]="contact.description" >
                                   </ng-template>
                                   <ng-template pTemplate="output">
-                                      {{contact.description}}
+                                      {{contact.description ? contact.description :'No description' }}
                                   </ng-template>
+                  
                                 </p-cellEditor>
                             </td>
                          
@@ -163,7 +162,7 @@
 </div>
 
 <!-- Modal for  editing-->
-<p-dialog header="Update Client" [(visible)]="displayModal" [modal]="true"[style]="{ width: '120vh','height':'80vh  ' }"[baseZIndex]="10000" 
+<p-dialog header="Update Client" [(visible)]="updateModal" [modal]="true"[style]="{ width: '120vh','height':'80vh  ' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
     <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
@@ -251,21 +250,13 @@
   </div>
   
   <ng-template pTemplate="footer">
-    <p-button icon="pi pi-times" (click)="displayModal = false" label="Cancel" styleClass="p-button-text" ></p-button>
+    <p-button icon="pi pi-times" (click)="updateModal = false" label="Cancel" styleClass="p-button-text" ></p-button>
     <p-button icon="pi pi-check" (click)="updateUser()" label="Save" styleClass="p-button-text" ></p-button>
 </ng-template>
 
 </p-dialog>
 
-<!-- Modal More info-->
-<p-dialog header="More Info" [(visible)]="displayModal1" [modal]="true" [style]="{ width: '650px' }" [baseZIndex]="10000"[draggable]="true"[resizable]="true">
-    <img class="center"  src="assets/img/cog_tools_configuration_settings_icon_131758.ico"/>
-    <br />
-  
-    <ng-template pTemplate="footer">
-      <p-button icon="pi pi-check"  (click)="displayModal1 = false" label="Ok" styleClass="p-button-text"></p-button>
-    </ng-template>
-  </p-dialog>
+
   
 <!-- Modal add new Client-->
 <p-dialog header="Add new Client" [(visible)]="addNewClientModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 

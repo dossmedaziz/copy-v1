@@ -77,11 +77,11 @@
               <td>{{ project.client?.client_name  }}</td> 
               <td>{{ project.start_date | date: 'mediumDate'}}</td> 
               <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus1(project.status).icon }}" class="tags"  [style.background]="filterStatus1(project.status).color" value="{{ filterStatus1(project.status).status_name}}" [rounded]="false" ></p-tag></td> 
-              <td>{{ project.description }}</td> 
+              <td>{{ project.description ?project.description  : 'No description'  }}
+              </td> 
              
               <td>
                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="selectedProject(project)"></button>
-                  <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2"></button>
 
               </td>
           </tr>
@@ -178,7 +178,6 @@
     <div class="p-grid p-fluid">  
       <div class="p-field p-col-6 ">
         <label for="icon">Start Date</label>       
-          <!-- <input id="start_date" type="date" pInputText class="brad" formControlName="start_date">  -->
           <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar>
         <div *ngIf="start_date.touched && start_date.invalid"> 
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small> 
@@ -255,11 +254,10 @@
     <div class="p-grid p-fluid">  
       <div class="p-field p-col-6 ">
         <label for="icon">Start Date</label>       
-          <input id="start_date" type="date" pInputText class="brad" formControlName="start_date"> 
-        <div *ngIf="start_date.touched && start_date.invalid"> 
+          <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar>
+           <div *ngIf="start_date.touched && start_date.invalid"> 
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small> 
         </div> 
-              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"dateFormat="dd.mm.yy"></p-calendar> -->
 
       </div>
       <div class="p-field p-col-6 ">

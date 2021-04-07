@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
   async ngOnInit() {
  await  this.paperTypeService.getJustContracts().then(
     res => {
-      this.response = res
+      this.response = res      
         this.contracts = this.response.contracts
         this.maintContracts = this.response.maintenance
         this.hostingtContracts = this.response.hosting
@@ -102,7 +102,7 @@ if(autoContracts.length != 0)
     {
          this.paperTypeService.sendMail(autoContracts).then(
        res => {
-         console.log(res);         
+         console.log(res);                  
        }, err => {
          console.log(err);
          

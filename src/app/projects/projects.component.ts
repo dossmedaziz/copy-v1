@@ -24,10 +24,8 @@ export class ProjectsComponent implements OnInit {
   selectedProjects
   addNewPaperModal
   updateModal : boolean;
-  displayModal1: boolean;
   addNewProjectModal: boolean;
 
-  
   selectedPaper
   updatePaperModal
   fileGenralLink = 'http://localhost:8000/'
@@ -105,10 +103,7 @@ export class ProjectsComponent implements OnInit {
   
 
 
-  showModalDialog1() {
-    this.displayModal1 = true;
-  }
-
+  
 
   showAddProjectModal() {
     this.addNewProjectModal = true;

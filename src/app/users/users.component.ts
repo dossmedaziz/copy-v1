@@ -14,12 +14,10 @@ export class UsersComponent implements OnInit {
 
 users
 selectedRoles
-displayModal: boolean;
-displayModal1: boolean;
-displayModal3: boolean;
+updateModal: boolean;
+addUserModal: boolean;
 userForm: FormGroup;
 roles
-selectedUser = new Array()
 selectedUser_id
 selectedUsers
 
@@ -73,15 +71,6 @@ this.roles= res
   }
 
 
-  showModalDialog() {
-    this.displayModal = true;
-}
-
-
-showModalDialog1() {
-  this.displayModal1 = true;
-}
-
 
 
 
@@ -91,7 +80,7 @@ addUser(){
    res=>{
 console.log(res)
 this.toastr.success('user added successfully')
-this.displayModal3= false
+this.addUserModal= false
 this.ngOnInit()
 
 },err=>{
@@ -108,15 +97,15 @@ this.ngOnInit()
 
 
 
-addUserModal()
+ShowaddUserModal()
 {
   this.userForm.reset()
-  this.displayModal3 = true
+  this.addUserModal = true
 }
 
 
 getSelectedUser(user) {
-  this.displayModal = true;
+  this.updateModal = true;
   this.selectedUser_id = user.id
 
   this.userForm.patchValue({
@@ -136,7 +125,7 @@ updateUser()
     res=>{
       this.toastr.success("updated !")
       this.ngOnInit()
-  this.displayModal = false;
+  this.updateModal = false;
 
     }, err => {
       if(err.status == 409)
