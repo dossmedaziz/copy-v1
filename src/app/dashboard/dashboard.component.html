@@ -86,7 +86,8 @@
                 <th pSortableColumn="start_date">Start Date <p-sortIcon field="start_date"></p-sortIcon></th>
                 <th pSortableColumn="end_date">End Date <p-sortIcon field="end_date"></p-sortIcon></th>
                 <th pSortableColumn="type">Type <p-sortIcon field="type"></p-sortIcon></th>
-                <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                <th pSortableColumn="type">Status <p-sortIcon field="type"></p-sortIcon></th>
+                <th pSortableColumn="status">Reminder Email<p-sortIcon field="status"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
@@ -100,12 +101,16 @@
                 <td>{{contract.start_date  | date: 'mediumDate' }}</td>
                 <td>{{contract.end_date  | date: 'mediumDate' }}</td>
                 <td>{{ contract.type.paper_type.toUpperCase() }}</td>
-                <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(contract.isReminded).icon }}" class="tags"   
-                    [style.background]="filterStatus(contract.isReminded).color" value="{{ filterStatus(contract.isReminded).status_name}}" [rounded]="false" ></p-tag></td> 
+                <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus(contract.status).icon }}" class="tags"   
+                    [style.background]="filterStatus(contract.status).color" value="{{ filterStatus(contract.status).status_name}}" [rounded]="false" ></p-tag></td> 
+                
+                <td>
+                    <p-tag styleClass="p-mr-2" icon="pi {{filterStatus1(contract.isReminded).icon }}" class="tags"   
+                    [style.background]="filterStatus1(contract.isReminded).color" value="{{ filterStatus1(contract.isReminded).status_name}}" [rounded]="false" ></p-tag>
+                </td> 
                    
                 <td>
                     <button pButton pRipple icon="pi pi-send" class="p-button-rounded p-button-success p-mr-2"  (click)="showEmail()"></button>
-                    <button pButton pRipple icon="pi pi-info-circle" class="p-button-rounded p-button-secondary p-mr-2" (click)="ShowContract(contract)"></button>
                     <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-warning " (click)="preview()"></button>  
                 </td>
             </tr>

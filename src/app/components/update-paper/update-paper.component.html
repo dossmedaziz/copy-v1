@@ -83,9 +83,14 @@
                 <label for="file">File: <a href="{{fileGenralLink}}{{selectedFilePath}}" target="_blank">( Current File )</a></label><br>
                 <input class="form-control" type="file" id="formFile" formControlName="file" (change)="selectFile($event)">           
               </div>
-              <div class="form-check form-switch" style="margin-top: 25px;">
+              <!-- <div class="form-check form-switch" style="margin-top: 25px;">
                 <label class="form-check-label" for="flexSwitchCheckDefault" >Active Notification :</label><br>
                 <input type="checkbox" id="check"  formControlName="auto_email">
+              </div> -->
+
+              <div class="form-check form-switch" style="margin-top: 25px;">
+                <label class="form-check-label" for="flexSwitchCheckDefault" >Active Notification :</label><br>
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"formControlName="auto_email" >
               </div>
             </div>
             <div class="p-grid p-fluid"> 

@@ -111,7 +111,7 @@
                                 <td pEditableColumn>
                                   <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText type="text" [(ngModel)]="contact.contact_phone" >
+                                        <input pInputText type="text" [(ngModel)]="contact.contact_phone"  required>
                                     </ng-template>
                                     <ng-template pTemplate="output">
                                         {{contact.contact_phone}}

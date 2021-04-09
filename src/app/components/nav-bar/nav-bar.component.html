@@ -4,14 +4,19 @@
 <i class="hamburger align-self-center"></i>
 </a>
 
-    <form class="d-none d-sm-inline-block">
-        <div class="input-group input-group-navbar">
-            <input type="text" class="form-control" placeholder="Search…" aria-label="Search">
-            <button class="btn" type="button">
+    
+     <div class="input-group input-group-navbar">
+            <input type="text" class="form-control" placeholder="Search…" aria-label="Search" [(ngModel)]="searchKey" >
+           <a  href="search/{{searchKey}}"> <button class="btn" type="button" >
   <i class="align-middle" data-feather="search"></i>
-</button>
+</button></a>
         </div>
-    </form>
+        <!-- <div class="input-group input-group-navbar">
+            <input type="text" class="form-control" placeholder="Search…" aria-label="Search" [(ngModel)]="searchKey" >
+           <a  (click)="test()"> <button class="btn" type="button" >
+  <i class="align-middle" data-feather="search"></i>
+</button></a>
+        </div> -->
 
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
@@ -170,9 +175,4 @@
 
 
 </nav>
-<!-- 
-<p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
-    <h1 style="font-weight:normal">Left Sidebar</h1>
-    <p-button type="button" (click)="visibleSidebar1 = false" label="Save" styleClass="p-button-success"></p-button>
-    <p-button type="button" (click)="visibleSidebar1 = false" label="Cancel" styleClass="p-button-secondary"></p-button>
-</p-sidebar> -->
+

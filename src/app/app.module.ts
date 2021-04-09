@@ -59,7 +59,9 @@ import { AddPaperTypeComponent } from './components/add-paper-type/add-paper-typ
 import { UpdatePaperComponent } from './components/update-paper/update-paper.component';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {TooltipModule} from 'primeng/tooltip';
-
+import { SearchResultComponent } from './components/search-result/search-result.component';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 
 @NgModule({
@@ -82,6 +84,7 @@ import {TooltipModule} from 'primeng/tooltip';
     AddPaperComponent,
     AddPaperTypeComponent,
     UpdatePaperComponent,
+    SearchResultComponent,
 
   ],
   imports: [
@@ -125,7 +128,8 @@ import {TooltipModule} from 'primeng/tooltip';
     ReactiveFormsModule,
     ConfirmPopupModule,
     TooltipModule,
-
+    MessagesModule,
+    MessageModule
 
   ],
   providers: [],

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree,Router } from '@angular/router';
+import { PaperTypeService } from '../services/paper-type.service';
 
 @Component({
   selector: 'app-layout',
@@ -8,10 +9,11 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree,Route
 })
 export class LayoutComponent implements OnInit {
   
-  constructor(private router:Router) { }
+  constructor(private router:Router , private PaperTypeService :PaperTypeService) { }
 
-  ngOnInit(): void {
-    let url=this.router.url
+  expiredContracts
+ async ngOnInit() {
+    let url = this.router.url
     
         
         let privileges = JSON.parse(localStorage.getItem('privileges'))
@@ -29,12 +31,28 @@ export class LayoutComponent implements OnInit {
         });
 
 
-        if(!reslt)
-        {
-          this.router.navigate(['/dashboard'])
-        }
+        // if(!reslt)
+        // {
+        //   this.router.navigate(['/dashboard'])
+        // }
 
 
+   
+   await  this.PaperTypeService.getExpiredContracts().then(
+      res => {
+        this.expiredContracts = res
+      }, err => {
+        console.log(err);
+        
+      }
+    )
+     this.PaperTypeService.changeStatus(this.expiredContracts,3).subscribe(
+       res => {         
+       }, err => {
+         console.log(err);
+         
+       }
+     )
     
 
    }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { ClientsComponent } from './clients/clients.component';
 import { AddPaperTypeComponent } from './components/add-paper-type/add-paper-type.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
 import { BillsComponent } from './files/bills/bills.component';
@@ -26,7 +27,6 @@ const routes: Routes = [
       {
         path:'dashboard',
         component:DashboardComponent,
-        canActivate:[SpaceGuard]
       },
       
       {
@@ -37,20 +37,16 @@ const routes: Routes = [
        {
         path:'users',
         component:UsersComponent,
-        canActivate:[SpaceGuard]
        },
       
       {
         path:'clients',
         component:ClientsComponent,
-        canActivate:[SpaceGuard]
-
 
       },
       {
         path:'roles',
         component:RolesComponent,
-        canActivate:[SpaceGuard]
 
 
       },
@@ -64,21 +60,22 @@ const routes: Routes = [
       {
         path:'bills',
         component:BillsComponent,
-        canActivate:[SpaceGuard]
       },
       {
         path:'addBill',
         component:AddBillComponent,
-        canActivate:[SpaceGuard]
       },
       {
         path:'paperManager',
         component:PaperManagerComponent,
-        canActivate:[SpaceGuard]
       },
       {
         path:'addPaperType',
         component : AddPaperTypeComponent
+      },
+      {
+        path :'search/:keyWorld',
+        component:SearchResultComponent
       }
     ]
   },

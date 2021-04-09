@@ -10,7 +10,7 @@ declare const $: any;
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss']
 })
-export class RolesComponent implements OnInit {
+export class RolesComponent implements OnInit  {
   displayModal:  boolean;
   displayModal2: boolean;
   displayModal3: boolean;
@@ -22,7 +22,7 @@ export class RolesComponent implements OnInit {
   selectedPriv = new Array()
   
   role_privileges
-  tab
+  tab = 0
   idOfselectedRole
   nameValidator
 role_name
@@ -284,4 +284,5 @@ role_name
 
         }
       }
+     
     }

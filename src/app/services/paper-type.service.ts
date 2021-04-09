@@ -70,4 +70,14 @@ export class PaperTypeService {
   deleteType(types){
     return this.http.post<any>(this.api.api+'/deleteType',{types:types},this.header)
   }
+
+
+  getExpiredContracts()
+  {
+    return this.http.get<any>(this.api.api+'/getExpiredContracts',this.header).toPromise()
+  }
+  changeStatus(papers,status_id)
+  {
+    return this.http.post<any>(this.api.api+'/changeStatus',{papers:papers,status_id:status_id},this.header)
+  }
 }

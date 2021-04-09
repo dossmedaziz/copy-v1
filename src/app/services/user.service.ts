@@ -54,4 +54,12 @@ islogged()
        return false 
      }
 }
+
+
+
+
+search(searchKey)
+{
+  return this.http.post<any>(this.api.api+'/search',{searchKey:searchKey},this.header).toPromise()
+}
 }

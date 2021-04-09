@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
       selectedContractsType
       contracts
       contract_status
+      paper_status
       selectedContracts
       response
       maintContracts
@@ -31,7 +32,7 @@ export class DashboardComponent implements OnInit {
   async ngOnInit() {
  await  this.paperTypeService.getJustContracts().then(
     res => {
-      this.response = res      
+      this.response = res                  
         this.contracts = this.response.contracts
         this.maintContracts = this.response.maintenance
         this.hostingtContracts = this.response.hosting
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
 
   await this.sendMail()
     this.contract_status= this.configService.contract_status
+    this.paper_status= this.configService.status_paper
     
 
   }
@@ -60,7 +62,13 @@ export class DashboardComponent implements OnInit {
 }
 
 
+
 filterStatus(id)
+{
+  let status =  this.paper_status.find( el => el.id == id )
+  return status
+}
+filterStatus1(id)
 {
   if(id == 0){
     return this.contract_status['1']
@@ -94,7 +102,7 @@ sendMail()
     let autoContracts = new Array() 
     
     this.contracts.forEach(element => {
-        if((element.auto_email == 1 )&& (element.isReminded == 0)){
+        if((element.auto_email == 1 ) && (element.isReminded == 0)){
           autoContracts.push(element)
         }
     })    

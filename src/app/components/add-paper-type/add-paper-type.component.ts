@@ -154,6 +154,7 @@ export class AddPaperTypeComponent implements OnInit {
        subject : this.typeForm.get('subject').value,
        content : this.typeForm.get('content').value
       }
+      
     this.paperTypeSrvice.updateType(type,email).subscribe(
       res => {
         console.log(res);

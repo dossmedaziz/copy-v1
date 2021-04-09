@@ -110,6 +110,7 @@ export class UpdatePaperComponent implements OnInit {
                   project_id : this.selectedPaper.project_id,
                   description : this.selectedPaper.description,
                   status : this.selectedPaper.status,
+                  auto_email : this.selectedPaper.auto_email
                   })
 
                   this.selectedFilePath = this.selectedPaper.paper_file 

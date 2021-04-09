@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/services/user.service';
+import { SearchResultComponent } from '../search-result/search-result.component';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -9,11 +11,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavBarComponent implements OnInit {
 
-    visibleSidebar1;
     userName
-  constructor(  private primengConfig: PrimeNGConfig,
+    searchKey
+    visibleSidebar1
+     i : SearchResultComponent
+  constructor( 
+    private primengConfig: PrimeNGConfig,
                 private toastr: ToastrService, 
-                private router: Router ) { }
+                private router: Router,
+                private userService : UserService ) { }
 
   ngOnInit(): void {
 
@@ -23,6 +29,10 @@ export class NavBarComponent implements OnInit {
   }
 
 
+  test(){
+ this.router.navigate(['/search',this.searchKey])
+
+  }
   
   logout()
   {
@@ -32,9 +42,9 @@ export class NavBarComponent implements OnInit {
       this.router.navigate(['/login'])
       this.toastr.info('you are logged out')
 
+   }
 
-  
-    
-    }
 
+
+ 
 }
