@@ -28,19 +28,27 @@ url =  new Api()
       login()
       {
     
-      this.userService.login(this.email,this.pass).subscribe(res => {
+      this.userService.login(this.email,this.pass).subscribe(
+        res => {
 
 
         
           let token = res.token
           let user = res.user
           let privileges = res.privileges
+              
+          localStorage.setItem('token',token);
+          localStorage.setItem('user',JSON.stringify(user));
+          localStorage.setItem('privileges',JSON.stringify(privileges));
+          
+        if(user.firstLogin == 0){
+          this.router.navigate(['/updatePassword',user.id])
+        }else{
 
-              localStorage.setItem('token',token);
-              localStorage.setItem('user',JSON.stringify(user));
-              localStorage.setItem('privileges',JSON.stringify(privileges));
               this.router.navigate(['/'])
               this.toaster.success('welcome!')
+        }
+        
         
               
       },err=>{

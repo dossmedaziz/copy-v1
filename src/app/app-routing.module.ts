@@ -4,6 +4,7 @@ import { AuthGuard } from './auth.guard';
 import { ClientsComponent } from './clients/clients.component';
 import { AddPaperTypeComponent } from './components/add-paper-type/add-paper-type.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
 import { BillsComponent } from './files/bills/bills.component';
@@ -82,7 +83,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-  }
+  },
+  {
+   path : 'updatePassword/:userId',
+   component : UpdatePasswordComponent,
+   canActivate:[AuthGuard],
+ }
 ];
 
 @NgModule({

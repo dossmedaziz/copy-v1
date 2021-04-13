@@ -10,11 +10,11 @@ import { SearchResultComponent } from '../search-result/search-result.component'
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
+  searchResult
     userName
     searchKey
     visibleSidebar1
-     i : SearchResultComponent
+
   constructor( 
     private primengConfig: PrimeNGConfig,
                 private toastr: ToastrService, 
@@ -29,10 +29,6 @@ export class NavBarComponent implements OnInit {
   }
 
 
-  test(){
- this.router.navigate(['/search',this.searchKey])
-
-  }
   
   logout()
   {

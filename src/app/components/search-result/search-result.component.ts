@@ -1,4 +1,4 @@
-import { Component, OnInit,  } from '@angular/core';
+import { Component, Input, OnInit,  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -41,8 +41,5 @@ export class SearchResultComponent implements OnInit {
 
   }
 
-  search(searchKey)
-  {
-   this.keyWorld = searchKey
-  }
+
 }

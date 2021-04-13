@@ -14,13 +14,11 @@ export class LayoutComponent implements OnInit {
   expiredContracts
  async ngOnInit() {
     let url = this.router.url
-    
-        
-        let privileges = JSON.parse(localStorage.getItem('privileges'))
+    let privileges = JSON.parse(localStorage.getItem('privileges'))
     
 
 
-        let  reslt  = privileges.find(element =>{
+         let  reslt  = privileges.find(element =>{
          let name = element.space.space_name
          let i = url.indexOf(name)
          if(i != -1)
@@ -53,6 +51,11 @@ export class LayoutComponent implements OnInit {
          
        }
      )
+     let user = JSON.parse(localStorage.getItem('user'))
+    if(user.firstLogin == 0 ){
+      this.router.navigate(['/updatePassword',user.id])
+    }
+     
     
 
    }

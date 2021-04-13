@@ -62,6 +62,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import {MessageModule} from 'primeng/message';
     AddPaperTypeComponent,
     UpdatePaperComponent,
     SearchResultComponent,
+    UpdatePasswordComponent,
 
   ],
   imports: [

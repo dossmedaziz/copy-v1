@@ -40,6 +40,8 @@ export class PaperTypeService {
   deletePaper(papers_id){
     return this.http.post<any>(this.api.api+'/deletePaper',{papers_id : papers_id },this.header)
   }
+
+  
   uploadFile(data) {
     return  this.http.post<any>(this.api.api+'/uploadFile',data,this.header).toPromise();
 

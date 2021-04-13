@@ -62,4 +62,10 @@ search(searchKey)
 {
   return this.http.post<any>(this.api.api+'/search',{searchKey:searchKey},this.header).toPromise()
 }
+
+
+changePassword(password)
+{
+  return this.http.put<any>(this.api.api+'/changePassword', {password :password},this.header)
+}
 }
