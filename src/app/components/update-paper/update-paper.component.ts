@@ -4,6 +4,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { PaperTypeService } from 'src/app/services/paper-type.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { ToastrService } from 'ngx-toastr';
+import { Api } from '../../api'
 declare const $: any;
 
 @Component({
@@ -25,7 +26,8 @@ export class UpdatePaperComponent implements OnInit {
   papersType
   status_paper
   files
-  fileGenralLink = 'http://localhost:8000/'
+  api = new Api 
+  fileGenralLink = this.api.url
 
   constructor(private fb:FormBuilder, 
     private toastr :ToastrService,

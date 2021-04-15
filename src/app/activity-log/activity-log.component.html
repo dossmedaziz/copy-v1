@@ -1,0 +1,16 @@
+
+<div class="container-fluid">
+    <p-toolbar>
+        <div class="p-toolbar-group-left" [style]="{'width':'auto'}">
+        <p>Sort by User :</p>
+
+        </div>
+        
+        <div class="p-toolbar-group-right">
+          <select class="form-select" aria-label="Default select example" (change)="filter($event)" [(ngModel)]="selectedUser"> 
+            <option selected value="*">All users</option>
+            <option *ngFor="let user of users" value="{{ user.id }}">{{ user.name}}</option>
+          </select>
+        </div>
+    </p-toolbar>
+</div>

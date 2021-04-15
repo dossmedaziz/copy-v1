@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import { PaperTypeService } from '../services/paper-type.service';
 import { ProjectService } from '../services/project.service';
 import { ConfigService } from '../services/config.service';
-
+import  { Api }  from '../api'
 @Component({
   selector: 'app-paper-manager',
   templateUrl: './paper-manager.component.html',
@@ -25,7 +25,9 @@ export class PaperManagerComponent implements OnInit {
   status_paper
   files
   selectedFilePath
-  fileGenralLink = 'http://localhost:8000/'
+  // fileGenralLink = 'http://localhost:8000/'
+  api = new Api
+  fileGenralLink = this.api.url
 
   
   
@@ -79,6 +81,7 @@ export class PaperManagerComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
 
     this.paperTypeService.getPaperTypes().subscribe(
       res=>{

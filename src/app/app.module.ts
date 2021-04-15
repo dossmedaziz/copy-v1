@@ -63,6 +63,9 @@ import { SearchResultComponent } from './components/search-result/search-result.
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ActivityLogComponent } from './activity-log/activity-log.component';
 
 
 @NgModule({
@@ -87,6 +90,9 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
     UpdatePaperComponent,
     SearchResultComponent,
     UpdatePasswordComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    ActivityLogComponent,
 
   ],
   imports: [

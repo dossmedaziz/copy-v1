@@ -29,10 +29,10 @@ export class LayoutComponent implements OnInit {
         });
 
 
-        // if(!reslt)
-        // {
-        //   this.router.navigate(['/dashboard'])
-        // }
+        if(!reslt)
+        {
+          this.router.navigate(['/dashboard'])
+        }
 
 
    
@@ -51,10 +51,6 @@ export class LayoutComponent implements OnInit {
          
        }
      )
-     let user = JSON.parse(localStorage.getItem('user'))
-    if(user.firstLogin == 0 ){
-      this.router.navigate(['/updatePassword',user.id])
-    }
      
     
 

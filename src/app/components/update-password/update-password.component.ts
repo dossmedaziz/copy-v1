@@ -10,8 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UpdatePasswordComponent implements OnInit {
   passWordForm: FormGroup
-
-  constructor(private fb: FormBuilder,private activatedRoute : ActivatedRoute ,private userService : UserService) { 
+  token
+  constructor(private fb: FormBuilder,private router : Router ,private userService : UserService, private activatedRoute : ActivatedRoute) { 
 
     let formControls = {
 
@@ -34,17 +34,29 @@ export class UpdatePasswordComponent implements OnInit {
   get password() { return this.passWordForm.get('password') }
   get Confirm_password() { return this.passWordForm.get('Confirm_password') }
   ngOnInit(): void {
+    this.token  = this.activatedRoute.snapshot.params.token
+
+    let isLogged = this.userService.islogged();
+    if(isLogged)
+    {
+         this.router.navigate(['/'])
+    }
   }
 
 
 save()
 {
 
+  let user_id = this.activatedRoute.snapshot.params.userId  
   let password = this.passWordForm.get('password').value
-  this.userService.changePassword(password).subscribe(
+  this.userService.changePassword(password, this.token).subscribe(
 
   res => {
         console.log(res);
+         
+        this.router.navigate(['/login'])
+        
+    
         
   }, err =>{
     console.log(err);

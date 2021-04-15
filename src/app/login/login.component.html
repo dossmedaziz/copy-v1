@@ -16,7 +16,7 @@
                     <div class="row px-3"> <label class="mb-1">
                             <h6 class="mb-0 text-sm">Password</h6>
                         </label> <input type="password" name="password" placeholder="Enter password"[(ngModel)]="pass"class="brad"> </div>
-                    
+                    <a [routerLink]="['/forgotPassword']">Forgot password ?</a>
                     <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center my-4 mx-6 brad" (click)="login()">Login</button> </div>
                 </div>
             </div>

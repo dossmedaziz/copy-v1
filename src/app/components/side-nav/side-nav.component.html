@@ -1,4 +1,4 @@
-!:<nav id="sidebar" class="sidebar" >
+<nav id="sidebar" class="sidebar" >
     <div class="sidebar-content js-simplebar">
       <a class="sidebar-brand" [routerLink]="['/dashboard']">
         <span class="align-middle">Nachd-IT</span>
@@ -47,90 +47,27 @@
             <span class="align-middle">Bills</span>
           </a>
         </li>
-
         <li class="sidebar-item">
-          <a
-            data-target="#forms"
-            data-toggle="collapse"
-            class="sidebar-link collapsed"
-          >
-            <i class="align-middle" data-feather="clipboard"></i>
-            <span class="align-middle">Papers </span>
+          <a class="sidebar-link"  [routerLink]="['/paperManager']">
+            <i class="align-middle" data-feather="file"></i>
+            <span class="align-middle">Paper Manager</span>
           </a>
-          <ul
-            id="forms"
-            class="sidebar-dropdown list-unstyled collapse"
-            data-parent="#sidebar"
-          >
-            <li class="sidebar-item">
-              <a class="sidebar-link" [routerLink]="['/paperManager']">Paper Manager</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" [routerLink]="['/addPaperType']"
-                >Paper Types</a
-              >
-            </li>
-          </ul>
         </li>
-
-
-        <li class="sidebar-header">Tools & Components</li>
-
-
         <li class="sidebar-item">
-          <a class="sidebar-link" href="icons-feather.html">
-            <i class="align-middle" data-feather="coffee"></i>
-            <span class="align-middle">Icons</span>
+          <a class="sidebar-link" [routerLink]="['/addPaperType']">
+            <i class="align-middle" data-feather="file-text"></i>
+            <span class="align-middle">Paper Types</span>
+          </a>
+        </li>
+      
+        <li class="sidebar-item">
+          <a class="sidebar-link" [routerLink]="['/activityLog']">
+            <i class="align-middle" data-feather="activity"></i>
+            <span class="align-middle">Activities</span>
           </a>
         </li>
 
-        <li class="sidebar-item">
-          <a
-            data-target="#forms"
-            data-toggle="collapse"
-            class="sidebar-link collapsed"
-          >
-            <i class="align-middle" data-feather="check-circle"></i>
-            <span class="align-middle">Forms</span>
-          </a>
-          <ul
-            id="forms"
-            class="sidebar-dropdown list-unstyled collapse"
-            data-parent="#sidebar"
-          >
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="forms-layouts.html">Form Layouts</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="forms-basic-inputs.html"
-                >Basic Inputs</a
-              >
-            </li>
-          </ul>
-        </li>
 
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="tables-bootstrap.html">
-            <i class="align-middle" data-feather="list"></i>
-            <span class="align-middle">Tables</span>
-          </a>
-        </li>
-
-        <li class="sidebar-header">Plugins & Addons</li>
-
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="charts-chartjs.html">
-            <i class="align-middle" data-feather="bar-chart-2"></i>
-            <span class="align-middle">Charts</span>
-          </a>
-        </li>
-
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="maps-google.html">
-            <i class="align-middle" data-feather="map"></i>
-            <span class="align-middle">Maps</span>
-          </a>
-        </li>
       </ul>
     </div>
   </nav>

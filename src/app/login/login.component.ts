@@ -40,14 +40,9 @@ url =  new Api()
           localStorage.setItem('token',token);
           localStorage.setItem('user',JSON.stringify(user));
           localStorage.setItem('privileges',JSON.stringify(privileges));
-          
-        if(user.firstLogin == 0){
-          this.router.navigate(['/updatePassword',user.id])
-        }else{
-
-              this.router.navigate(['/'])
-              this.toaster.success('welcome!')
-        }
+            this.router.navigate(['/'])
+            this.toaster.success('welcome!')
+     
         
         
               

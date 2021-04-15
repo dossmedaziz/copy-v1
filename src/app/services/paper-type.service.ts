@@ -61,7 +61,7 @@ export class PaperTypeService {
 
   sendMail(contracts)
   {
-    return this.http.post<any>(this.api.api+'/sendMail',{contracts : contracts }, this.header).toPromise()
+    return this.http.post<any>(this.api.api+'/sendMail1',{contracts : contracts }, this.header).toPromise()
   }
   updateType(type,email)
   {

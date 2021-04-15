@@ -5,7 +5,7 @@ import { ProjectService } from '../services/project.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2'
 import { ConfigService } from '../services/config.service';
-
+import {  Api } from '../api'
 
 
 @Component({
@@ -28,7 +28,8 @@ export class ProjectsComponent implements OnInit {
 
   selectedPaper
   updatePaperModal
-  fileGenralLink = 'http://localhost:8000/'
+  api = new Api
+  fileGenralLink = this.api.url
 
               constructor(private  clientService : ClientService,
                 private fb:FormBuilder,

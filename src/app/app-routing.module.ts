@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { AuthGuard } from './auth.guard';
 import { ClientsComponent } from './clients/clients.component';
 import { AddPaperTypeComponent } from './components/add-paper-type/add-paper-type.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -77,6 +80,10 @@ const routes: Routes = [
       {
         path :'search/:keyWorld',
         component:SearchResultComponent
+      },
+       {
+        path : 'activityLog',
+        component : ActivityLogComponent
       }
     ]
   },
@@ -84,11 +91,19 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  {
-   path : 'updatePassword/:userId',
-   component : UpdatePasswordComponent,
-   canActivate:[AuthGuard],
- }
+  
+ {
+   path : 'forgotPassword',
+   component:ForgotPasswordComponent
+ },
+ {
+   path : 'resetPassword/:token',
+   component : ResetPasswordComponent
+ } ,
+ {
+  path : 'updatePassword/:token',
+  component : UpdatePasswordComponent,
+},
 ];
 
 @NgModule({

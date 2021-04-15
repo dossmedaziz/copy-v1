@@ -64,8 +64,20 @@ search(searchKey)
 }
 
 
-changePassword(password)
+changePassword(password, token)
 {
-  return this.http.put<any>(this.api.api+'/changePassword', {password :password},this.header)
+  return this.http.put<any>(this.api.api+'/changePassword', {password :password, token : token},this.header)
 }
+
+
+sendMail(email)
+{
+  return this.http.post<any>(this.api.api+'/sendMail', {email : email})
+}
+
+      reset(password,token)
+      {
+        return this.http.post<any>(this.api.api+'/resetPassword', {newPassword : password, token : token})
+        
+      }
 }
