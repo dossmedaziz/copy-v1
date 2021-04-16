@@ -75,9 +75,17 @@ sendMail(email)
   return this.http.post<any>(this.api.api+'/sendMail', {email : email})
 }
 
-      reset(password,token)
+resetPassword(password,token)
       {
         return this.http.post<any>(this.api.api+'/resetPassword', {newPassword : password, token : token})
         
+      }
+
+
+
+
+      checkToken(token)
+      {
+          return this.http.post<any>(this.api.api+'/checkToken',{ token : token }).toPromise()
       }
 }
