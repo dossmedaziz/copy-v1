@@ -25,7 +25,7 @@ export class ProjectsComponent implements OnInit {
   addNewPaperModal
   updateModal : boolean;
   addNewProjectModal: boolean;
-
+  searchKey
   selectedPaper
   updatePaperModal
   api = new Api

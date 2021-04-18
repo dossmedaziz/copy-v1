@@ -20,7 +20,7 @@ userForm: FormGroup;
 roles
 selectedUser_id
 selectedUsers
-
+searchKey
 
   constructor(private  userService:UserService,
               private fb:FormBuilder,
@@ -78,7 +78,6 @@ addUser(){
  let data = this.userForm.value
  this.userService.addUser(data).subscribe(
    res=>{
-console.log(res)
 this.toastr.success('user added successfully')
 this.addUserModal= false
 this.ngOnInit()
@@ -157,7 +156,6 @@ delete()
 
       this.userService.deleteUser(users_id).subscribe(
         res=>{
-          console.log(res)
           this.toastr.success("deleted")
           this.ngOnInit()
         }, err=>{

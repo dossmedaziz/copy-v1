@@ -54,9 +54,8 @@ allActivities
     }else {
      this.activityLogService.getUserActivities(this.selectedUser).subscribe(
        res => {
-         console.log(res);
-         
-       }, err => {
+       this.activities = res 
+          }, err => {
 
        }
      )
@@ -65,4 +64,11 @@ allActivities
     }
     
   }
+
+
+  findService(service_id,space_name)
+  {
+    
+  }
+
 }

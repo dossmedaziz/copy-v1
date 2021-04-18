@@ -66,7 +66,13 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
-
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
+import { ClientPipePipe } from './pipes/client-pipe.pipe';
+import { ProjectPipePipe } from './pipes/project-pipe.pipe';
+import { UserPipePipe } from './pipes/user-pipe.pipe';
+import { RolePipePipe } from './pipes/role-pipe.pipe';
+import { PaperPipePipe } from './pipes/paper-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -93,6 +99,11 @@ import { ActivityLogComponent } from './activity-log/activity-log.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ActivityLogComponent,
+    ClientPipePipe,
+    ProjectPipePipe,
+    UserPipePipe,
+    RolePipePipe,
+    PaperPipePipe,
 
   ],
   imports: [
@@ -137,7 +148,9 @@ import { ActivityLogComponent } from './activity-log/activity-log.component';
     ConfirmPopupModule,
     TooltipModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    AvatarModule,
+AvatarGroupModule
 
   ],
   providers: [],

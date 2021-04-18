@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { PaperTypeService } from 'src/app/services/paper-type.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2'
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class AddPaperTypeComponent implements OnInit {
   displayBasic
   showMailForm
   selectedType
+  searchKey
   constructor(private fb:FormBuilder,private paperTypeSrvice :PaperTypeService,private toastr : ToastrService) 
   {
     let formControls = {
@@ -216,4 +218,5 @@ export class AddPaperTypeComponent implements OnInit {
       })
       
     }
+
 }

@@ -25,10 +25,9 @@ export class PaperManagerComponent implements OnInit {
   status_paper
   files
   selectedFilePath
-  // fileGenralLink = 'http://localhost:8000/'
   api = new Api
   fileGenralLink = this.api.url
-
+  searchKey
   
   
           constructor( private fb:FormBuilder,

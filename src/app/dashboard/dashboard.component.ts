@@ -117,9 +117,7 @@ if(autoContracts.length != 0)
        })
       
 
-    }
-    console.log(autoContracts);
-    
+    }    
   }
 
 

@@ -37,7 +37,7 @@
 <div class="card">
 <p-table
   #dt
-  [value]="papers"
+  [value]="papers | paperPipe:searchKey"
   [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['paper_name','type','expiration_date','project','description','status']"
@@ -53,7 +53,7 @@
       <h5 class="p-m-0 title_erp"> Projects List</h5>
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input pInputText type="text" class="brad" placeholder="Search..." />
+        <input pInputText type="text" class="brad" placeholder="Search..."  [(ngModel)]="searchKey"/>
       </span>
     </div>
   </ng-template>

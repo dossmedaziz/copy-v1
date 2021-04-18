@@ -26,7 +26,7 @@ export class RolesComponent implements OnInit  {
   idOfselectedRole
   nameValidator
 role_name
-  
+searchKey
 
   action = new Array()
   constructor(
@@ -138,7 +138,6 @@ role_name
                 this.selectedPriv.splice(index , 1) ;
 
               }
-              console.log(this.selectedPriv)
               let i = 0
               this.selectedPriv.map(elt=>{
                 if (elt.space_id == space_id){
@@ -200,7 +199,6 @@ role_name
              {
                this.privilegeService.updateRole(this.idOfselectedRole,this.role_name,this.selectedPriv).subscribe(
                  res=>{
-                   console.log(res)
                    this.toastr.success("Updated!")
                  }, err =>{
                    console.log(err)

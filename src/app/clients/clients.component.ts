@@ -22,7 +22,7 @@ export class ClientsComponent implements OnInit {
   addNewClientModal: boolean;
   addContactModal: boolean;
    btnable
-
+   searchKey
             constructor(private clientService: ClientService,
                         private fb:FormBuilder,
                         private toastr: ToastrService,
