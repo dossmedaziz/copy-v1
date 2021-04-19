@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
     res => {
       this.response = res                  
         this.contracts = this.response.contracts
+        
         this.maintContracts = this.response.maintenance
         this.hostingtContracts = this.response.hosting
         this.updateContracts =  this.response.update
