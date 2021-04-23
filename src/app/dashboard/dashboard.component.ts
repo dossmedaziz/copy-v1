@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
       contractsModal
 
       selectedContractsType
-      contracts
+      contracts = new Array()
       contract_status
       paper_status
       selectedContracts

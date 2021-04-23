@@ -73,6 +73,7 @@ import { ProjectPipePipe } from './pipes/project-pipe.pipe';
 import { UserPipePipe } from './pipes/user-pipe.pipe';
 import { RolePipePipe } from './pipes/role-pipe.pipe';
 import { PaperPipePipe } from './pipes/paper-pipe.pipe';
+import { PaperTypePipePipe } from './pipes/paper-type-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { PaperPipePipe } from './pipes/paper-pipe.pipe';
     UserPipePipe,
     RolePipePipe,
     PaperPipePipe,
+    PaperTypePipePipe,
 
   ],
   imports: [

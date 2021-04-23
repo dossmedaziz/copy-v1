@@ -42,8 +42,6 @@
 
             ],
             "scripts": [
-              "src/assets/js/app.js",
-              "src/assets/js/app.js.map",
               "node_modules/quill/dist/quill.js"
             ]
           },

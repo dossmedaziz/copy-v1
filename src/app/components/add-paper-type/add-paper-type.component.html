@@ -37,7 +37,7 @@
 <div class="card">
 <p-table
   #dt
-  [value]="paperTypes"
+  [value]="paperTypes | paperTypePipe:searchKey"
   [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['user_name', 'email','role']"
