@@ -3,16 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { AuthGuard } from './auth.guard';
 import { ClientsComponent } from './clients/clients.component';
+import { CompanyComponent } from './company/company.component';
 import { AddPaperTypeComponent } from './components/add-paper-type/add-paper-type.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
 import { BillsComponent } from './files/bills/bills.component';
-import { ContractsComponent } from './files/contracts/contracts.component';
-import { OthersComponent } from './files/others/others.component';
+import { UpdateBillComponent } from './files/update-bill/update-bill.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { PaperManagerComponent } from './paper-manager/paper-manager.component';
@@ -70,6 +71,10 @@ const routes: Routes = [
         component:AddBillComponent,
       },
       {
+        path:'updateBill/:id',
+        component : UpdateBillComponent
+      },
+      {
         path:'paperManager',
         component:PaperManagerComponent,
       },
@@ -78,12 +83,20 @@ const routes: Routes = [
         component : AddPaperTypeComponent
       },
       {
+        path:'company',
+        component : CompanyComponent
+      },
+      {
         path :'search/:keyWorld',
         component:SearchResultComponent
       },
        {
         path : 'activityLog',
         component : ActivityLogComponent
+      },
+      {
+        path:'profile',
+        component:ProfileComponent
       }
     ]
   },

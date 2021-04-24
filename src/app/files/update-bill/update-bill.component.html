@@ -16,21 +16,23 @@
                       <input type="text" readonly class="form-control" id="quantity" *ngFor="let product of invoice.tvaTab; let i=index"
                       [(ngModel)]="num" [ngModelOptions]="{standalone: true}">
   
-                      <label for="name">Facturation Date</label>
-                      <input id="Facturation" type="date" class="form-control" (change)="formBillNum()"
-                      *ngFor="let product of invoice.tvaTab; let i=index"[(ngModel)]="product.DateFacturation"
-                      [ngModelOptions]="{standalone: true}">
+  
+                    <div class="p-field p-col-12 p-md-4" >
+                      <label for=" fad">Facturation Date</label>
+                      <p-calendar [showIcon]="false" inputId="basic" [ngModelOptions]="{standalone: true}" (onSelect)="formBillNum()"
+                      [(ngModel)]="DateFacturation"></p-calendar>
+                  </div>
                       <br>
                         <h4 class="card-title">Customer Details</h4>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <select *ngIf="!selectedClient" class="form-select" aria-label="Select Client"
+                                    <select  class="form-select" aria-label="Select Client"
                                     [(ngModel)]="invoice.clientid"  [ngModelOptions]="{standalone: true}" (change)="client()">
                                       <option *ngFor=" let c of clients" value="{{ c.id }}">{{c.client_name}}</option>
                                     </select>
-  
+  <br>
                                     <input *ngIf="selectedClient" type="text" class="form-control" name="name" id="name"
                                         [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
                                         [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
@@ -163,7 +165,7 @@
           </div>
           <div class="card border-secondary mt-2">
             <div class="card-body">
-               <h3> {{numberInWords}} </h3>
+              <input type="text" readonly [(ngModel)]="this.invoice.tvaObj.inWord"  class="form-control" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
   
@@ -193,7 +195,7 @@
                     (click)="invoiceForm.valid ? generatePDF() : ''">Open
                     Invoice</button>
                 <button type="submit" class="btn btn-secondary btn-lg btn-block"
-                    (click)="saveBill()" [routerLink]="['/bills']"
+                    (click)="saveBill()"
                     >Save</button>
                     <button type="submit" class="btn btn-secondary btn-lg btn-block"
                     [routerLink]="['/bills']"

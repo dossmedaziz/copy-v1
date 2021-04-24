@@ -10,8 +10,6 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { BillsComponent } from './files/bills/bills.component';
-import { ContractsComponent } from './files/contracts/contracts.component';
-import { OthersComponent } from './files/others/others.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
@@ -74,6 +72,9 @@ import { UserPipePipe } from './pipes/user-pipe.pipe';
 import { RolePipePipe } from './pipes/role-pipe.pipe';
 import { PaperPipePipe } from './pipes/paper-pipe.pipe';
 import { PaperTypePipePipe } from './pipes/paper-type-pipe.pipe';
+import { CompanyComponent } from './company/company.component';
+import { UpdateBillComponent } from './files/update-bill/update-bill.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -86,8 +87,6 @@ import { PaperTypePipePipe } from './pipes/paper-type-pipe.pipe';
     ClientsComponent,
     ProjectsComponent,
     BillsComponent,
-    ContractsComponent,
-    OthersComponent,
     RolesComponent,
     AddBillComponent,
     LoginComponent,
@@ -106,6 +105,9 @@ import { PaperTypePipePipe } from './pipes/paper-type-pipe.pipe';
     RolePipePipe,
     PaperPipePipe,
     PaperTypePipePipe,
+    CompanyComponent,
+    UpdateBillComponent,
+    ProfileComponent,
 
   ],
   imports: [
