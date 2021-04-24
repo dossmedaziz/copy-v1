@@ -21,8 +21,7 @@ export class AuthGuard implements CanActivate {
       {
         return true
       }else{
-        this.router.navigate(['/login'])
-        this.toastr.warning("connect first!")
+        this.router.navigate(['/login'])  
         
        
       

@@ -85,7 +85,7 @@
             </div>
 
             <div>
-                <button class="btn btn-primary btn-block" (click)="login()">Login</button>
+                <button class="btn btn-primary btn-block" (click)="login()" [disabled]="loginForm.invalid">Login</button>
             </div>
         </form>
     </div>
