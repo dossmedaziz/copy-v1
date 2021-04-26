@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'; 
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2'
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-users',
@@ -25,7 +26,8 @@ searchKey
   constructor(private  userService:UserService,
               private fb:FormBuilder,
               private privilegeService: PrivilegeService,
-              private toastr:ToastrService) { 
+              private toastr:ToastrService,
+              private configService :ConfigService) { 
     let formControls = {
       
     name : new FormControl('',[
@@ -120,7 +122,7 @@ updateUser()
 {
  let data = this.userForm.value
 
-  this.userService.updateUser(this.selectedUser_id,data).subscribe(
+  this.userService.updateUserByAdmin(this.selectedUser_id,data).subscribe(
     res=>{
       this.toastr.success("updated !")
       this.ngOnInit()
@@ -180,5 +182,13 @@ delete()
 
   })
 
+}
+filterActions(action_name,space_name)
+{
+ if( this.configService.filterActions(action_name,space_name)){
+   return true
+ }else{
+   return false
+ }
 }
 }

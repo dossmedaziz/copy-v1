@@ -3,8 +3,8 @@
  
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2    p-button-rounded" (click)="showModalDialog3()"></button>
-            <button pButton pRipple style="color: white" icon="pi pi-trash" [disabled]="!selectedClients || !selectedClients.length" class="p-button-rounded p-button-warning" (click)="deleteClients()" ></button>
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2    p-button-rounded" (click)="showModalDialog3()" *ngIf="filterActions('create','client')"></button>
+            <button pButton pRipple style="color: white" icon="pi pi-trash" [disabled]="!selectedClients || !selectedClients.length" class="p-button-rounded p-button-warning" (click)="deleteClients()"  *ngIf="filterActions('delete','client')"></button>
         </ng-template>
     </p-toolbar>
 
@@ -63,7 +63,7 @@
                 <td>{{client.fax}}</td>
                
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="getSelectedClient(client)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="getSelectedClient(client)"  *ngIf="filterActions('update','client')"></button>
                 </td>
             </tr>
         </ng-template>

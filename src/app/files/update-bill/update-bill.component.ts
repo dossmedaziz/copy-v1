@@ -147,6 +147,35 @@ get client_id() { return this.clientForm.get('client_id')
     this.num = this.invoice.tvaObj.billNum
     this.date = this.invoice.tvaObj.date
 
+
+
+
+    let privileges = JSON.parse(localStorage.getItem('privileges'))
+    let user = JSON.parse(localStorage.getItem('user'))
+    let role_id = user.role_id 
+    let  reslt  = privileges.find(element =>{
+      let action = "update"
+      let space = "bill"
+      let space_name = element.space.space_name
+      let action_name = element.action.action_name
+      let i = action.indexOf(action_name)
+      let j = space.indexOf(space_name)
+     
+      if((i != -1) && (j != -1))
+      {
+        return element.space
+      }
+      
+     });
+
+
+     if(role_id == 1 )
+     {
+
+     }else if(!reslt){
+       this.router.navigate(['/dashboard'])
+
+     }
     }
 
 

@@ -20,6 +20,7 @@
       icon="pi pi-plus"
       (click)="showAddPaperModal()"
       class="p-button-success p-mr-2 p-button-rounded"
+      *ngIf="filterActions('create','paper')"
     ></button>
     <button
       pButton
@@ -29,6 +30,7 @@
       [disabled]="!selectedPapers|| !selectedPapers.length"
       class="p-button-rounded p-button-warning"
       (click)="deletePaper()"
+      *ngIf="filterActions('delete','paper')"
     ></button>
   </ng-template>
 </p-toolbar>
@@ -109,7 +111,7 @@
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
-          (click)="getSelectedPaper(paper)"
+          (click)="getSelectedPaper(paper)"  *ngIf="filterActions('update','paper')"
         ></button>
         <a href="{{ fileGenralLink }}{{ paper.paper_file}}" target="blank"><button
           pButton

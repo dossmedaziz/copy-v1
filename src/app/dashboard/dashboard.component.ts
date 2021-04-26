@@ -122,4 +122,18 @@ if(autoContracts.length != 0)
   }
 
 
+
+
+  dashboardAccess()
+  {
+    let user = JSON.parse(localStorage.getItem('user'))
+    let role_id = user.role_id 
+    if(role_id == 1)
+    {
+      return true
+    }else {
+      return false
+    }
+  }
+
 }

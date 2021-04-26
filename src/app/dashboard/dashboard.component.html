@@ -1,4 +1,4 @@
-    
+    <div *ngIf="dashboardAccess()"> 
     <div class="p-d-flex p-jc-center">
         <div class="p-grid">
     
@@ -219,3 +219,12 @@
             <p-button icon="pi pi-check" (click)="contractsModal=false" label="Close" styleClass="p-button-text"></p-button>
              </ng-template>
 </p-dialog>
+    </div>
+
+
+
+
+    <div *ngIf="!dashboardAccess()">
+        <img src="../../assets/img/10808.jpg" alt="" style="width:150px; height: 150px;">
+<h1>hello noobs</h1>
+    </div>

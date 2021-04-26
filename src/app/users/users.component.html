@@ -20,6 +20,7 @@
       icon="pi pi-plus"
       (click)="ShowaddUserModal()"
       class="p-button-success p-mr-2 p-button-rounded"
+      *ngIf="filterActions('create','user')"
     ></button>
     <button
       pButton
@@ -29,6 +30,7 @@
       [disabled]="!selectedUsers || !selectedUsers.length"
       class="p-button-rounded p-button-warning"
       (click)="delete()"
+      *ngIf="filterActions('delete','user')"
     ></button>
   </ng-template>
 </p-toolbar>
@@ -93,6 +95,8 @@
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
           (click)="getSelectedUser(user)"
+          *ngIf="filterActions('update','user')"
+
         ></button>
       </td>
     </tr>

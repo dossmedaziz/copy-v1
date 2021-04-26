@@ -66,14 +66,8 @@ const routes: Routes = [
         path:'bills',
         component:BillsComponent,
       },
-      {
-        path:'addBill',
-        component:AddBillComponent,
-      },
-      {
-        path:'updateBill/:id',
-        component : UpdateBillComponent
-      },
+     
+      
       {
         path:'paperManager',
         component:PaperManagerComponent,
@@ -103,6 +97,16 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path:'addBill',
+    component:AddBillComponent,
+    canActivate:[AuthGuard],
+  },
+  {
+    path:'updateBill/:id',
+    component : UpdateBillComponent,
+    canActivate:[AuthGuard]
   },
   
  {

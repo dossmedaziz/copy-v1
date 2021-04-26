@@ -127,7 +127,7 @@ async   updateProfile()
   let status
     let currentPassword = this.passwordForm.get('oldPass').value
     let newPass = this.passwordForm.get('newPass').value
-    if( newPass)
+    if( newPass )
     {
  await    this.userService.updatePassword(  currentPassword, newPass).then(
       res => {
@@ -149,7 +149,7 @@ async   updateProfile()
     )
 
     }
-    if(this.isCorrect){
+    if(this.isCorrect || !newPass){
     let formData = new FormData();
     let path = ''
     if(this.files){

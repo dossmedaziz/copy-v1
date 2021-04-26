@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr';
 import { ClientService } from '../services/client.service';
 import { ContactService } from '../services/contact.service';
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-clients',
@@ -26,7 +27,8 @@ export class ClientsComponent implements OnInit {
             constructor(private clientService: ClientService,
                         private fb:FormBuilder,
                         private toastr: ToastrService,
-                        private contactService :ContactService) {
+                        private contactService :ContactService,
+                        private configService : ConfigService) {
     let formControls = {
       
                       client_name : new FormControl('',[
@@ -120,7 +122,7 @@ export class ClientsComponent implements OnInit {
                   }
                 )
 
-
+ 
   }
 
         addClient(){
@@ -279,5 +281,12 @@ export class ClientsComponent implements OnInit {
                 }
 
 
-               
+                filterActions(action_name,space_name)
+                {
+                 if( this.configService.filterActions(action_name,space_name)){
+                   return true
+                 }else{
+                   return false
+                 }
+                }
 }

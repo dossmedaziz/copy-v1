@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { BillService } from 'src/app/services/bill.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class BillsComponent implements OnInit {
   thisyear
   num = 0
   constructor(private billService : BillService,private toastr:ToastrService ,
+     private configService : ConfigService ,
     private router : Router) { }
 
   ngOnInit(): void {
@@ -95,4 +97,14 @@ this.router.navigate(['/addBill'])
 
 }
 
+
+
+filterActions(action_name,space_name)
+{
+ if( this.configService.filterActions(action_name,space_name)){
+   return true
+ }else{
+   return false
+ }
+}
 }

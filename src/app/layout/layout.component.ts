@@ -15,7 +15,8 @@ export class LayoutComponent implements OnInit {
  async ngOnInit() {
     let url = this.router.url
     let privileges = JSON.parse(localStorage.getItem('privileges'))
-    
+    let user = JSON.parse(localStorage.getItem('user'))
+    let role_id = user.role_id 
 
 
          let  reslt  = privileges.find(element =>{
@@ -29,9 +30,12 @@ export class LayoutComponent implements OnInit {
         });
 
 
-        if(!reslt)
+        if(role_id == 1 )
         {
+
+        }else if(!reslt){
           this.router.navigate(['/dashboard'])
+
         }
 
 

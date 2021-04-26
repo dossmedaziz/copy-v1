@@ -67,4 +67,30 @@ export class ConfigService {
          }
   ]
   constructor() { }
+
+
+  filterActions(action_name,space_name)
+  {
+let privileges = JSON.parse(localStorage.getItem('privileges'))
+let user = JSON.parse(localStorage.getItem('user'))
+let role_id = user.role_id 
+let  reslt  = privileges.find(element =>{
+let action = element.action.action_name
+let space = element.space.space_name
+let i = action_name.indexOf(action)
+let j = space_name.indexOf(space)
+if((i != -1) && (j != -1) )
+{
+
+return element
+}    
+});
+if(reslt || role_id == 1)
+{
+return true
+}else{
+return false 
+}
+  
+}
 }

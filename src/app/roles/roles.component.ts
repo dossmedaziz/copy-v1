@@ -3,6 +3,7 @@ import { PrivilegeService } from '../services/privilege.service';
 import Swal from 'sweetalert2'  
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'; 
+import { ConfigService } from '../services/config.service';
 
 declare const $: any;
 @Component({
@@ -31,7 +32,7 @@ searchKey
   action = new Array()
   constructor(
               private privilegeService : PrivilegeService ,
-              private toastr:ToastrService
+              private toastr:ToastrService , private configService : ConfigService
                )  {
 
               
@@ -282,5 +283,12 @@ searchKey
 
         }
       }
-     
+      filterActions(action_name,space_name)
+      {
+       if( this.configService.filterActions(action_name,space_name)){
+         return true
+       }else{
+         return false
+       }
+      }
     }

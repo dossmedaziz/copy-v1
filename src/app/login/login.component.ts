@@ -63,6 +63,7 @@ constructor(private userService : UserService,
           let token = res.token
           let user = res.user
           let privileges = res.privileges
+              console.log(res);
               
           localStorage.setItem('token',token);
           localStorage.setItem('user',JSON.stringify(user));

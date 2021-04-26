@@ -47,7 +47,10 @@ updateUser(user,path)
 }
 
 
-
+updateUserByAdmin(user_id,newUser)
+{
+  return this.http.put<any>(this.api.api+'/updateUserByAdmin',{user_id : user_id , newUser : newUser},this.header)
+}
 deleteUser(table)
 {
   return this.http.post<any>(this.api.api+'/deleteUser' , {users_id : table},this.header) ; 

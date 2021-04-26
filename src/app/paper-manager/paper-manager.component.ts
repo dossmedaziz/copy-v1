@@ -123,15 +123,6 @@ export class PaperManagerComponent implements OnInit {
   { 
     // this.selectedPaperId = paper.id 
     this.updatePaperModal = true
-    // this.paperForm.patchValue({
-    //   paper_name: paper.paper_name,
-    //   paper_type:paper.paper_type.id,
-    //   expiration_date : new Date(paper.expiration_date),
-    //   project_id : paper.project.id,
-    //   description : paper.description,
-    //   status : paper.status,
-    //   })
-    //   this.selectedFilePath = paper.paper_file
     this.selectedPaper = paper
   
   }
@@ -263,4 +254,14 @@ filterExt(file)
  }
 }
 
+
+
+filterActions(action_name,space_name)
+                {
+                 if( this.configService.filterActions(action_name,space_name)){
+                   return true
+                 }else{
+                   return false
+                 }
+                }
     }

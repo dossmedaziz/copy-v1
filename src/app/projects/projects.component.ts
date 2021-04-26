@@ -278,5 +278,12 @@ filterStatus2(id)
    return 'pi-file-excel'
  }
 }
-
+filterActions(action_name,space_name)
+                {
+                 if( this.configService.filterActions(action_name,space_name)){
+                   return true
+                 }else{
+                   return false
+                 }
+                }
 }
