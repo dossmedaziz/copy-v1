@@ -19,6 +19,7 @@ export class BillsComponent implements OnInit {
   year
   thisyear
   num = 0
+  searchKey
   constructor(private billService : BillService,private toastr:ToastrService ,
      private configService : ConfigService ,
     private router : Router) { }

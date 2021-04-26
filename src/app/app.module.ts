@@ -75,6 +75,7 @@ import { PaperTypePipePipe } from './pipes/paper-type-pipe.pipe';
 import { CompanyComponent } from './company/company.component';
 import { UpdateBillComponent } from './files/update-bill/update-bill.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { BillPipePipe } from './pipes/bill-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     CompanyComponent,
     UpdateBillComponent,
     ProfileComponent,
+    BillPipePipe,
 
   ],
   imports: [
