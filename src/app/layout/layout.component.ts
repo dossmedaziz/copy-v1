@@ -27,7 +27,7 @@ export class LayoutComponent implements OnInit {
            return element.space
          }
          
-        });
+        }) 
 
 
         if(role_id == 1 )
