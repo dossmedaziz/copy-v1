@@ -514,22 +514,22 @@ get client_id() { return this.clientForm.get('client_id')
     let number
     let num = this.numBill
 
-      if( (num > 0) && ( num < 9))
-      {
-        number = '0000'+num
-      }
-      else if ((num > 10) && ( num < 99 )){
-        number = '000'+num
-      }else if ((num > 100) && (num < 999)){
-        number = '00'+num
-      }else if ( (num > 1000) && ( num  < 9999)){
-          number = '0'+num
-      }else if((num > 10000) && (num < 99999))
-      {
-        number = num
-      }
-    number = date+"-"+number
-    this.num = number
+    if( (num > 0) && ( num <= 9))
+    {
+      number = '0000'+num
+    }
+    else if ((num >= 10) && ( num <= 99 )){
+      number = '000'+num
+    }else if ((num >= 100) && (num <= 999)){
+      number = '00'+num
+    }else if ( (num >= 1000) && ( num  <= 9999)){
+        number = '0'+num
+    }else if((num >= 10000) && (num <= 99999))
+    {
+      number = num
+    }
+  number = date+"-"+number
+  this.num = number
 
 
 

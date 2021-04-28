@@ -4,14 +4,13 @@ import pdfFonts  from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { ClientService } from 'src/app/services/client.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { BillService } from 'src/app/services/bill.service';
 import { ToastrService } from 'ngx-toastr';
 import { style } from '@angular/animations';
 import { Column } from 'jspdf-autotable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from'src/app/services/company.service';
 import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
-
+import { QuoteService } from 'src/app/services/quote.service';
 
 
 class Product{
@@ -28,7 +27,7 @@ class Tva{
   total_ttc: number;
   clientid : number ;
   DateFacturation: Date;
-  billNum: number;
+  quoteNum: number;
   description: String;
   inWord : String;
 }
@@ -53,12 +52,11 @@ class Invoice{
   }
 }
 @Component({
-  selector: 'app-add-bill',
-  templateUrl: './add-bill.component.html',
-  styleUrls: ['./add-bill.component.css']
+  selector: 'app-add-quote',
+  templateUrl: './add-quote.component.html',
+  styleUrls: ['./add-quote.component.css']
 })
-export class AddBillComponent implements OnInit {
-
+export class AddQuoteComponent implements OnInit {
   selectedClient
   clientId
   clients
@@ -74,9 +72,9 @@ export class AddBillComponent implements OnInit {
   numberInWords!: string;
   lang: SUPPORTED_LANGUAGE = 'fr';
   date
-  numBill
+  numQuote
   constructor(private ngxNumToWordsService: NgxNumToWordsService,
-    private router : Router, private fb:FormBuilder,private billService: BillService,
+    private router : Router, private fb:FormBuilder,private quoteService : QuoteService,
                private clientService : ClientService,
                private toaster:ToastrService,
                private activeRoute : ActivatedRoute,
@@ -110,29 +108,28 @@ export class AddBillComponent implements OnInit {
                    this.rate_tva = this.company[0].tva
                  }, err => {
                  console.log(err);
-           
+
                  }
                )
-           
-               this.num = this.invoice.tvaObj.billNum
-               this.date = this.invoice.tvaObj.date
-           
+
+
+
       let privileges = JSON.parse(localStorage.getItem('privileges'))
       let user = JSON.parse(localStorage.getItem('user'))
-      let role_id = user.role_id 
+      let role_id = user.role_id
       let  reslt  = privileges.find(element =>{
         let action = "create"
-        let space = "bill"
+        let space = "quote"
         let space_name = element.space.space_name
         let action_name = element.action.action_name
         let i = action.indexOf(action_name)
         let j = space.indexOf(space_name)
-       
+
         if((i != -1) && (j != -1))
         {
           return element.space
         }
-        
+
        });
 
 
@@ -143,9 +140,8 @@ export class AddBillComponent implements OnInit {
          this.router.navigate(['/dashboard'])
 
        }
-           
-             }
 
+             }
              caclucTotalOfOneItem(ele,i){
               if(
                 typeof ele.quantity !== 'undefined' &&
@@ -156,13 +152,13 @@ export class AddBillComponent implements OnInit {
                 this.calculTVAprice()
                 this.calculTTCprice()
                 this.inWord()
-          
+
               }}
             sumofTotalPrice(){
-          
+
               this.total= this.invoice.products.reduce((acc, val) => acc += val.total_price, 0)
               this.invoice.tvaObj.ht_price = this.total
-          
+
             }
             calculTVAprice(){
               this.invoice.tvaObj.price_tva = (this.invoice.tvaObj.ht_price * this.rate_tva) / 100
@@ -170,46 +166,108 @@ export class AddBillComponent implements OnInit {
             calculTTCprice(){
               this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)
             }
-          
-            saveBill() {
-          
+
+            inWord(){
+              let value = this.invoice.tvaTab[0].total_ttc;
+             this.numberInWords = this.ngxNumToWordsService.inWords(value, this.lang);
+             this.invoice.tvaObj.inWord = this.numberInWords
+            }
+            invoice = new Invoice();
+
+            addProduct(){
+              this.invoice.products.push(new Product());
+            }
+
+            deleteProduct(index){
+              if(this.invoice.products.length ==1) {
+                return false;
+
+            } else {
+                this.invoice.products.splice(index, 1);
+                return true;
+            }
+            }
+
+            client(){
+
+               this.clientService.getClientInfo(this.invoice.clientid).subscribe(
+                res=>{
+                  this.selectedClient = res
+                  this.clientId = res.id
+                  // console.log( this.invoice.clientid);
+                },err=>{
+                  console.log(err)
+                }
+              )
+
+            }
+
+            async forQuoteNum(){
+
+              let date = new Date(this.invoice.tvaObj.DateFacturation).getFullYear()
+              await this.quoteService.calcNumQuotes(date).then
+              (
+                res=>{
+                  this.numQuote = res.numQuote ? res.numQuote : 0
+                  this.numQuote++
+                },
+                err=>{
+                  console.log(err);
+                }
+              )
+
+              let number
+              let num = this.numQuote
+
+                if( (num > 0) && ( num < 9))
+                {
+                  number = '0000'+num
+                }
+                else if ((num > 10) && ( num < 99 )){
+                  number = '000'+num
+                }else if ((num > 100) && (num < 999)){
+                  number = '00'+num
+                }else if ( (num > 1000) && ( num  < 9999)){
+                    number = '0'+num
+                }else if((num > 10000) && (num < 99999))
+                {
+                  number = num
+                }
+              number = date+"-"+number
+              this.num = number
+
+
+
+            }
+
+            saveQuote() {
+
               this.invoice.tvaObj.clientid = this.selectedClient.id
-          
+
             let config = {
-              "billNum" : this.num,
+              "quoteNum" : this.num,
               "clientId": this.clientId,
               "tax" : this.tax,
               "tva" : this.rate_tva
             }
-          
-                this.billService.saveBill(this.invoice.tvaObj,this.invoice.products,config).subscribe(
+
+                this.quoteService.saveQuote(this.invoice.tvaObj,this.invoice.products,config).subscribe(
                   res=>{
-                    this.toaster.success('Bill Created!')
-                    this.router.navigate(['/bills'])
-          
+                    this.toaster.success('Quote Created!')
+                    this.router.navigate(['/quotes'])
+
                   },err=>{
                     console.log(err)
                   }
                 )
-          
+
               }
-              close(){
-                this.router.navigate(['/Bills'])
-              }
-              inWord(){
-                let value = this.invoice.tvaTab[0].total_ttc;
-               this.numberInWords = this.ngxNumToWordsService.inWords(value, this.lang);
-               this.invoice.tvaObj.inWord = this.numberInWords
-              }
-          
-          
-            invoice = new Invoice();
-          
+
             generatePDF(action = 'open') {
-          
-          
+
+
               let docDefinition = {
-          
+
                 content: [
                   {
                     columns: [
@@ -221,7 +279,7 @@ export class AddBillComponent implements OnInit {
                         },
                       ],
                       [
-          
+
                       ],
                       [
                         {
@@ -231,7 +289,7 @@ export class AddBillComponent implements OnInit {
                           color: '#1e3799'
                         },
                         {
-                          text: 'Facture',
+                          text: 'Devis',
                           fontSize: 40,
                           bold: true,
                           alignment: 'right',
@@ -242,11 +300,10 @@ export class AddBillComponent implements OnInit {
                         }
                         ,
                         {
-                          text: ` N° Facture : `+' '+ this.num,
+                          text: `N° Devis : ${((Math.random() * 1000).toFixed(0))}`,
                           alignment: 'right',
                           fontSize: 10,
                         },
-          
                         {
                           text: `Date de Facturation :  `+' '+ this.invoice.tvaTab[0].DateFacturation,
                           alignment: 'right',
@@ -263,23 +320,23 @@ export class AddBillComponent implements OnInit {
                           text: this.company[0].name, style:'fontt',
                           bold:true
                         },
-          
+
                         { text: this.company[0].email , style:'fontt'},
                         { text: this.company[0].phone_number , style:'fontt'},
                         { text: this.company[0].local , style:'fontt'},
                       ],
-          
+
                       [
-          
-          
+
+
                       ],
                       [
-          
-          
+
+
                       ],
                       [
-          
-          
+
+
                       ],
                       [
                         {
@@ -321,10 +378,10 @@ export class AddBillComponent implements OnInit {
                             return (i === 0 || i === node.table.widths.length) ? 'gray' : 'gray';
                           },
                           },
-          
-          
-          
-          
+
+
+
+
                         }
                     ]
                   },
@@ -333,12 +390,12 @@ export class AddBillComponent implements OnInit {
                   },
                   {
                     columns: [
-          
+
                         {
-          
+
                         },
                         [
-          
+
                             {
                                 columns: [
                                     {
@@ -371,11 +428,11 @@ export class AddBillComponent implements OnInit {
                                         return (i === 0 || i === node.table.widths.length) ? 'gray' : 'gray';
                                       },
                                       },
-          
+
                                         alignment: 'right', // Optional, for body texts
                                         width: 'auto', // Changes width of the table
-          
-          
+
+
                                     }
                                 ]
                             }
@@ -387,7 +444,7 @@ export class AddBillComponent implements OnInit {
                       this.invoice.tvaTab[0].description
                     ],
                 },
-          
+
                 ],
                 footer:
                 [ {text: this.company[0].domaine  , style: 'sectionFooter'
@@ -423,7 +480,7 @@ export class AddBillComponent implements OnInit {
                   }
                 }
               };
-          
+
               if(action==='download'){
                 pdfMake.createPdf(docDefinition).download();
               }else if(action === 'print'){
@@ -432,70 +489,4 @@ export class AddBillComponent implements OnInit {
                 pdfMake.createPdf(docDefinition).open();
               }
             }
-            addProduct(){
-              this.invoice.products.push(new Product());
-            }
-          
-            deleteProduct(index){
-              if(this.invoice.products.length ==1) {
-                return false;
-          
-            } else {
-                this.invoice.products.splice(index, 1);
-                return true;
-            }
-            }
-          
-            client(){
-             
-               this.clientService.getClientInfo(this.invoice.clientid).subscribe(
-                res=>{
-                  this.selectedClient = res
-                  this.clientId = res.id
-                  // console.log( this.invoice.clientid);
-                },err=>{
-                  console.log(err)
-                }
-              )
-              
-            }
-          
-            async formBillNum(){
-          
-              let date = new Date(this.invoice.tvaObj.DateFacturation).getFullYear()
-              await this.billService.calcNumBills(date).then
-              (
-                res=>{
-                  this.numBill = res.numBill ? res.numBill : 0
-                  this.numBill++
-                },
-                err=>{
-                  console.log(err);
-                }
-              )
-          
-              let number
-              let num = this.numBill
-          
-              if( (num > 0) && ( num <= 9))
-              {
-                number = '0000'+num
-              }
-              else if ((num >= 10) && ( num <= 99 )){
-                number = '000'+num
-              }else if ((num >= 100) && (num <= 999)){
-                number = '00'+num
-              }else if ( (num >= 1000) && ( num  <= 9999)){
-                  number = '0'+num
-              }else if((num >= 10000) && (num <= 99999))
-              {
-                number = num
-              }
-            number = date+"-"+number
-            this.num = number
-          
-          
-          
-            }
-
 }

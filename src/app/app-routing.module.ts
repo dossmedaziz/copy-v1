@@ -12,7 +12,9 @@ import { SearchResultComponent } from './components/search-result/search-result.
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
+import { AddQuoteComponent } from './files/add-quote/add-quote.component';
 import { BillsComponent } from './files/bills/bills.component';
+import { QuoteComponent } from './files/quote/quote.component';
 import { UpdateBillComponent } from './files/update-bill/update-bill.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
@@ -66,7 +68,11 @@ const routes: Routes = [
         path:'bills',
         component:BillsComponent,
       },
-     
+    
+      {
+        path:'quotes',
+        component:QuoteComponent,
+      },
       
       {
         path:'paperManager',
@@ -108,7 +114,11 @@ const routes: Routes = [
     component : UpdateBillComponent,
     canActivate:[AuthGuard]
   },
-  
+  {
+    path:'addQuote',
+    component : AddQuoteComponent,
+    canActivate:[AuthGuard],
+  },
  {
    path : 'forgotPassword',
    component:ForgotPasswordComponent

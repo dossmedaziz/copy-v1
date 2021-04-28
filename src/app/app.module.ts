@@ -76,6 +76,9 @@ import { CompanyComponent } from './company/company.component';
 import { UpdateBillComponent } from './files/update-bill/update-bill.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BillPipePipe } from './pipes/bill-pipe.pipe';
+import { QuoteComponent } from './files/quote/quote.component';
+import { QuotePipePipe } from './pipes/quote-pipe.pipe';
+import { AddQuoteComponent } from './files/add-quote/add-quote.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +113,9 @@ import { BillPipePipe } from './pipes/bill-pipe.pipe';
     UpdateBillComponent,
     ProfileComponent,
     BillPipePipe,
+    QuoteComponent,
+    QuotePipePipe,
+    AddQuoteComponent,
 
   ],
   imports: [

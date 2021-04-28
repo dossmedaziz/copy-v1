@@ -53,6 +53,12 @@
             <span class="align-middle">Bills</span>
           </a>
         </li>
+        <li class="sidebar-item" *ngIf="filterRoutes('quote')">
+          <a class="sidebar-link" [routerLink]="['/quotes']">
+            <i class="align-middle" data-feather="credit-card"></i>
+            <span class="align-middle">Quotes</span>
+          </a>
+        </li>
         <li class="sidebar-item" *ngIf="filterRoutes('paper')">
           <a class="sidebar-link"  [routerLink]="['/paperManager']">
             <i class="align-middle" data-feather="file"></i>
