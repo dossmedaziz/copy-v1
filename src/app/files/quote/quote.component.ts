@@ -36,6 +36,8 @@ export class QuoteComponent implements OnInit {
     this.quoteService.getQuotes().subscribe(
     res=>{
       this.quotes = res.quotes
+      console.log(res.quotes);
+      
         },err=>{
       console.log(err)
     })}

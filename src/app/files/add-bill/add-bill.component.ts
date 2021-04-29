@@ -498,4 +498,10 @@ export class AddBillComponent implements OnInit {
           
             }
 
+            select()
+            {
+            this.selectedClient = false
+              
+            }
+
 }

@@ -18,7 +18,7 @@
       label="New"
       icon="pi pi-plus"
       (click)="showModalDialog3()"
-      class="p-button-success p-mr-2 p-button-rounded"
+      class="redbtn p-mr-2 p-button-rounded"
       *ngIf="filterActions('create','role')"
     ></button>
     <button
@@ -27,7 +27,7 @@
       style="color: white"
       icon="pi pi-trash"
       [disabled]="!selectedRoles || !selectedRoles.length"
-      class="p-button-rounded p-button-warning"
+      class="p-button-rounded btn-primary"
       (click)="deleteRole()"
       *ngIf="filterActions('delete','role')"
     ></button>
@@ -35,6 +35,7 @@
 </p-toolbar>
 
 <!--Table-->
+<div class="card">
 <p-table
   #dt
   [value]="roles | rolePipe:searchKey"
@@ -65,8 +66,8 @@
       <th pSortableColumn="name">
         Name <p-sortIcon field="name"></p-sortIcon>
       </th>
-      
-   
+
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-role>
@@ -80,11 +81,11 @@
           pButton
           pRipple
           icon="pi pi-pencil"
-          class="p-button-rounded p-button-success p-mr-2"
-          (click)="getSelectedRole(role)"      
+          class="p-button-rounded redbtn p-mr-2"
+          (click)="getSelectedRole(role)"
           *ngIf="filterActions('update','role')"
 
-          
+
         ></button>
       </td>
     </tr>
@@ -95,7 +96,7 @@
     </div>
   </ng-template>
 </p-table>
-
+</div>
 <!-- New popup-->
 <p-dialog
   header="Add new Role"
@@ -125,22 +126,22 @@
       </div>
     </div>
 
- 
-  <div class="p-field">  
+
+  <div class="p-field">
       <ul *ngFor="let space of spaces" >
              <li>
-               <input type="checkbox" (change)="selectSpace(space.id,$event)" id="{{space.id}}"> 
+               <input type="checkbox" (change)="selectSpace(space.id,$event)" id="{{space.id}}">
                {{ space.space_name}}
               </li>
              <ul *ngFor="let action of actions" >
-               <li> <input type="checkbox" name="priv" id="{{space.id}}{{action.id}}" class="checkBox" 
+               <li> <input type="checkbox" name="priv" id="{{space.id}}{{action.id}}" class="checkBox"
                 (change)="selectAction(space.id,action.id,$event)">
                  {{ action.action_name}}
                </li>
 
              </ul>
       </ul>
- 
+
     </div>
 <p class="transp">...</p>
 <p class="transp">...</p>
@@ -189,24 +190,24 @@
       />
     </div>
 
- 
+
   <div class="p-field"  >
-      
-   
+
+
       <ul *ngFor="let space of spaces" >
              <li>
-               <input type="checkbox"(change)="selectSpace(space.id,$event)" id="{{space.id}}"> 
+               <input type="checkbox"(change)="selectSpace(space.id,$event)" id="{{space.id}}">
                {{ space.space_name}}
               </li>
              <ul *ngFor="let action of actions" >
-               <li><input type="checkbox" name="priv" (change)="selectAction(space.id,action.id,$event)" 
+               <li><input type="checkbox" name="priv" (change)="selectAction(space.id,action.id,$event)"
                           id="{{space.id}}{{action.id}}" class="checkBox">
                  {{ action.action_name}}
                </li>
 
              </ul>
       </ul>
- 
+
     </div>
 <p class="transp">...</p>
 <p class="transp">...</p>

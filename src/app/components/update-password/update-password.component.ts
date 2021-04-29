@@ -47,7 +47,6 @@ export class UpdatePasswordComponent implements OnInit {
 save()
 {
 
-  let user_id = this.activatedRoute.snapshot.params.userId  
   let password = this.passWordForm.get('password').value
   this.userService.changePassword(password, this.token).subscribe(
 

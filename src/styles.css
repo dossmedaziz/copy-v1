@@ -10,6 +10,15 @@ font-family: "Oldenburg", cursive;
 color: white;
 }
 
+.redbtn{
+  background-color: #0a3d62 !important;
+  color: white !important;
+  border-color: #0a3d62 !important;
+ }
+
+.btns{
+  color: #0a3d62 !important;
+}
 .ptag {
 font-family: "Oldenburg", cursive;
 text-align: center;

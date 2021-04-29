@@ -26,12 +26,12 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <select *ngIf="!selectedClient" class="form-select" aria-label="Select Client"
+                                    <select *ngIf="!selectedClient" class="form-select" aria-label="Select Client" 
                                     [(ngModel)]="invoice.clientid"  [ngModelOptions]="{standalone: true}" (change)="client()">
                                       <option *ngFor=" let c of clients" value="{{ c.id }}">{{c.client_name}}</option>
                                     </select>
   
-                                    <input *ngIf="selectedClient" type="text" class="form-control" name="name" id="name"
+                                    <input *ngIf="selectedClient" type="text" class="form-control" name="name" id="name" (click)="select()"
                                         [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
                                         [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
                                 </div>
@@ -193,7 +193,7 @@
                     (click)="invoiceForm.valid ? generatePDF() : ''">Open
                     Invoice</button>
                 <button type="submit" class="btn btn-secondary btn-lg btn-block"
-                    (click)="saveBill()" 
+                    (click)="saveBill()" [disabled]="!invoice.tvaObj.DateFacturation || !invoiceForm.valid || !selectedClient" 
                     >Save</button>
                     <button type="submit" class="btn btn-secondary btn-lg btn-block"
                     [routerLink]="['/bills']"

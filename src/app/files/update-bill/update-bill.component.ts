@@ -100,6 +100,7 @@ get client_id() { return this.clientForm.get('client_id')
 
     this.billService.getBillById(billId).subscribe(
       res=>{
+        
         this.num = res.bill.billNum
         this.DateFacturation= new Date(res.bill.DateFacturation)
         this.invoice.clientid = res.bill.client_id
@@ -490,7 +491,7 @@ get client_id() { return this.clientForm.get('client_id')
       res=>{
         this.selectedClient = res
         this.clientId = res.id
-        console.log(res.id);
+      
         // console.log( this.invoice.clientid);
       },err=>{
         console.log(err)
@@ -556,5 +557,11 @@ get client_id() { return this.clientForm.get('client_id')
 
     )
       return client
+  }
+  
+  select()
+  {
+  this.selectedClient = false
+    
   }
 }

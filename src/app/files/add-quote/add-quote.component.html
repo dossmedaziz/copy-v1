@@ -31,7 +31,7 @@
                                       <option *ngFor=" let c of clients" value="{{ c.id }}">{{c.client_name}}</option>
                                     </select>
   
-                                    <input *ngIf="selectedClient" type="text" class="form-control" name="name" id="name"
+                                    <input *ngIf="selectedClient" type="text" class="form-control" name="name" id="name" (click)="selectedClient = false"
                                         [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
                                         [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
                                 </div>
@@ -192,7 +192,7 @@
                 <button type="submit" class="btn btn-secondary btn-lg btn-block"
                     (click)="invoiceForm.valid ? generatePDF() : ''">Open
                     Quote</button>
-                <button type="submit" class="btn btn-secondary btn-lg btn-block"
+                <button type="submit" class="btn btn-secondary btn-lg btn-block"  [disabled]="!invoice.tvaObj.DateFacturation || !invoiceForm.valid || !selectedClient" 
                     (click)="saveQuote()" [routerLink]="['/quotes']"
                     >Save</button>
                     <button type="submit" class="btn btn-secondary btn-lg btn-block"
