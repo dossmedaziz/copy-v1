@@ -1,3 +1,4 @@
+<h1 class="title_erp">Manage Roles </h1>
 
 <!--Toolbar-->
 <p-toolbar
@@ -64,9 +65,12 @@
         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
       <th pSortableColumn="name">
-        Name <p-sortIcon field="name"></p-sortIcon>
+        Role Name
       </th>
+      <th></th>
 
+      <th></th>
+      <th></th>
       <th></th>
     </tr>
   </ng-template>
@@ -76,6 +80,10 @@
         <p-tableCheckbox [value]="role"></p-tableCheckbox>
       </td>
       <td>{{ role.role_name }}</td>
+
+      <td></td>
+      <td></td>
+      <td></td>
       <td>
         <button
           pButton

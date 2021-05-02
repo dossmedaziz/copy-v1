@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit {
       get confirmNew(){ return this.passwordForm.get('confirmNew') }
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'))
-    
+
 
     this.userService.getUserById(this.user.id).subscribe(
       res=>{
@@ -132,7 +132,7 @@ async   updateProfile()
  await    this.userService.updatePassword(  currentPassword, newPass).then(
       res => {
      status = res.status
-     
+
 
       if(res.status == 0){
         this.isCorrect = false
@@ -159,8 +159,7 @@ async   updateProfile()
         path = res.path
         // console.log(path)
         }, err => { console.log(err);})
- console.log("test");
- 
+
       }
     let data = this.userForm.value
     this.userService.updateUser(data,path).subscribe(
@@ -170,6 +169,6 @@ async   updateProfile()
         this.ngOnInit()
           }, err => { console.log(err) }
           )
-   } 
+   }
   }
 }

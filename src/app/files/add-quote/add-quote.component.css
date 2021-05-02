@@ -1,0 +1,19 @@
+.card-title
+{
+  font-size: large !important;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.navbar-brand
+{
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: xx-large;
+  padding-left: 500px;
+}
+
+.rad
+{
+  border-radius: 15px;
+}
+
+

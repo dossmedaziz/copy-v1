@@ -80,6 +80,7 @@ import { QuoteComponent } from './files/quote/quote.component';
 import { QuotePipePipe } from './pipes/quote-pipe.pipe';
 import { AddQuoteComponent } from './files/add-quote/add-quote.component';
 import { UpdateQuoteComponent } from './files/update-quote/update-quote.component';
+import { ActivityPipePipe } from './pipes/activity-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { UpdateQuoteComponent } from './files/update-quote/update-quote.componen
     QuotePipePipe,
     AddQuoteComponent,
     UpdateQuoteComponent,
+    ActivityPipePipe,
 
   ],
   imports: [

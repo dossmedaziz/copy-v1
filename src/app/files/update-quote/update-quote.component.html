@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-secondary d-flex justify-content-between">
-    <a class="navbar-brand" href="#">INVOICE GENERATOR</a>
+<nav class="navbar navbar-expand-sm navbar-dark  redbtn d-flex justify-content-between">
+  <a class="navbar-brand" href="#">UPDATE QUOTE</a>
   </nav>
-  
-  
-  
+
+
+
   <!--Client-->
   <form #invoiceForm="ngForm">
     <div class="container-fluid pt-2 mb-5">
@@ -11,12 +11,12 @@
             <div class="col-md-8">
                 <div class="card border-secondary">
                     <div class="card-body">
-                      <h4 class="card-title">Invoice Info</h4>
-                      <label for="name">Invoice Number</label>
-                      <input type="text" readonly class="form-control" id="quantity" *ngFor="let product of invoice.tvaTab; let i=index"
+                      <h4 class="card-title">Quote Info</h4>
+                      <label for="name">Quote Number</label>
+                      <input type="text" readonly class="rad form-control" id="quantity" *ngFor="let product of invoice.tvaTab; let i=index"
                       [(ngModel)]="num" [ngModelOptions]="{standalone: true}">
-  
-  
+
+
                     <div class="p-field p-col-12 p-md-4" >
                       <label for=" fad">Facturation Date</label>
                       <p-calendar [showIcon]="false" inputId="basic" [ngModelOptions]="{standalone: true}" (onSelect)="formQuoteNum()"
@@ -28,48 +28,48 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <select  class="form-select" aria-label="Select Client" *ngIf="!selectedClient"
+                                    <select  class="rad form-select" aria-label="Select Client" *ngIf="!selectedClient"
                                     [(ngModel)]="invoice.clientid"  [ngModelOptions]="{standalone: true}" (change)="client()">
                                       <option *ngFor=" let c of clients" value="{{ c.id }}">{{c.client_name}}</option>
                                     </select>
   <br>
-                                    <input *ngIf="selectedClient" type="text" class="form-control" name="name" id="name"  (click)="selectedClient = false"
+                                    <input *ngIf="selectedClient" type="text" class="rad form-control" name="name" id="name"  (click)="selectedClient = false"
                                         [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
                                         [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
                                 </div>
                                 <div class="form-group">
                                     <label *ngIf="selectedClient" for="address">Address</label>
-                                    <input *ngIf="selectedClient" type="text" class="form-control" name="address" id="address"
+                                    <input *ngIf="selectedClient" type="text" class="rad form-control" name="address" id="address"
                                         [ngClass]="{'is-invalid': invoiceForm.submitted && address.invalid}"
                                         [(ngModel)]="selectedClient.address" #address="ngModel" required>
                                 </div>
                                 <div class="form-group">
                                   <label *ngIf="selectedClient" for="contactNo">tax registration number</label>
-                                  <input *ngIf="selectedClient" type="number" class="form-control" name="contactNo" id="contactNo"
+                                  <input *ngIf="selectedClient" type="number" class="rad form-control" name="contactNo" id="contactNo"
                                       [(ngModel)]="selectedClient.matFisc" #ContactNo="ngModel" >
                               </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label *ngIf="selectedClient" for="email">Email ID</label>
-                                    <input *ngIf="selectedClient" type="email" class="form-control" name="email" id="email"
+                                    <label *ngIf="selectedClient" for="email">Email</label>
+                                    <input *ngIf="selectedClient" type="email" class="rad form-control" name="email" id="email"
                                         [(ngModel)]="selectedClient.email" required>
                                 </div>
                                 <div class="form-group">
                                     <label *ngIf="selectedClient" for="contactNo">Contact No.</label>
-                                    <input *ngIf="selectedClient" type="number" class="form-control" name="contactNo" id="contactNo"
+                                    <input *ngIf="selectedClient" type="number" class="rad form-control" name="contactNo" id="contactNo"
                                         [(ngModel)]="selectedClient.phone" #ContactNo="ngModel" >
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-  
+
              <!--Items-->
              <div class="card border-secondary mt-2">
               <div class="card-body">
                   <h4 class="card-title d-flex justify-content-between">Order Details
-                    <button type="button" class="btn btn-secondary" (click)="addProduct()">+</button>
+                    <button type="button" class="btn rad redbtn" (click)="addProduct()">+</button>
                   </h4>
                   <div class="row">
                       <table class="table">
@@ -81,11 +81,11 @@
                                   <th width="25%">Amount</th>
                                   <th></th>
                               </tr>
-  
+
                           </thead>
                           <tbody>
                               <tr *ngFor="let product of invoice.products; let i=index" (keyup)="caclucTotalOfOneItem(product,i)">
-  
+
                                 <td scope="row">
                                       <input type="text" class="form-control" name="productName{{i}}"
                                           [ngClass]="{'is-invalid': invoiceForm.submitted && ProductName.invalid}"
@@ -108,7 +108,7 @@
                                     [ngModelOptions]="{standalone: true}" />
                                   </td>
                                   <td>
-                                    <button type="button" class="btn btn-secondary" (click)="deleteProduct(i)">-</button>
+                                    <button type="button" class="btn rad redbtn" (click)="deleteProduct(i)">-</button>
                                  </td>
                               </tr>
                           </tbody>
@@ -116,8 +116,8 @@
                   </div>
               </div>
           </div>
-  
-  
+
+
             <!--Prices-->
             <div class="card border-secondary mt-2" >
               <div class="card-body">
@@ -131,7 +131,7 @@
                                   <th width="25%">Tax Stamp</th>
                                   <th width="25%">TTC Price</th>
                               </tr>
-  
+
                           </thead>
                           <tbody>
                               <tr *ngFor="let product of invoice.tvaTab; let i=index">
@@ -165,39 +165,40 @@
           </div>
           <div class="card border-secondary mt-2">
             <div class="card-body">
-              <input type="text" readonly [(ngModel)]="this.invoice.tvaObj.inWord"  class="form-control" [ngModelOptions]="{standalone: true}">
+              <label class="card-title" >TTC Price in word</label>
+              <input type="text" readonly [(ngModel)]="this.invoice.tvaObj.inWord"  class="rad form-control" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
-  
-  
-  
+
+
+
           <!--Other description-->
             <div class="card border-secondary mt-2">
               <div class="card-body">
                 <div  *ngFor="let product of invoice.tvaTab; let i=index">
                   <label >Other Details</label>
                   <textarea [ngModelOptions]="{standalone: true}"
-                  class="form-control" placeholder="Leave a comment here"
+                  class="rad form-control" placeholder="Leave a comment here"
                   style="height: 100px" [(ngModel)]="product.description" ></textarea>
                 </div>
               </div>
             </div>
-  
-  
+
+
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-secondary btn-lg btn-block"
+                <button type="button" class="btn rad redbtn btn-lg btn-block"
                     (click)="invoiceForm.valid ? generatePDF('download') : ''">Download Quote</button>
-                <button type="button" class="btn btn-secondary btn-lg btn-block"
+                <button type="button" class="btn rad redbtn btn-lg btn-block"
                     (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
                     Quote</button>
-                <button type="submit" class="btn btn-secondary btn-lg btn-block"
+                <button type="submit" class="btn rad redbtn btn-lg btn-block"
                     (click)="invoiceForm.valid ? generatePDF() : ''">Open
                     Invoice</button>
-                <button type="submit" class="btn btn-secondary btn-lg btn-block" [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient" 
+                <button type="submit" class="btn rad redbtn btn-lg btn-block" [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient"
                     (click)="saveQuote()"
                     >Save</button>
-                    <button type="submit" class="btn btn-secondary btn-lg btn-block"
+                    <button type="submit" class="btn rad redbtn btn-lg btn-block"
                     [routerLink]="['/quotes']"
                     >Cancel</button>
             </div>

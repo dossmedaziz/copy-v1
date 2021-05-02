@@ -1,11 +1,12 @@
-<h1>Serach Result</h1>
+<h1 class="title_erp">Serach Result</h1>
 
-<div class="container" id="container">
+<div class="container" id="container" style="margin-left: 300px;">
 
-<div *ngIf="!result">
-          <img src="../../../assets/img/notFound.jpg" alt="" style="width: 300px ;">
+<div *ngIf="!result" >
+          <img src="../../../assets/img/lo.png" alt="" style="width: 400px;">
           <h3>Your search <b>{{keyWorld}}</b> did not match any documents.</h3>
 </div>
+
 </div>
 
 <div class="container-fluid" *ngIf="result">
@@ -15,10 +16,10 @@
             <div class="grid-item" *ngFor="let client of clients">
                 <p-card header="{{ client.client_name}}" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
                   email : {{client.email}} <br>
-                  phone : {{client.phone}} 
+                  phone : {{client.phone}}
                 </p-card>
             </div>
-          
+
           </div>
     </div>
 
@@ -29,10 +30,10 @@
             <div class="grid-item" *ngFor="let project of projects">
                 <p-card header="{{ project.project_name}}" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
                   project Name : {{project.project_name}} <br>
-                  Client  : {{project.client.client_name}} 
+                  Client  : {{project.client.client_name}}
                 </p-card>
             </div>
-          
+
           </div>
     </div>
 
@@ -43,10 +44,10 @@
             <div class="grid-item" *ngFor="let contact of contacts">
                 <p-card header="{{ contact.contact_name}}" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
                  Postion : {{contact.position}} <br>
-                  Email  : {{contact.contact_email}} 
+                  Email  : {{contact.contact_email}}
                 </p-card>
             </div>
-          
+
           </div>
     </div>
 </div>

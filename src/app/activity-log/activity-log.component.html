@@ -1,13 +1,13 @@
-
+<!--
 <div class="container-fluid">
     <p-toolbar>
         <div class="p-toolbar-group-left" [style]="{'width':'auto'}">
         <p>Sort by User :</p>
 
         </div>
-        
+
         <div class="p-toolbar-group-right">
-          <select class="form-select" aria-label="Default select example" (change)="filter($event)" [(ngModel)]="selectedUser"> 
+          <select class="form-select" aria-label="Default select example" (change)="filter($event)" [(ngModel)]="selectedUser">
             <option selected value="*">All users</option>
             <option *ngFor="let user of users" value="{{ user.id }}">{{ user.name}}</option>
           </select>
@@ -20,4 +20,92 @@
       <p-avatar image="../assets/img/avatar.png" styleClass="p-mr-2" size="xlarge" shape="circle"></p-avatar>
       <p>{{ activity.user.name}} {{ activity.action.action_name }} {{activity.space.space_name}} : {{activity.service_id}} </p>
       </div>
-</div>
+</div> -->
+
+<h1 class="title_erp">Activity Log</h1>
+
+
+<!--Toolbar-->
+<p-toolbar
+  [style]="{
+    width: '70rem',
+    'margin-bottom': '2rem',
+    'margin-right': '2rem',
+    height: '4rem',
+    'background-color': '',
+    border: 'none'
+  }"
+  styleClass="p-mb-4"
+>
+  <ng-template pTemplate="left">
+    <select class="form-select" aria-label="Default select example" (change)="filter($event)" [(ngModel)]="selectedUser">
+      <option selected value="*">All users</option>
+      <option *ngFor="let user of users" value="{{ user.id }}">{{ user.name}}</option>
+    </select>
+  </ng-template>
+</p-toolbar>
+
+
+
+<!--Table-->
+<div class="card">
+  <p-table
+    #dt
+    [value]="activities | activityPipe:searchKey"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'age']"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    styleClass="p-datatable-responsive-demo"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0 title_erp">Ativities List</h5>
+
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+        <input pInputText type="text" class="brad" placeholder="Search..." [(ngModel)]="searchKey" />
+        </span>
+
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Avatar</th>
+        <th></th>
+        <th >
+          User Name
+        </th>
+        <th></th>
+        <th>Activity</th>
+        <th></th>
+        <th>
+          Service ID
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-activity>
+      <tr>
+        <td>
+      <p-avatar image="../assets/img/avatar.png" styleClass="p-mr-2" size="large" shape="circle"></p-avatar>
+        </td>
+        <td></td>
+        <td> {{ activity.user.name}} </td>
+        <td></td>
+        <td> {{ activity.action.action_name }} a {{activity.space.space_name}} </td>
+        <td></td>
+        <td>{{activity.service_id}} </td>
+        <td></td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{ activities ? activities.length : 0 }} activities.
+      </div>
+    </ng-template>
+  </p-table>
+  </div>
