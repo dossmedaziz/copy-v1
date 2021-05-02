@@ -122,17 +122,17 @@
                                             <input pInputText type="text" [(ngModel)]="contact.position" >
                                         </ng-template>
                                         <ng-template pTemplate="output">
-                                            {{contact.position}}
+                                            {{contact.position ? contact.position : 'No Position' }}
                                         </ng-template>
                                     </p-cellEditor>
                                 </td>
                                 <td pEditableColumn>
                                   <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText type="text" [(ngModel)]="contact.contact_phone"  required>
+                                        <input pInputText type="text" [(ngModel)]="contact.contact_phone" >
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        {{contact.contact_phone}}
+                                        {{contact.contact_phone ? contact.contact_phone : 'No Phone'}}
                                     </ng-template>
                                 </p-cellEditor>
                                 </td>
@@ -442,3 +442,5 @@
     <button type="button"(click)="addContact()"class="btn btn-outline-primary" [disabled]="contactForm.invalid"style="border:none;">Save</button>
 </ng-template>
 </p-dialog>
+
+

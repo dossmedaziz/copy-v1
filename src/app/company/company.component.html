@@ -149,7 +149,7 @@
                     <th scope="row">{{user.id}}</th>
                     <td > {{user.name}}  </td>
                     <td >{{user.email}}</td>
-                    <td ><input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></td>
+                    <td ><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" (change)="addEmail($event,user.email)"></td>
                   </tr>
                 </tbody>
               </table>

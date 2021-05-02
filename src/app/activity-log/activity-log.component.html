@@ -1,4 +1,4 @@
-<!--
+  <!--
 <div class="container-fluid">
     <p-toolbar>
         <div class="p-toolbar-group-left" [style]="{'width':'auto'}">
@@ -38,10 +38,7 @@
   styleClass="p-mb-4"
 >
   <ng-template pTemplate="left">
-    <select class="form-select" aria-label="Default select example" (change)="filter($event)" [(ngModel)]="selectedUser">
-      <option selected value="*">All users</option>
-      <option *ngFor="let user of users" value="{{ user.id }}">{{ user.name}}</option>
-    </select>
+ 
   </ng-template>
 </p-toolbar>
 
@@ -91,7 +88,7 @@
     <ng-template pTemplate="body" let-activity>
       <tr>
         <td>
-      <p-avatar image="../assets/img/avatar.png" styleClass="p-mr-2" size="large" shape="circle"></p-avatar>
+      <p-avatar image="{{url}}{{activity.user.photo}}" styleClass="p-mr-2" size="large" shape="circle"></p-avatar>
         </td>
         <td></td>
         <td> {{ activity.user.name}} </td>

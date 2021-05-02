@@ -5,6 +5,7 @@ import { BillService } from 'src/app/services/bill.service';
 import { PaperTypeService } from '../services/paper-type.service';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2'
+import { CompanyService } from '../services/company.service';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -19,11 +20,14 @@ export class CompanyComponent implements OnInit {
   generalLink = "http://localhost:8000/"
   users
   selectedUsers =[]
+  selectedEmails = Array()
+  emails = ""
   constructor( private fb:FormBuilder,
     private billService : BillService,
     private toastr: ToastrService,
     private paperTypeService : PaperTypeService,
-    private userService : UserService) {
+    private userService : UserService,
+    private companyService : CompanyService) {
 
       let formControls = {
         name : new FormControl('',[
@@ -137,10 +141,11 @@ export class CompanyComponent implements OnInit {
 
     }
     let data = this.companyForm.value
-    this.billService.updateCompany(this.companyId ,data,path).subscribe(
+    this.companyService.updateCompany(this.companyId ,data,path,this.emails).subscribe(
       res => {
         this.toastr.success("Company Info Are Updated ")
         this.ngOnInit()
+        this.emails = ""
           }, err => { console.log(err) }
           )
   }
@@ -153,4 +158,24 @@ export class CompanyComponent implements OnInit {
     this.files = event.target.files[0]
   }
 
+
+
+
+
+  addEmail(event,email)
+
+  {
+   
+ if(event.target.checked)
+{
+  this.emails = this.emails+email+','
+}else{
+  this.emails =  this.emails.replace(email+',','')
+}
+this.selectedEmails = this.emails.split(',')
+
+console.log(this.emails);
+
+
+  }
 }

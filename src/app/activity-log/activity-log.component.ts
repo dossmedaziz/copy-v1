@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivityLogService } from '../services/activity-log.service';
 import { UserService } from '../services/user.service';
-
+import { Api } from '../api'
 @Component({
   selector: 'app-activity-log',
   templateUrl: './activity-log.component.html',
@@ -11,9 +11,9 @@ export class ActivityLogComponent implements OnInit {
 users
 selectedUser = "*"
 activities
-allActivities
 searchKey
-
+api = new Api()
+url = this.api.url
   constructor(private userService : UserService ,
      private activityLogService : ActivityLogService) { }
 
@@ -30,10 +30,7 @@ searchKey
 
     this.activityLogService.getAllactivities().subscribe(
       res => {
-        console.log(res);
-        this.allActivities = res
         this.activities = res
-
 
       } , err => {
         console.log(err);
@@ -44,34 +41,8 @@ searchKey
 
 
 
-  filter(event)
-  {
+  
 
 
-    if(this.selectedUser == "*")
-    {
-    this.activities = this.allActivities
-    console.log(this.activities);
-
-
-    }else {
-     this.activityLogService.getUserActivities(this.selectedUser).subscribe(
-       res => {
-       this.activities = res
-          }, err => {
-
-       }
-     )
-
-
-    }
-
-  }
-
-
-  findService(service_id,space_name)
-  {
-
-  }
 
 }

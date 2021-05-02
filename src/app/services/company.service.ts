@@ -18,4 +18,13 @@ export class CompanyService {
   {
     return this.http.get<any>(this.api.api+'/getCompanyInfo',this.header)
   }
+
+
+
+
+  updateCompany(id,company,path,emails)
+  {
+    return this.http.put<any>(this.api.api+'/updateCompany/'+id , {company : company, path:path,emails:emails},this.header) ;
+  }
+
 }

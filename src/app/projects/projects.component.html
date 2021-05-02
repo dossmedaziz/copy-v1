@@ -80,7 +80,7 @@
                   <p-tableCheckbox [value]="project"></p-tableCheckbox>
               </td>
               <td>
-                  <button type="button" pButton pRipple [pRowToggler]="project"
+                  <button type="button" pButton pRipple [pRowToggler]="project"  *ngIf="filterActions('create','paper')"
                   class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
               </td>
 
@@ -116,8 +116,8 @@
                       <ng-template pTemplate="body" let-paper>
                           <tr>
                               <td>{{paper.paper_name}}</td>
-                              <td>{{paper.paper_type}}</td>
-                              <td>{{paper.description}}</td>
+                              <td>{{paper.paper_type.paper_type.toUpperCase()}}</td>
+                              <td>{{paper.description ? paper.description : 'No Description' }}</td>
                               <td><p-tag styleClass="p-mr-2" icon="pi {{filterStatus2(paper.status).icon }}" class="tags"  [style.background]="filterStatus2(paper.status).color" value="{{ filterStatus2(project.status).status_name}}" [rounded]="false" ></p-tag></td>
                                 <td>
 
@@ -127,6 +127,7 @@
                                   icon="pi pi-pencil"
                                   class="p-button-rounded p-button-outlined redbtn p-mr-2"
                                   (click)="getSelectedPaper(paper)"
+                                  *ngIf="filterActions('update','paper')"
                                 ></button>
                                   <a href="{{ fileGenralLink }}{{ paper.paper_file}}" target="blank"><button
                                     pButton

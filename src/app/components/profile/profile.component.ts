@@ -162,6 +162,7 @@ async   updateProfile()
 
       }
     let data = this.userForm.value
+    
     this.userService.updateUser(data,path).subscribe(
       res => {
         // console.log(this.userId);

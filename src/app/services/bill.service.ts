@@ -17,11 +17,7 @@ export class BillService {
     return this.http.get<any>(this.api.api+'/getCompanyInfo',this.header)
   }
 
-  updateCompany(id,company,path)
-  {
-    return this.http.put<any>(this.api.api+'/updateCompany/'+id , {company : company, path:path},this.header) ;
-  }
-
+ 
   getItems()
   {
     return this.http.get<any>(this.api.api+'/getItems',this.header)

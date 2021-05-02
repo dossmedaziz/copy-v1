@@ -12,7 +12,8 @@ export class ActivityPipePipe implements PipeTransform {
     }
     return activities.filter( activity =>
       activity.action.action_name.toLowerCase().includes(searchKey.toLowerCase()) ||
-      activity.space.space_name.toLowerCase().includes(searchKey.toLowerCase())      )
-  }
+      activity.space.space_name.toLowerCase().includes(searchKey.toLowerCase())   || 
+      activity.user.name.toLowerCase().includes(searchKey.toLowerCase())     
+    )}
 
 }

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ClientService } from '../services/client.service';
 import { ContactService } from '../services/contact.service';
 import { ConfigService } from '../services/config.service';
+import * as EmailValidator from 'email-validator';
 
 @Component({
   selector: 'app-clients',
@@ -239,7 +240,10 @@ export class ClientsComponent implements OnInit {
 
           active(contact)
           {
-            if(!contact.contact_name || !contact.contact_email)
+         
+            console.log(EmailValidator.validate(contact.contact_email));
+            
+            if(!contact.contact_name || (!contact.contact_email) ||   !EmailValidator.validate(contact.contact_email))
             {
               return false
             }else{ return true}
@@ -289,4 +293,7 @@ export class ClientsComponent implements OnInit {
                    return false
                  }
                 }
+
+
+             
 }

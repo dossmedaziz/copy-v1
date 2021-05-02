@@ -210,7 +210,7 @@
         <div class="p-grid p-fluid">
               <div class="p-field p-col-6 ">
                 <label for="paper_name">Subject :</label>
-                     <input id="type_name" type="text" pInputText class="brad" formControlName="subject">
+                     <input id="type_name" type="text" pInputText class="brad" formControlName="subject" aria-placeholder="Tape Subject">
                      <div *ngIf="subject.touched && subject.invalid">
                        <small *ngIf="subject.errors.required"class="text-danger">Name is required <br> </small>
                        <small  *ngIf="subject.errors.minlength" class="text-danger">Name must contain 4 characters at least<br></small>

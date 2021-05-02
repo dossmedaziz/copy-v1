@@ -87,6 +87,8 @@ export class ProjectsComponent implements OnInit {
              this.projectService.getProjectsWithinfo().subscribe(
                res=>{
                  this.projects = res
+                 console.log(this.projects);
+                 
                }, err=>{
                  console.log(err)
                }
