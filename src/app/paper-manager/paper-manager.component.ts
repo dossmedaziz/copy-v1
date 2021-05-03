@@ -141,7 +141,6 @@ export class PaperManagerComponent implements OnInit {
           }let newPaper = this.paperForm.value
                         this.paperTypeService.updatePaper(this.selectedPaperId,newPaper,path).subscribe(
                           res => {
-                            console.log(res)
 
                             this.toastr.success('Paper Updated!')
                             this.updatePaperModal = false
@@ -174,10 +173,8 @@ export class PaperManagerComponent implements OnInit {
           "paper_id": el.id
         })
         })
-        console.log(papers_id)
         this.paperTypeService.deletePaper(papers_id).subscribe(
           res=>{
-            console.log(res)
             this.toastr.success("deleted")
             this.ngOnInit()
           }, err=>{

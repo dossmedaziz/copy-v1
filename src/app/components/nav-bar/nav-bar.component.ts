@@ -30,7 +30,6 @@ export class NavBarComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem('user'))
       this.userName = user.name
       this.Userphoto = user.photo
-      console.log(this.Userphoto);
 
   }
 

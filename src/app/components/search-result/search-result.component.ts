@@ -35,7 +35,6 @@ export class SearchResultComponent implements OnInit {
     )
   this.result = this.clients.length + this.projects.length + this.contacts.length
  
-  console.log(this.searchResult);
   
     
 

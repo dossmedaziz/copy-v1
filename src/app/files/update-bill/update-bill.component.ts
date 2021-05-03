@@ -215,9 +215,7 @@ get client_id() { return this.clientForm.get('client_id')
   }
   let billId = this.activatedRoute.snapshot.params.id
 
-  console.log(config);
-  console.log( this.invoice.products);
-  console.log(this.invoice.tvaObj);
+
   
   
   
@@ -479,7 +477,6 @@ get client_id() { return this.clientForm.get('client_id')
 
   } else {
       this.invoice.products.splice(index, 1);
-      // console.log(this.itemsArray)
 
       return true;
   }
@@ -492,7 +489,6 @@ get client_id() { return this.clientForm.get('client_id')
         this.selectedClient = res
         this.clientId = res.id
       
-        // console.log( this.invoice.clientid);
       },err=>{
         console.log(err)
       }
@@ -549,8 +545,6 @@ get client_id() { return this.clientForm.get('client_id')
         client = res
         this.selectedClient = res
         this.clientId = res.id
-        console.log(res.id);
-        // console.log( this.invoice.clientid);
       },err=>{
         console.log(err)
       }

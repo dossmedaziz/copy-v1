@@ -103,9 +103,7 @@ export class CompanyComponent implements OnInit {
       res=>{
 
         this.company=res[0]
-        console.log(this.company);
         
-        // console.log(this.company);
         this.path = this.company.logo
 
         this.companyId = this.company.id
@@ -174,7 +172,6 @@ export class CompanyComponent implements OnInit {
 }
 this.selectedEmails = this.emails.split(',')
 
-console.log(this.emails);
 
 
   }

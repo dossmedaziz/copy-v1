@@ -28,6 +28,7 @@ export class ProjectsComponent implements OnInit {
   searchKey
   selectedPaper
   updatePaperModal
+  date
   api = new Api
   fileGenralLink = this.api.url
 
@@ -87,7 +88,6 @@ export class ProjectsComponent implements OnInit {
              this.projectService.getProjectsWithinfo().subscribe(
                res=>{
                  this.projects = res
-                 console.log(this.projects);
                  
                }, err=>{
                  console.log(err)
@@ -141,6 +141,8 @@ this.projectService.createProject(project).subscribe(
 
   selectedProject(project)
   {
+  this.date = new Date(project.start_date)
+
     this.updateModal = true
     this.selectedProjectId  = project.id
     this.projectForm.patchValue({
@@ -148,10 +150,8 @@ this.projectService.createProject(project).subscribe(
       status:project.status,
       description : project.description,
       client_id : project.client_id,
-      start_date:new Date(project.start_date)
+      start_date: project.start_date
      })
-
-     
   }
 
 
@@ -253,7 +253,6 @@ filterStatus2(id)
 
       getSelectedPaper(paper){
         this.selectedPaper = paper
-        console.log(paper)
         this.updatePaperModal = true
         
       }

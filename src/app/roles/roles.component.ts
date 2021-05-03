@@ -94,7 +94,6 @@ searchKey
 
                 this.privilegeService.createRole(this.role.value,this.selectedPriv).subscribe(
                   res=>{
-                        console.log(res)
                         this.toastr.success('Role created successfully')
                         this.displayModal3 = false;
                         this.selectedPriv = []
@@ -246,7 +245,6 @@ searchKey
                    })
                     this.privilegeService.deleteRole(roles_id).subscribe(
                       res=>{
-                        console.log(res)
                         this.toastr.info("role deleted")
                         this.ngOnInit()
 

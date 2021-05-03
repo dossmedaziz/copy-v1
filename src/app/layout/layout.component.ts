@@ -13,6 +13,8 @@ export class LayoutComponent implements OnInit {
 
   expiredContracts
  async ngOnInit() {
+
+
     let url = this.router.url
     let privileges = JSON.parse(localStorage.getItem('privileges'))
     let user = JSON.parse(localStorage.getItem('user'))

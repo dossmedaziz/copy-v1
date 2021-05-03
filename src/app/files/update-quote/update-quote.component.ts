@@ -458,7 +458,6 @@ get client_id() { return this.clientForm.get('client_id')
 
       } else {
           this.invoice.products.splice(index, 1);
-          // console.log(this.itemsArray)
 
           return true;
       }
@@ -469,8 +468,6 @@ get client_id() { return this.clientForm.get('client_id')
           res=>{
             this.selectedClient = res
             this.clientId = res.id
-            console.log(res.id);
-            // console.log( this.invoice.clientid);
           },err=>{
             console.log(err)
           }

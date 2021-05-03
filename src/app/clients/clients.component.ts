@@ -181,10 +181,8 @@ export class ClientsComponent implements OnInit {
                       "client_id": el.id
                     })
                     })
-                    console.log(clients_id)
                     this.clientService.deleteClient(clients_id).subscribe(
                       res=>{
-                        console.log(res)
                         this.toastr.success("deleted")
                         this.ngOnInit()
                       }, err=>{
@@ -241,7 +239,6 @@ export class ClientsComponent implements OnInit {
           active(contact)
           {
          
-            console.log(EmailValidator.validate(contact.contact_email));
             
             if(!contact.contact_name || (!contact.contact_email) ||   !EmailValidator.validate(contact.contact_email))
             {
@@ -260,7 +257,6 @@ export class ClientsComponent implements OnInit {
 
                   this.contactService.updateContact(contact.id,newContact).subscribe(
                     res=>{
-                      console.log(res)
                       this.toastr.success('Updated!')
                       this.ngOnInit()
                       this.contactForm.reset()
@@ -275,7 +271,6 @@ export class ClientsComponent implements OnInit {
                 {
                           this.contactService.deleteContact(id).subscribe(
                             res=>{
-                              console.log(res)
                               this.toastr.success("deleted")
                               this.ngOnInit()
                             }, err=>{

@@ -194,7 +194,6 @@ export class AddQuoteComponent implements OnInit {
                 res=>{
                   this.selectedClient = res
                   this.clientId = res.id
-                  // console.log( this.invoice.clientid);
                 },err=>{
                   console.log(err)
                 }

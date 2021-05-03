@@ -51,7 +51,6 @@ save()
   this.userService.changePassword(password, this.token).subscribe(
 
   res => {
-        console.log(res);
          
         this.router.navigate(['/login'])
         

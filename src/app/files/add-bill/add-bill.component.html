@@ -17,7 +17,7 @@
                       [(ngModel)]="num" [ngModelOptions]="{standalone: true}">
 
                       <label for="name">Facturation Date</label>
-                      <input id="Facturation" type="date" class="form-control rad" (change)="formBillNum()"
+                      <input id="Facturation" type="date" class="form-control rad"  [min]="minDate"(change)="formBillNum()"
                       *ngFor="let product of invoice.tvaTab; let i=index"[(ngModel)]="product.DateFacturation"
                       [ngModelOptions]="{standalone: true}">
                       <br>

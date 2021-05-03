@@ -37,7 +37,6 @@ export class BillsComponent implements OnInit {
     this.billService.getBills().subscribe(
     res=>{
       this.bills = res.bills
-      console.log(this.bills);
       
         },err=>{
       console.log(err)

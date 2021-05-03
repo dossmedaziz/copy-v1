@@ -43,7 +43,7 @@ addUser(user)
 
 updateUser(user,path)
 {
-  return this.http.put<any>(this.api.api+'/updateUser' , {user : user, path:path},this.header) ; 
+  return this.http.put<any>(this.api.api+'/updateUser' , {user : user, path:path},this.header).toPromise() ; 
 }
 
 
@@ -104,5 +104,13 @@ resetPassword(password,token)
       uploadFile(data) {
         return  this.http.post<any>(this.api.api+'/uploadFile',data,this.header).toPromise();
     
+      }
+
+
+
+
+      getConnectedUser()
+      {
+        return this.http.get<any>(this.api.api+'/getConnectedUser', this.header)
       }
 }

@@ -111,7 +111,6 @@ if(autoContracts.length != 0)
     {
          this.paperTypeService.sendMail(autoContracts).then(
        res => {
-         console.log(res);                  
        }, err => {
          console.log(err);
          

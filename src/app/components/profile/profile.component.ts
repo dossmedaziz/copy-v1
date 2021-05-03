@@ -148,6 +148,8 @@ async   updateProfile()
       }
     )
 
+
+
     }
     if(this.isCorrect || !newPass){
     let formData = new FormData();
@@ -157,19 +159,29 @@ async   updateProfile()
      await  this.userService.uploadFile(formData).then(
       res => {
         path = res.path
-        // console.log(path)
         }, err => { console.log(err);})
 
       }
     let data = this.userForm.value
     
-    this.userService.updateUser(data,path).subscribe(
+   await this.userService.updateUser(data,path).then(
       res => {
-        // console.log(this.userId);
         this.toastr.success("User Profile Infos Are Updated!")
         this.ngOnInit()
           }, err => { console.log(err) }
           )
+
+
+
+    this.userService.getConnectedUser().subscribe(
+      res => {
+localStorage.removeItem('user')
+localStorage.setItem('user',JSON.stringify(res));
+}  ,err => {
+        console.log(err);
+        
+      } 
+    )
    }
   }
 }

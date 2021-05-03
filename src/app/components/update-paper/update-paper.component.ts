@@ -116,7 +116,6 @@ export class UpdatePaperComponent implements OnInit {
                   })
 
                   this.selectedFilePath = this.selectedPaper.paper_file 
-                  console.log(this.selectedPaper)
 
               }
 
@@ -141,7 +140,6 @@ export class UpdatePaperComponent implements OnInit {
                   await this.paperTypeService.uploadFile(formData).then( 
                   res => {
                     path = res.path
-                    console.log(path)
                     }, err => { console.log(err);})
                     
                   }

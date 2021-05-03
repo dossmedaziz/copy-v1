@@ -35,7 +35,6 @@ emailForm: FormGroup
 let email = this.emailForm.get('email').value
 this.UserService.sendMail(email).subscribe( 
   res => {
-    console.log(res);
      this.toastr.success('Mail sent to '+email)
      this.emailForm.reset()
     

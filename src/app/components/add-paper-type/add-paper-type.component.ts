@@ -159,7 +159,6 @@ export class AddPaperTypeComponent implements OnInit {
       
     this.paperTypeSrvice.updateType(type,email).subscribe(
       res => {
-        console.log(res);
         this.toastr.success("updated")
         this.updateTypeModal = false
         this.typeForm.reset()

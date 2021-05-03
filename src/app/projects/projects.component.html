@@ -154,10 +154,11 @@
 </div>
 
 <!-- New project modal-->
-<p-dialog header="Add new Project" [(visible)]="addNewProjectModal" [modal]="true"[style]="{ width: '150vh','height':'150vh' }"[baseZIndex]="10000"
+<p-dialog header="Add new Project" [(visible)]="addNewProjectModal" [modal]="true"[style]="{ width: '130vh','height':'150vh' }"[baseZIndex]="10000"
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
-  <div class="p-fluid">
-    <br />
+  <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
+  <div class="p-fluid" [style]="{'margin-top':'150px'}">
+
 
     <form [formGroup]="projectForm" >
       <div class="p-grid p-fluid">
@@ -189,7 +190,7 @@
     <div class="p-grid p-fluid">
       <div class="p-field p-col-6 ">
         <label for="icon">Start Date</label>
-          <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar>
+          <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar> -->
         <div *ngIf="start_date.touched && start_date.invalid">
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small>
         </div>
@@ -263,8 +264,10 @@
 
     <div class="p-grid p-fluid">
       <div class="p-field p-col-6 ">
-        <label for="icon">Start Date</label>
-          <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar>
+        <label for="icon">Start Date</label> 
+          <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar> -->
+          <input type="date"  [ngModel]="date | date:'yyyy-MM-dd'"  formControlName="start_date">
+
            <div *ngIf="start_date.touched && start_date.invalid">
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small>
         </div>
