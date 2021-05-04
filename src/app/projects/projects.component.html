@@ -154,10 +154,13 @@
 </div>
 
 <!-- New project modal-->
-<p-dialog header="Add new Project" [(visible)]="addNewProjectModal" [modal]="true"[style]="{ width: '130vh','height':'150vh' }"[baseZIndex]="10000"
+<p-dialog header="Add new Project"
+[(visible)]="addNewProjectModal" [modal]="true"
+[baseZIndex]="10000" [style]="{ width: '125vh' }"
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
-  <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
-  <div class="p-fluid" [style]="{'margin-top':'150px'}">
+  <div class="p-fluid" >
+
+    <img class="center" src="assets/img/add.png" />
 
 
     <form [formGroup]="projectForm" >
@@ -165,7 +168,7 @@
 
         <div class="p-field p-col-6 ">
           <label for="icon">Project Name</label>
-          <input id="project_name" type="text" pInputText class="brad" formControlName="project_name">
+          <input id="project_name" type="text" pInputText class="brad radding" formControlName="project_name">
           <div *ngIf="project_name.touched && project_name.invalid">
             <small *ngIf="project_name.errors.required"class="text-danger">Name is required <br> </small>
             <small  *ngIf="project_name.errors.pattern" class="text-danger">Invalid name <br></small>
@@ -175,8 +178,8 @@
         </div>
         <div class="p-field p-col-6 ">
 
-          <label for="client_id"> Client :</label>
-          <select class="form-select" aria-label="Default select example" formControlName="client_id">
+          <label for="client_id"> Client </label>
+          <select class="form-select brad" aria-label="Default select example" formControlName="client_id">
               <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
           </select>
           <div *ngIf="client_id.touched && client_id.invalid">
@@ -189,16 +192,16 @@
 
     <div class="p-grid p-fluid">
       <div class="p-field p-col-6 ">
-        <label for="icon">Start Date :</label><br>
-          <input type="date" id="" formControlName="start_date" >
+        <label for="icon">Start Date </label><br>
+          <input class="date form-control " type="date" id="" formControlName="start_date" >
         <div *ngIf="start_date.touched && start_date.invalid">
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small>
         </div>
 
       </div>
       <div class="p-field p-col-6 ">
-        <label for="status"> Status :</label>
-        <select class="form-select" aria-label="Default select example" formControlName="status">
+        <label for="status"> Status </label>
+        <select class="form-select brad" aria-label="Default select example" formControlName="status">
             <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"
               severity="{{ status.color }}" value="{{ status.status_name}}"
               [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
@@ -212,9 +215,10 @@
 
     <div class="p-grid p-fluid">
       <div class="p-field p-col-12 ">
+        <label for="description">Description</label>
         <span class="p-float-label" >
-          <textarea [rows]="5" [cols]="30" pInputTextarea  formControlName="description" [style]="{'height':'5em'}"></textarea>
-          <label for="description">Description</label>
+          <textarea class="brad" [rows]="5" [cols]="30" pInputTextarea  formControlName="description" [style]="{'height':'5em'}"></textarea>
+
         </span>
             </div>
             </div>
@@ -230,17 +234,16 @@
 
 
  <!-- update project-->
-<p-dialog header="Update Project" [(visible)]="updateModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000"
+<p-dialog header="Update Project" [(visible)]="updateModal" [modal]="true"
+[style]="{ width: '125vh' }" [baseZIndex]="10000"
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
-    <br />
-
+    <img class="proj" src="assets/img/upd.png" />
     <form [formGroup]="projectForm" >
       <div class="p-grid p-fluid">
-
         <div class="p-field p-col-6 ">
           <label for="icon">Project Name</label>
-          <input id="project_name" type="text" pInputText class="brad" formControlName="project_name">
+          <input id="project_name" type="text" pInputText class="brad radding " formControlName="project_name">
           <div *ngIf="project_name.touched && project_name.invalid">
             <small *ngIf="project_name.errors.required"class="text-danger">Name is required <br> </small>
             <small  *ngIf="project_name.errors.pattern" class="text-danger">Invalid name <br></small>
@@ -250,8 +253,8 @@
         </div>
         <div class="p-field p-col-6 ">
 
-          <label for="client_id"> Client :</label>
-          <select class="form-select" aria-label="Default select example" formControlName="client_id">
+          <label for="client_id"> Client </label>
+          <select class="form-select fs" aria-label="Default select example" formControlName="client_id">
               <option *ngFor="let client of clients" value="{{ client.id }}">{{ client.client_name }}</option>
           </select>
           <div *ngIf="client_id.touched && client_id.invalid">
@@ -264,8 +267,8 @@
 
     <div class="p-grid p-fluid">
       <div class="p-field p-col-6 ">
-        <label for="icon">Start Date : </label> <br>
-          <input type="date"  [ngModel]="date | date:'yyyy-MM-dd'"  formControlName="start_date" >
+        <label for="icon">Start Date  </label> <br>
+          <input type="date" class="date" [ngModel]="date | date:'yyyy-MM-dd'"  formControlName="start_date" >
 
            <div *ngIf="start_date.touched && start_date.invalid">
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small>
@@ -273,8 +276,8 @@
 
       </div>
       <div class="p-field p-col-6 ">
-        <label for="status"> Status :</label>
-        <select class="form-select" aria-label="Default select example" formControlName="status">
+        <label for="status"> Status </label>
+        <select class="form-select fs" aria-label="Default select example" formControlName="status">
             <option *ngFor="let status of status_table" value="{{ status.id }}" ><p-tag styleClass="p-mr-2" icon="pi {{status.icon }}"
               severity="{{ status.color }}" value="{{ status.status_name}}"
               [rounded]="false" [style]="{'opacity':'0.5'}"></p-tag></option>
@@ -287,10 +290,11 @@
     </div>
 
     <div class="p-grid p-fluid">
-      <div class="p-field p-col-6 ">
+      <div class="p-field p-col-12 ">
+        <label for="description">Description</label>
         <span class="p-float-label" >
-          <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
-          <label for="description">Description</label>
+          <textarea class="brad" [rows]="5" [cols]="30" pInputTextarea  formControlName="description" [style]="{'height':'5em'}"></textarea>
+
         </span>
             </div>
             </div>

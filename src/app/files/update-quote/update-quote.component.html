@@ -16,14 +16,13 @@
                       <input type="text" readonly class="rad form-control" id="quantity" *ngFor="let product of invoice.tvaTab; let i=index"
                       [(ngModel)]="num" [ngModelOptions]="{standalone: true}">
 
-
-                    <div class="p-field p-col-12 p-md-4" >
-                      <label for=" fad">Facturation Date</label>
-                      <p-calendar [showIcon]="false" inputId="basic" [ngModelOptions]="{standalone: true}" (onSelect)="formQuoteNum()"
-                      [(ngModel)]="DateFacturation"></p-calendar>
-                      <input type="date" >
-                  </div>
                       <br>
+                      <label for=" fad">Facturation Date</label> <br>
+                      <p-calendar [showIcon]="false" inputId="basic" [ngModelOptions]="{standalone: true}" (onSelect)="formQuoteNum()"
+                      [(ngModel)]="DateFacturation" [maxDate]="maxDate" [minDate]="minDate" ></p-calendar>
+                      
+                 
+                      <br> <br>
                         <h4 class="card-title">Customer Details</h4>
                         <div class="row">
                             <div class="col-md-8">
@@ -38,6 +37,11 @@
                                         [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
                                         [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
                                 </div>
+
+                                <input *ngIf="selectedClient" type="text" class="rad form-control" name="name" id="name"  
+                                [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
+                                [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
+
                                 <div class="form-group">
                                     <label *ngIf="selectedClient" for="address">Address</label>
                                     <input *ngIf="selectedClient" type="text" class="rad form-control" name="address" id="address"
@@ -61,6 +65,11 @@
                                     <input *ngIf="selectedClient" type="number" class="rad form-control" name="contactNo" id="contactNo"
                                         [(ngModel)]="selectedClient.phone" #ContactNo="ngModel" >
                                 </div>
+                                <div class="form-group">
+                                  <label *ngIf="selectedClient" for="contactNo">Others</label>
+                                  <input *ngIf="selectedClient" type="text" class="rad form-control" name="Others" id="Others"
+                                      [(ngModel)]="selectedClient.other" #ContactNo="ngModel" >
+                              </div>
                             </div>
                         </div>
                     </div>

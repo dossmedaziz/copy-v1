@@ -114,7 +114,6 @@ filterActions(action_name,space_name)
 {
 
     this.allBills = []
-  // console.log(this.selectedYear)
   await this.bills.map(el => {
     let year = new Date(el.DateFacturation).getFullYear()
 if(year == this.selectedYear)

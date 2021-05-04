@@ -73,6 +73,8 @@ export class AddQuoteComponent implements OnInit {
   lang: SUPPORTED_LANGUAGE = 'fr';
   date
   numQuote
+  numBill
+  minDate 
   constructor(private ngxNumToWordsService: NgxNumToWordsService,
     private router : Router, private fb:FormBuilder,private quoteService : QuoteService,
                private clientService : ClientService,
@@ -92,7 +94,8 @@ export class AddQuoteComponent implements OnInit {
        get client_id() { return this.clientForm.get('client_id')
                }
 
-               ngOnInit() : void{
+             async  ngOnInit(){
+
 
                 this.clientService.getClients().subscribe(
                  res=>{
@@ -111,7 +114,8 @@ export class AddQuoteComponent implements OnInit {
 
                  }
                )
-
+               
+               this.minDate = await this.dateFormat()
 
 
       let privileges = JSON.parse(localStorage.getItem('privileges'))
@@ -346,6 +350,7 @@ export class AddQuoteComponent implements OnInit {
                         { text: this.selectedClient.email, style:'fontt' },
                         { text: this.selectedClient.phone , style:'fontt'},
                         { text: this.selectedClient.matFisc , style:'fontt'},
+                        { text: this.selectedClient.other , style:'fontt'},
                       ]
                     ]
                   },
@@ -487,5 +492,36 @@ export class AddQuoteComponent implements OnInit {
               }else{
                 pdfMake.createPdf(docDefinition).open();
               }
+            }
+            select()
+            {
+            this.selectedClient = false
+              
+            }
+            async dateFormat()
+            {
+              let date = ""
+             await this.quoteService.getLastquote().then(
+                res => {
+                  if(res){
+                    
+                    
+                  date = date + new Date(res.DateFacturation).getFullYear() +'-'
+                  
+                  date = new Date(res.DateFacturation).getMonth() + 1 < 9 ? date+'0'+(new Date(res.DateFacturation).getMonth() + 1)+'-' :
+                  date+(new Date(res.DateFacturation).getMonth()+ 1) +'-'
+                  date = new Date(res.DateFacturation).getDate() < 9 ?  date+'0'+new Date(res.DateFacturation).getDate() :
+                  date+new Date(res.DateFacturation).getDate() 
+                       
+                 }
+                  
+                }, err =>{
+                  console.log(err);
+                  
+                }
+              )
+            
+             return date
+             
             }
 }

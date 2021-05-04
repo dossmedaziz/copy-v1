@@ -38,7 +38,7 @@ class Invoice{
   email: string;
   clientid : number ;
   matFisc: string;
-
+  other: string;
 
   products: Product[] = [];
   tvaTab : Array<Tva> = [];
@@ -74,6 +74,9 @@ export class UpdateQuoteComponent implements OnInit {
   numQuote
   DateFacturation
   word
+  maxDate = new Date(9999,99,99)
+  minDate = new Date(0,0,0)
+
   constructor(private ngxNumToWordsService: NgxNumToWordsService, private fb:FormBuilder,
     private quoteService : QuoteService,
     private clientService : ClientService,
@@ -94,7 +97,7 @@ export class UpdateQuoteComponent implements OnInit {
 get client_id() { return this.clientForm.get('client_id')
     }
 
- ngOnInit(): void {
+ async ngOnInit() {
     let quoteId = this.activatedRoute.snapshot.params.id
 
     this.quoteService.getQuoteById(quoteId).subscribe(
@@ -116,7 +119,7 @@ get client_id() { return this.clientForm.get('client_id')
 
       }
     )
-    this.quoteService.getQuotes().subscribe(
+    this.quoteService.getQuotes().then(
       res=>{
         this.numQuote = res.length
         this.numQuote++
@@ -142,6 +145,7 @@ get client_id() { return this.clientForm.get('client_id')
 
       }
     )
+    await this.dateFormat(quoteId)
 
     let privileges = JSON.parse(localStorage.getItem('privileges'))
     let user = JSON.parse(localStorage.getItem('user'))
@@ -304,6 +308,7 @@ get client_id() { return this.clientForm.get('client_id')
                   { text: this.selectedClient.email, style:'fontt' },
                   { text: this.selectedClient.phone , style:'fontt'},
                   { text: this.selectedClient.matFisc , style:'fontt'},
+                  { text: this.selectedClient.other , style:'fontt'},
                 ]
               ]
             }, {
@@ -522,5 +527,47 @@ get client_id() { return this.clientForm.get('client_id')
           )
             return client
         }
-
+        async dateFormat(quoteId)
+        {
+          await    this.quoteService.getDateLimits(quoteId).then(
+            res => {
+            
+              if(res.limit == 0 )
+              {
+                this.maxDate.setDate(new Date(res.quote.DateFacturation).getDate())
+                this.maxDate.setMonth(new Date(res.quote.DateFacturation).getMonth());
+                this.maxDate.setFullYear(new Date(res.quote.DateFacturation).getFullYear());
+          
+              
+                
+              }else if(res.limit == 1)
+              {
+                this.minDate.setDate(new Date(res.quote.DateFacturation).getDate())
+                this.minDate.setMonth(new Date(res.quote.DateFacturation).getMonth());
+                this.minDate.setFullYear(new Date(res.quote.DateFacturation).getFullYear());
+                
+                
+              }else(res.limit == 2)
+              {
+                this.maxDate.setDate(new Date(res.next_quote.DateFacturation).getDate())
+                this.maxDate.setMonth(new Date(res.next_quote.DateFacturation).getMonth());
+                this.maxDate.setFullYear(new Date(res.next_quote.DateFacturation).getFullYear());
+        
+                this.minDate.setDate(new Date(res.prev_quote.DateFacturation).getDate())
+                this.minDate.setMonth(new Date(res.prev_quote.DateFacturation).getMonth());
+                this.minDate.setFullYear(new Date(res.prev_quote.DateFacturation).getFullYear());
+        
+                
+              }
+              
+              
+              
+            },err =>{
+              console.log(err);
+              
+            }
+          )
+                
+        
+          }
 }

@@ -40,6 +40,7 @@ class Invoice{
   email: string;
   clientid : Number ;
   matFisc: string;
+  other: string;
 
 
   products: Product[] = [];
@@ -293,6 +294,7 @@ export class AddBillComponent implements OnInit {
                         { text: this.selectedClient.email, style:'fontt' },
                         { text: this.selectedClient.phone , style:'fontt'},
                         { text: this.selectedClient.matFisc , style:'fontt'},
+                        { text: this.selectedClient.other , style:'fontt'},
                       ]
                     ]
                   },

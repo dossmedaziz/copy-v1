@@ -42,7 +42,7 @@ export class QuoteService {
 
   getQuotes()
   {
-    return this.http.get<any>(this.api.api+'/getQuote',this.header)
+    return this.http.get<any>(this.api.api+'/getQuote',this.header).toPromise()
   }
 
   deleteQuote(quotes_id)
@@ -67,5 +67,14 @@ export class QuoteService {
   calcNumQuotes(year){
     return this.http.post<any>(this.api.api+'/calcNumQuote',{year:year},this.header).toPromise() ;
   }
+  
+  getLastquote()
+  {
+    return this.http.get<any>(this.api.api+'/getLastquote', this.header).toPromise()
+  }
 
+  getDateLimits(id)
+  {
+    return this.http.post<any>(this.api.api+'/getDateLimits',{id : id},this.header).toPromise()
+  }
 }

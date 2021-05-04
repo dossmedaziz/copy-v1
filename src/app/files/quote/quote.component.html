@@ -53,6 +53,12 @@
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       <h5 class="p-m-0 title_erp" style="font-size: 15px; "> Quote List</h5>
+      <select name=""  id="" class="brad" 
+      style="  border: 1px solid #ced4da ; padding: 0.45rem 0.45rem;" 
+      [(ngModel)]="selectedYear" (change)="filterByYear()">
+        <option value="" *ngFor="let year of years" value="{{year.year}}">{{year.year}}</option>
+      </select>
+      
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input pInputText type="text" class="brad" placeholder="Search..." [(ngModel)]="searchKey"/>

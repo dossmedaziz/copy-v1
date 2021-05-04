@@ -118,20 +118,18 @@
   [resizable]="true"
   styleClass="p-fluid"
 >
-<img class="center" src="assets/img/add_person_user_icon_131752.ico" />
+<img class="userimg" src="assets/img/user.png" />
 <form [formGroup]="userForm" >
   <div class="p-fluid">
-    <br />
     <div class="brad p-field">
-
+      <label for="name">Name </label>
         <span class="p-float-label" >
           <input
           id="name"
           type="text"
-          class="brad"
+          class="brad radding"
           pInputText
           formControlName="name"/>
-          <label for="name">Name </label>
         </span>
       <div *ngIf="name.touched && name.invalid">
         <small *ngIf="name.errors.required"class="text-danger">Name is required <br> </small>
@@ -142,15 +140,15 @@
     </div>
 
     <div class="p-field">
+      <label for="Email">Email </label>
       <span class="p-float-label" >
       <input
         id="Email"
         type="text"
         pInputText
-        class="brad"
+        class="brad radding"
         formControlName="email"
       />
-      <label for="Email">Email </label>
       </span>
       <div *ngIf="email.touched && email.invalid">
         <small *ngIf="email.errors.required"class="text-danger">Email is required <br> </small>
@@ -160,8 +158,8 @@
 
   </div>
 
-  <label for="role_id"> Role :</label>
-<select class="form-select" aria-label="Default select example" formControlName="role_id">
+  <label for="role_id"> Role </label>
+<select class="form-select fs" aria-label="Default select example" formControlName="role_id">
     <option *ngFor="let role of roles" value="{{ role.id }}">{{ role.role_name }}</option>
 </select>
 <div *ngIf="role_id.touched && role_id.invalid">
@@ -190,19 +188,18 @@
   [resizable]="true"
   styleClass="p-fluid"
 >
+<img class="userimg" src="assets/img/upd.png" />
 <form [formGroup]="userForm" >
   <div class="p-fluid">
-    <br />
     <div class="brad p-field">
-
+      <label for="name">Name </label>
         <span class="p-float-label" >
           <input
           id="name"
           type="text"
-          class="brad"
+          class="brad radding"
           pInputText
           formControlName="name"/>
-          <label for="name">Name </label>
         </span>
       <div *ngIf="name.touched && name.invalid">
         <small *ngIf="name.errors.required"class="text-danger">Name is required <br> </small>
@@ -213,15 +210,15 @@
     </div>
 
     <div class="p-field">
+      <label for="Email">Email </label>
       <span class="p-float-label" >
       <input
         id="Email"
         type="text"
         pInputText
-        class="brad"
+        class="brad radding"
         formControlName="email"
       />
-      <label for="Email">Email </label>
       </span>
       <div *ngIf="email.touched && email.invalid">
         <small *ngIf="email.errors.required"class="text-danger">Email is required <br> </small>
@@ -231,8 +228,8 @@
 
   </div>
 
-  <label for="role_id"> Role :</label>
-<select class="form-select" aria-label="Default select example" formControlName="role_id">
+  <label for="role_id"> Role </label>
+<select class="form-select fs" aria-label="Default select example" formControlName="role_id">
     <option *ngFor="let role of roles" value="{{ role.id }}">{{ role.role_name }}</option>
 </select>
 <div *ngIf="role_id.touched && role_id.invalid">

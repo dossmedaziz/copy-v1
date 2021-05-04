@@ -19,73 +19,100 @@ export class QuoteComponent implements OnInit {
   num = 0
   search
   searchKey
-  constructor(private quoteService : QuoteService
-    ,private toastr:ToastrService ,
-    private configService : ConfigService ,
-   private router : Router) { }
+  allquotes = Array()
+  selectedYear = new Date().getFullYear()
 
-   ngOnInit(): void {
+  constructor(private quoteService: QuoteService
+    , private toastr: ToastrService,
+    private configService: ConfigService,
+    private router: Router) { }
 
-    for ( let i = 2017 ;  i < 2050 ; i++  )
-    {
-      this.years.push({
-       year : i
-      })}
 
-    this.thisyear = new Date().getFullYear()
-    this.quoteService.getQuotes().subscribe(
-    res=>{
-      this.quotes = res.quotes
-      
-        },err=>{
-      console.log(err)
-    })}
+    async ngOnInit() {
 
-    addQuote(){this.router.navigate(['/addQuote'])}
-    updatequote(id){ this.router.navigate(['/updateQuote', id])}
-    deleteQuote(){
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do You Really Want To Delete The quotes!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, keep it'
-      }).then((result) => {
-        if (result.value) {
+      for ( let i = 2017 ;  i < 2050 ; i++  )
+      {
+        this.years.push({
+         year : i
+        })
+      }
+      await this.quoteService.getQuotes().then(
+        res=>{
+          this.allquotes = res.quotes
+          this.quotes = res.quotes
+          
+            },err=>{
+          console.log(err)
+        }
+      )
+      await this.filterByYear()
+     
+  
+    }
 
-          let quotes_id = []
-          this.selectedquote.map(el=>{
-            quotes_id.push({
+  addQuote() { this.router.navigate(['/addQuote']) }
+  updatequote(id) { this.router.navigate(['/updateQuote', id]) }
+  deleteQuote() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do You Really Want To Delete The quotes!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+
+        let quotes_id = []
+        this.selectedquote.map(el => {
+          quotes_id.push({
             "quote_id": el.id
           })
-          })
-          this.quoteService.deleteQuote(quotes_id).subscribe(
-            res=>{
-              this.toastr.success('Quotes is deleted')
-              this.ngOnInit()
-            }, err=>{
-              console.log(err)
-            }
-            )
-            Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success',
-            )
+        })
+        this.quoteService.deleteQuote(quotes_id).subscribe(
+          res => {
+            this.toastr.success('Quotes is deleted')
+            this.ngOnInit()
+          }, err => {
+            console.log(err)
+          }
+        )
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success',
+        )
 
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire(
-              'Cancelled',
-              'Your file is safe :)',
-              'error'
-            )}})}
-    filterActions(action_name,space_name)
-    {
-    if( this.configService.filterActions(action_name,space_name)){
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your file is safe :)',
+          'error'
+        )
+      }
+    })
+  }
+  filterActions(action_name, space_name) {
+    if (this.configService.filterActions(action_name, space_name)) {
       return true
-    }else{
+    } else {
       return false
     }
-    }
+  }
+
+  async filterByYear() {
+
+    this.allquotes = []
+    await this.quotes.map(el => {
+      let year = new Date(el.DateFacturation).getFullYear()
+      if (year == this.selectedYear) 
+      {
+        this.allquotes.push(
+          el
+        )
+      }
+
+    });
+  }
+
 }

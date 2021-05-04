@@ -53,7 +53,9 @@
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       <h5 class="p-m-0 title_erp" style="font-size: 20px; "> Bills List</h5>
-      <select name=""  id=""  [(ngModel)]="selectedYear" (change)="filterByYear()">
+      <select name=""  id="" class="brad" 
+      style="  border: 1px solid #ced4da ; padding: 0.45rem 0.45rem;" 
+      [(ngModel)]="selectedYear" (change)="filterByYear()">
         <option value="" *ngFor="let year of years" value="{{year.year}}">{{year.year}}</option>
       </select>
       

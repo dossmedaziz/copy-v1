@@ -1,6 +1,7 @@
 <p-dialog header="Update Paper" [(visible)]="updatePaperModal" [modal]="true"[style]="{ width: '150vh','height':'100vh' }"[baseZIndex]="10000" 
   [draggable]="false"  [resizable]="false" styleClass="p-fluid" (onHide)="hideTheModal()">
-  <div class="p-fluid">    
+  <div class="p-fluid">  
+    <img class="proj" src="assets/img/upd.png" />  
     <form [formGroup]="paperForm" >
     
       <div class="p-grid p-fluid">  
@@ -9,7 +10,7 @@
         <div class="p-field p-col-6 ">
     
             <label for="paper_name">Paper Name</label>
-                <input id="paper_name" type="text" pInputText class="brad" formControlName="paper_name"> 
+                <input id="paper_name" type="text" pInputText class="brad radding" formControlName="paper_name"> 
                 <div *ngIf="paper_name.touched && paper_name.invalid"> 
                   <small *ngIf="paper_name.errors.required"class="text-danger">Name is required <br> </small> 
                   <small  *ngIf="paper_name.errors.minlength" class="text-danger">Name must contain 4 characters at least<br></small> 
@@ -17,8 +18,8 @@
                 </div> 
             </div>
         <div class="p-field p-col-4">
-          <label for="paper_type"> Paper Type : </label>
-          <select class="form-select" aria-label="Default select example" formControlName="paper_type">
+          <label for="paper_type"> Paper Type  </label>
+          <select class="form-select fs" aria-label="Default select example" formControlName="paper_type">
               <option *ngFor="let type of papersType" value="{{ type.id }}" >{{ type.paper_type }}</option>
           </select>
           <div *ngIf="paper_type.touched && paper_type.invalid"> 
@@ -37,7 +38,7 @@
           <label for="icon">Start Date</label>
             
               <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar> -->
-              <input type="date"  [ngModel]="date_start | date:'yyyy-MM-dd'" formControlName="start_date" id="">
+              <input type="date" class="date" [ngModel]="date_start | date:'yyyy-MM-dd'" formControlName="start_date" id="">
               <div *ngIf="start_date.touched && start_date.invalid"> 
                 <small *ngIf="start_date.errors.required"class="text-danger">start Date is required <br> </small> 
               </div> 
@@ -46,7 +47,7 @@
       <div class="p-field p-col-6 ">
         <label for="icon">End Date</label>
             <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="end_date"></p-calendar> -->
-            <input type="date"  [ngModel]="date_end | date:'yyyy-MM-dd'" formControlName="end_date" id="">
+            <input type="date" class="date" [ngModel]="date_end | date:'yyyy-MM-dd'" formControlName="end_date" id="">
 
             <div *ngIf="end_date.touched && end_date.invalid"> 
               <small *ngIf="end_date.errors.required"class="text-danger">End Date is required <br> </small> 
@@ -59,7 +60,7 @@
      
       <div class="p-field p-col-6 ">
         <label for="project_id"> Project </label>
-        <select class="form-select" aria-label="Default select example" formControlName="project_id">
+        <select class="form-select fs" aria-label="Default select example" formControlName="project_id">
             <option *ngFor="let project of projects" value="{{ project.id }}">{{ project.project_name }}</option>
         </select>
         <div *ngIf="project_id.touched && project_id.invalid"> 
@@ -68,7 +69,7 @@
       </div>
             <div class="p-field p-col-6 ">
               <label for="status"> Status </label>
-              <select class="form-select" aria-label="Default select example" formControlName="status">
+              <select class="form-select fs" aria-label="Default select example" formControlName="status">
                   <option *ngFor="let status of status_paper" value="{{ status.id }}">{{ status.status_name }}</option>
               </select>
               <div *ngIf="status.touched && status.invalid"> 
@@ -82,8 +83,8 @@
 
             <div class="p-grid p-fluid">  
               <div class="p-field p-col-6 ">
-                <label for="file">File: <a href="{{fileGenralLink}}{{selectedFilePath}}" target="_blank">( Current File )</a></label><br>
-                <input class="form-control" type="file" id="formFile" formControlName="file" (change)="selectFile($event)">           
+                <label for="file">File <a href="{{fileGenralLink}}{{selectedFilePath}}" target="_blank">( Current File )</a></label><br>
+                <input class="form-control brad" type="file" id="formFile" formControlName="file" (change)="selectFile($event)">           
               </div>
               <!-- <div class="form-check form-switch" style="margin-top: 25px;">
                 <label class="form-check-label" for="flexSwitchCheckDefault" >Active Notification :</label><br>
@@ -96,10 +97,10 @@
               </div>
             </div>
             <div class="p-grid p-fluid"> 
+              <label for="description">Description</label>
               <div class="p-field p-col-12">
                 <span class="p-float-label" >
-                  <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
-                  <label for="description">Description</label>
+                  <textarea rows="5" cols="30" class="brad" pInputTextarea formControlName="description"></textarea>
                 </span>
                     </div> 
                     </div>

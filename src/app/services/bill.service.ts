@@ -63,6 +63,7 @@ export class BillService {
   calcNumBills(year){
     return this.http.post<any>(this.api.api+'/calcNumBills',{year:year},this.header).toPromise() ;
   }
+  
   getLastBill()
   {
     return this.http.get<any>(this.api.api+'/getLastBill', this.header).toPromise()

@@ -38,6 +38,7 @@ class Invoice{
   email: string;
   clientid : number ;
   matFisc: string;
+  other: string;
 
 
   products: Product[] = [];
@@ -116,6 +117,7 @@ get client_id() { return this.clientForm.get('client_id')
       this.invoice.tvaObj.total_ttc = res.bill.total_ttc
       this.invoice.tvaObj.description = res.bill.description
       this.invoice.tvaObj.inWord = res.bill.inWord
+
 
 
       },err=>{
@@ -329,6 +331,7 @@ get client_id() { return this.clientForm.get('client_id')
               { text: this.selectedClient.email, style:'fontt' },
               { text: this.selectedClient.phone , style:'fontt'},
               { text: this.selectedClient.matFisc , style:'fontt'},
+              { text: this.selectedClient.other , style:'fontt'},
             ]
           ]
         }, {
