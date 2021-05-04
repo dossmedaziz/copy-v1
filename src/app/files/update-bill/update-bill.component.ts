@@ -123,7 +123,7 @@ get client_id() { return this.clientForm.get('client_id')
 
       }
     )
-    this.billService.getBills().subscribe(
+    this.billService.getBills().then(
       res=>{
         this.numBill = res.length
         this.numBill++

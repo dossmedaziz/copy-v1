@@ -39,7 +39,7 @@
 <div class="card">
   <p-table
     #dt
-    [value]="bills | billPipe:searchKey"
+    [value]="allBills | billPipe:searchKey"
     [rows]="10"
     [paginator]="true"
     [(selection)]="selectedBill"
@@ -53,6 +53,10 @@
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       <h5 class="p-m-0 title_erp" style="font-size: 20px; "> Bills List</h5>
+      <select name=""  id=""  [(ngModel)]="selectedYear" (change)="filterByYear()">
+        <option value="" *ngFor="let year of years" value="{{year.year}}">{{year.year}}</option>
+      </select>
+      
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input pInputText type="text" class="brad" placeholder="Search..." [(ngModel)]="searchKey"/>
@@ -112,7 +116,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ bills ? bills.length : 0 }} bills.
+        In total there are {{ allBills ? allBills.length : 0 }} bills.
       </div>
     </ng-template>
   </p-table>

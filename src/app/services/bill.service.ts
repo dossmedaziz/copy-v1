@@ -39,7 +39,7 @@ export class BillService {
 
   getBills()
   {
-    return this.http.get<any>(this.api.api+'/getBill',this.header)
+    return this.http.get<any>(this.api.api+'/getBill',this.header).toPromise()
   }
 
   deleteBill(bills_id)

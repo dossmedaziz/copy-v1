@@ -13,18 +13,19 @@ import { ConfigService } from 'src/app/services/config.service';
 })
 export class BillsComponent implements OnInit {
   number
-  bills
+  bills = Array()
   selectedBill
   years = Array()
   year
-  thisyear
+  selectedYear = new Date().getFullYear()
   num = 0
   searchKey
+  allBills = Array()
   constructor(private billService : BillService,private toastr:ToastrService ,
      private configService : ConfigService ,
     private router : Router) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
     for ( let i = 2017 ;  i < 2050 ; i++  )
     {
@@ -32,16 +33,17 @@ export class BillsComponent implements OnInit {
        year : i
       })
     }
-    this.thisyear = new Date().getFullYear()
-
-    this.billService.getBills().subscribe(
+    await this.billService.getBills().then(
     res=>{
+      this.allBills = res.bills
       this.bills = res.bills
       
         },err=>{
       console.log(err)
     }
   )
+  await this.filterByYear()
+
   }
 
   updateBill(id){
@@ -106,5 +108,29 @@ filterActions(action_name,space_name)
  }else{
    return false
  }
+}
+
+  async filterByYear()
+{
+
+    this.allBills = []
+  // console.log(this.selectedYear)
+  await this.bills.map(el => {
+    let year = new Date(el.DateFacturation).getFullYear()
+if(year == this.selectedYear)
+   {
+ 
+      this.allBills.push(
+           el
+          )
+          
+   }
+   
+    });
+
+
+
+
+
 }
 }
