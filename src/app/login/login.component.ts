@@ -67,6 +67,7 @@ constructor(private userService : UserService,
           localStorage.setItem('token',token);
           localStorage.setItem('user',JSON.stringify(user));
           localStorage.setItem('privileges',JSON.stringify(privileges));
+          localStorage.setItem('refresh',"true")
             this.router.navigate(['/'])
             this.toaster.success('welcome!')
      

@@ -38,8 +38,16 @@ export class LayoutComponent implements OnInit {
         }else if(!reslt){
           this.router.navigate(['/dashboard'])
 
-        }
 
+    
+
+        }
+      if(localStorage.getItem('refresh'))
+          {
+            localStorage.removeItem('refresh')
+            window.location.reload()
+          }
+          
 
    
    await  this.PaperTypeService.getExpiredContracts().then(
