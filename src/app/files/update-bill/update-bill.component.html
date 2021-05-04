@@ -19,10 +19,9 @@
 
                     <div class="p-field p-col-12 p-md-4" >
                       <label for=" fad">Facturation Date</label>
-                      <p-calendar [showIcon]="false" inputId="basic" [ngModelOptions]="{standalone: true}" (onSelect)="formBillNum()"
+                      <p-calendar [showIcon]="false" inputId="basic" [ngModelOptions]="{standalone: true}" (onSelect)="formBillNum()" [maxDate]="maxDate" [minDate]="minDate"
                       [(ngModel)]="DateFacturation"></p-calendar>
-                      <!-- <input type="date"  id=""[ngModelOptions]="{standalone: true}" (onSelect)="formBillNum()"
-                      [ngModel]="DateFacturation | date:'yyyy-MM-dd'" (value)="DateFacturation"> -->
+                     
                   </div>
                       <br>
                         <h4 class="card-title">Customer Details</h4>

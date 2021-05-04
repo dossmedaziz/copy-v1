@@ -28,7 +28,8 @@ export class UpdatePaperComponent implements OnInit {
   files
   api = new Api 
   fileGenralLink = this.api.url
-
+date_start 
+date_end
   constructor(private fb:FormBuilder, 
     private toastr :ToastrService,
     private projectService :ProjectService,
@@ -107,13 +108,13 @@ export class UpdatePaperComponent implements OnInit {
                 this.paperForm.patchValue({
                   paper_name: this.selectedPaper.paper_name,
                   paper_type:  this.selectedPaper.paper_type.id ? this.selectedPaper.paper_type.id :this.selectedPaper.paper_type,
-                  start_date : new Date(this.selectedPaper.start_date),
-                  end_date : new Date(this.selectedPaper.end_date),
                   project_id : this.selectedPaper.project_id,
                   description : this.selectedPaper.description,
                   status : this.selectedPaper.status,
                   auto_email : this.selectedPaper.auto_email
                   })
+                  this.date_start = this.selectedPaper.start_date
+                  this.date_end = this.selectedPaper.end_date
 
                   this.selectedFilePath = this.selectedPaper.paper_file 
 

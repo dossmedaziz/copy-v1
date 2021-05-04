@@ -189,8 +189,8 @@
 
     <div class="p-grid p-fluid">
       <div class="p-field p-col-6 ">
-        <label for="icon">Start Date</label>
-          <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar> -->
+        <label for="icon">Start Date :</label><br>
+          <input type="date" id="" formControlName="start_date" >
         <div *ngIf="start_date.touched && start_date.invalid">
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small>
         </div>
@@ -264,9 +264,8 @@
 
     <div class="p-grid p-fluid">
       <div class="p-field p-col-6 ">
-        <label for="icon">Start Date</label> 
-          <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar> -->
-          <input type="date"  [ngModel]="date | date:'yyyy-MM-dd'"  formControlName="start_date">
+        <label for="icon">Start Date : </label> <br>
+          <input type="date"  [ngModel]="date | date:'yyyy-MM-dd'"  formControlName="start_date" >
 
            <div *ngIf="start_date.touched && start_date.invalid">
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small>

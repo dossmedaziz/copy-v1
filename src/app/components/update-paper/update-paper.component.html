@@ -35,8 +35,9 @@
     <div class="p-grid p-fluid">  
       <div class="p-field p-col-6 ">
           <label for="icon">Start Date</label>
-              <!-- <input id="expiration_date" type="date" pInputText class="brad" formControlName="expiration_date">  -->
-              <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar>
+            
+              <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="start_date"></p-calendar> -->
+              <input type="date"  [ngModel]="date_start | date:'yyyy-MM-dd'" formControlName="start_date" id="">
               <div *ngIf="start_date.touched && start_date.invalid"> 
                 <small *ngIf="start_date.errors.required"class="text-danger">start Date is required <br> </small> 
               </div> 
@@ -44,8 +45,9 @@
 
       <div class="p-field p-col-6 ">
         <label for="icon">End Date</label>
-            <!-- <input id="expiration_date" type="date" pInputText class="brad" formControlName="expiration_date">  -->
-            <p-calendar  [showIcon]="true" inputId="icon"formControlName="end_date"></p-calendar>
+            <!-- <p-calendar  [showIcon]="true" inputId="icon"formControlName="end_date"></p-calendar> -->
+            <input type="date"  [ngModel]="date_end | date:'yyyy-MM-dd'" formControlName="end_date" id="">
+
             <div *ngIf="end_date.touched && end_date.invalid"> 
               <small *ngIf="end_date.errors.required"class="text-danger">End Date is required <br> </small> 
             </div> 

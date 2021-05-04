@@ -74,7 +74,8 @@ export class UpdateBillComponent implements OnInit {
   numBill
   DateFacturation
   word
-  
+  maxDate = new Date(9999,99,99)
+  minDate = new Date(0,0,0)
 
   constructor(private ngxNumToWordsService: NgxNumToWordsService, private fb:FormBuilder,
     private billService: BillService,
@@ -95,8 +96,12 @@ export class UpdateBillComponent implements OnInit {
      }
 get client_id() { return this.clientForm.get('client_id')
     }
-  ngOnInit(): void {
+ async ngOnInit() {
     let billId = this.activatedRoute.snapshot.params.id
+
+
+
+ 
 
     this.billService.getBillById(billId).subscribe(
       res=>{
@@ -144,7 +149,7 @@ get client_id() { return this.clientForm.get('client_id')
 
       }
     )
-
+ await this.dateFormat(billId)
     this.num = this.invoice.tvaObj.billNum
     this.date = this.invoice.tvaObj.date
 
@@ -557,5 +562,51 @@ get client_id() { return this.clientForm.get('client_id')
   {
   this.selectedClient = false
     
+  }
+
+
+
+  async dateFormat(billId)
+{
+  await    this.billService.getDateLimits(billId).then(
+    res => {
+    
+      if(res.limit == 0 )
+      {
+        this.maxDate.setDate(new Date(res.bill.DateFacturation).getDate())
+        this.maxDate.setMonth(new Date(res.bill.DateFacturation).getMonth());
+        this.maxDate.setFullYear(new Date(res.bill.DateFacturation).getFullYear());
+  
+      
+        
+      }else if(res.limit == 1)
+      {
+        this.minDate.setDate(new Date(res.bill.DateFacturation).getDate())
+        this.minDate.setMonth(new Date(res.bill.DateFacturation).getMonth());
+        this.minDate.setFullYear(new Date(res.bill.DateFacturation).getFullYear());
+        
+        
+      }else(res.limit == 2)
+      {
+        this.maxDate.setDate(new Date(res.next_bill.DateFacturation).getDate())
+        this.maxDate.setMonth(new Date(res.next_bill.DateFacturation).getMonth());
+        this.maxDate.setFullYear(new Date(res.next_bill.DateFacturation).getFullYear());
+
+        this.minDate.setDate(new Date(res.prev_bill.DateFacturation).getDate())
+        this.minDate.setMonth(new Date(res.prev_bill.DateFacturation).getMonth());
+        this.minDate.setFullYear(new Date(res.prev_bill.DateFacturation).getFullYear());
+
+        
+      }
+      
+      
+      
+    },err =>{
+      console.log(err);
+      
+    }
+  )
+        
+
   }
 }

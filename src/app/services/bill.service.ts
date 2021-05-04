@@ -65,6 +65,11 @@ export class BillService {
   }
   getLastBill()
   {
-    return this.http.get<any>(this.api.api+'/getLastBill', this.header)
+    return this.http.get<any>(this.api.api+'/getLastBill', this.header).toPromise()
+  }
+
+  getDateLimits(id)
+  {
+    return this.http.post<any>(this.api.api+'/getDateLimits',{id : id},this.header).toPromise()
   }
 }

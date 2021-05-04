@@ -74,7 +74,7 @@ export class AddBillComponent implements OnInit {
   lang: SUPPORTED_LANGUAGE = 'fr';
   date 
   numBill
-  minDate ="2021-08-31"
+  minDate 
   constructor(private ngxNumToWordsService: NgxNumToWordsService,
     private router : Router, private fb:FormBuilder,private billService: BillService,
                private clientService : ClientService,
@@ -94,7 +94,7 @@ export class AddBillComponent implements OnInit {
        get client_id() { return this.clientForm.get('client_id')
                }
 
-               ngOnInit() : void{
+           async    ngOnInit() {
 
                 this.clientService.getClients().subscribe(
                  res=>{
@@ -113,7 +113,8 @@ export class AddBillComponent implements OnInit {
            
                  }
                )
-           
+               this.minDate = await this.dateFormat()
+               
                this.num = this.invoice.tvaObj.billNum
                this.date = this.invoice.tvaObj.date
            
@@ -144,22 +145,7 @@ export class AddBillComponent implements OnInit {
 
        }
 
-       this.billService.getLastBill().subscribe(
-         res => {
-           this.minDate = new Date(res.DateFacturation).getFullYear() +'-'
-           this.minDate = new Date(res.DateFacturation).getMonth() < 9 ? this.minDate+'0'+new Date(res.DateFacturation).getMonth()+'-' :
-           this.minDate+new Date(res.DateFacturation).getMonth()+'-'
-           this.minDate = new Date(res.DateFacturation).getDay() < 9 ?  this.minDate+'0'+new Date(res.DateFacturation).getDay() :
-           this.minDate+new Date(res.DateFacturation).getDay() 
-
-           console.log(this.minDate);
-           
-           
-         }, err =>{
-           console.log(err);
-           
-         }
-       )
+       
            
              }
 
@@ -519,5 +505,30 @@ export class AddBillComponent implements OnInit {
             this.selectedClient = false
               
             }
+ async dateFormat()
+{
+  let date = ""
+ await this.billService.getLastBill().then(
+    res => {
+      if(res){
+        
+        
+      date = date + new Date(res.DateFacturation).getFullYear() +'-'
+      
+      date = new Date(res.DateFacturation).getMonth() + 1 < 9 ? date+'0'+(new Date(res.DateFacturation).getMonth() + 1)+'-' :
+      date+(new Date(res.DateFacturation).getMonth()+ 1) +'-'
+      date = new Date(res.DateFacturation).getDate() < 9 ?  date+'0'+new Date(res.DateFacturation).getDate() :
+      date+new Date(res.DateFacturation).getDate() 
+           
+     }
+      
+    }, err =>{
+      console.log(err);
+      
+    }
+  )
 
+ return date
+ 
+}
 }

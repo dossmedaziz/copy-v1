@@ -141,7 +141,7 @@ this.projectService.createProject(project).subscribe(
 
   selectedProject(project)
   {
-  this.date = new Date(project.start_date)
+  this.date = project.start_date
 
     this.updateModal = true
     this.selectedProjectId  = project.id
@@ -150,7 +150,6 @@ this.projectService.createProject(project).subscribe(
       status:project.status,
       description : project.description,
       client_id : project.client_id,
-      start_date: project.start_date
      })
   }
 
