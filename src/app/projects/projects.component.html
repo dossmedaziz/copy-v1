@@ -92,6 +92,7 @@
               </td>
 
               <td>
+                <button pButton pRipple type="button" icon="pi pi-map" class="p-button-rounded p-button-text mx-3" [routerLink]="['/ganttChart',project.id]"></button>
                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded redbtn p-mr-2" (click)="selectedProject(project)"  *ngIf="filterActions('update','project')"></button>
 
               </td>

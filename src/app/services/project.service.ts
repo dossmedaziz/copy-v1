@@ -36,6 +36,9 @@ myToken = localStorage.getItem('token')
   }
 
 
-
+  getProjectById(id)
+  {
+        return this.http.get<any>(this.api.api+'/getProject/'+id, this.header).toPromise()
+  }
 
 }

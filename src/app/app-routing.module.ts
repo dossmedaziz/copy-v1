@@ -17,6 +17,7 @@ import { BillsComponent } from './files/bills/bills.component';
 import { QuoteComponent } from './files/quote/quote.component';
 import { UpdateBillComponent } from './files/update-bill/update-bill.component';
 import { UpdateQuoteComponent } from './files/update-quote/update-quote.component';
+import { GanttComponent } from './gantt/gantt.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { PaperManagerComponent } from './paper-manager/paper-manager.component';
@@ -98,6 +99,10 @@ const routes: Routes = [
       {
         path:'profile',
         component:ProfileComponent
+      }, 
+      {
+        path:'ganttChart/:projectId',
+        component:GanttComponent
       }
     ]
   },

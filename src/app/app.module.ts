@@ -81,7 +81,13 @@ import { QuotePipePipe } from './pipes/quote-pipe.pipe';
 import { AddQuoteComponent } from './files/add-quote/add-quote.component';
 import { UpdateQuoteComponent } from './files/update-quote/update-quote.component';
 import { ActivityPipePipe } from './pipes/activity-pipe.pipe';
+import { GanttComponent } from './gantt/gantt.component';
 
+
+
+// gant plugin
+import { GanttModule, ResizeService, SortService, FilterService, SelectionService, ReorderService,
+  EditService, DayMarkersService, ToolbarService } from '@syncfusion/ej2-angular-gantt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,6 +126,7 @@ import { ActivityPipePipe } from './pipes/activity-pipe.pipe';
     AddQuoteComponent,
     UpdateQuoteComponent,
     ActivityPipePipe,
+    GanttComponent,
 
   ],
   imports: [
@@ -166,10 +173,12 @@ import { ActivityPipePipe } from './pipes/activity-pipe.pipe';
     MessagesModule,
     MessageModule,
     AvatarModule,
-AvatarGroupModule
+AvatarGroupModule,
+GanttModule
 
   ],
-  providers: [],
+  providers: [ResizeService, SortService, FilterService, SelectionService, ReorderService,
+    EditService, DayMarkersService, ToolbarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
