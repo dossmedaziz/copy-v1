@@ -164,8 +164,10 @@
 
 
 <p-dialog header="Info" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
-  <i class="pi pi-info-circle" [style]="{'font-size':'25px'}"></i>
-  Put //dynamic content//
+  <i class="pi pi-info-circle" [style]="{'font-size':'25px'}"></i><br>
+ Client Name  :  /client_name <br>
+ Start Date : /start_date <br>
+ End Date : /end_date
 
   <ng-template pTemplate="footer">
       <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button>

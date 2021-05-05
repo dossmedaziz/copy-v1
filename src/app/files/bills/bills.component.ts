@@ -130,6 +130,17 @@ if(year == this.selectedYear)
 
 
 
-
-}
+  }
+  changeStatus(bill_id , status)
+  {
+    this.billService.changeStatus(bill_id,status).subscribe(
+      res => {
+        console.log(res);
+        this.ngOnInit()
+      }, err => {
+        console.log(err);
+        
+      }
+    )
+  }
 }

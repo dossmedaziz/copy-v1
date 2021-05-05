@@ -31,6 +31,8 @@ url = this.api.url
     this.activityLogService.getAllactivities().subscribe(
       res => {
         this.activities = res
+        console.log(res);
+        
 
       } , err => {
         console.log(err);

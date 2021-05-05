@@ -89,6 +89,7 @@
           TTC Price	<p-columnFilter type="text" field="total_ttc" display="menu"></p-columnFilter>
         </th>
 
+        <th >Status</th>
         <th></th>
 
       </tr>
@@ -104,7 +105,19 @@
          <td>{{ bill.ht_price }}</td>
          <td>{{ bill.price_tva }}</td>
          <td>{{ bill.total_ttc }}</td>
+         <td>
+            <p-message *ngIf="bill.status != 0 " severity="error" text="canceled" styleClass="p-mr-2"></p-message>
+        </td>
           <td>
+            <button type="button" class="btn btn-danger dropdown-toggle mx-2" data-bs-toggle="dropdown" aria-expanded="false">
+              
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngIf="bill.status == 0"><a class="dropdown-item" (click)="changeStatus(bill.id,1)">Cancel</a></li>
+              <li  *ngIf="bill.status != 0"><a class="dropdown-item" (click)="changeStatus(bill.id,0)">No status</a></li>
+              
+            </ul>
+
           <button
             pButton
             pRipple
@@ -113,6 +126,7 @@
             (click)="updateBill(bill.id)"
             *ngIf="filterActions('update','bill')"
           ></button>
+
         </td>
       </tr>
     </ng-template>

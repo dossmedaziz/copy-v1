@@ -73,4 +73,10 @@ export class BillService {
   {
     return this.http.post<any>(this.api.api+'/getDateLimits',{id : id},this.header).toPromise()
   }
+
+
+  changeStatus(bill_id,newStatus)
+  {
+    return this.http.post<any>(this.api.api+'/BillStatusUpdate',{bill_id : bill_id , newStatus: newStatus}, this.header)
+  }
 }
