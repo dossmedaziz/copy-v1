@@ -1,14 +1,17 @@
-<ejs-gantt id="GanttSample" height="430px" [dataSource]="data" [taskFields]="taskSettings" [columns]="columns"
-            [allowSelection]="true" [allowReordering]="true" [allowSorting]="true" [allowResizing]="true"
-            [splitterSettings]="splitterSettings" [enableContextMenu]="true" [showColumnMenu]="true"
-            [labelSettings]="labelSettings" [projectStartDate]="projectStartDate" [projectEndDate]="projectEndDate"
-            [highlightWeekends]="true" [treeColumnIndex]="1" [toolbar]="toolbar" [editSettings]="editSettings"
-            (dataBound)="dataBound()"
-            (endEdit)="endEdit()"
-            (taskbarEdited)="taskbarEdited()"
-            >
-        </ejs-gantt>
+
+        <ejs-gantt id="GanttSample" height="430px" [dataSource]="data" [taskFields]="taskSettings" [columns]="columns"
+        [allowSelection]="true" [allowReordering]="true" [allowSorting]="true" [allowResizing]="true"
+        [splitterSettings]="splitterSettings" [enableContextMenu]="true" [showColumnMenu]="true"
+        [labelSettings]="labelSettings" [projectStartDate]="projectStartDate" [projectEndDate]="projectEndDate"
+        [highlightWeekends]="true" [treeColumnIndex]="1" [toolbar]="toolbar" [editSettings]="editSettings"
+        (endEdit)="endEdit($event)"
+        (taskbarEdited)="taskbarEdited($event)"
+        (actionComplete)="actionComplete($event)"
+        (actionBegin)="actionBegin($event)"
+        (rowSelected)="rowSelected($event)" 
+        >
+    </ejs-gantt>
 
 
 
-        <button class="btn btn-sm btn-primary">Update</button>
+    <button class="btn btn-sm btn-primary">Update</button>

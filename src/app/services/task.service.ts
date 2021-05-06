@@ -17,4 +17,10 @@ export class TaskService {
   {
       return this.http.get<any>(this.api.api+'/getTaskByproject/'+id,this.header)
   }
+
+
+  addTask(task,project_id)
+  {
+    return this.http.post<any>(this.api.api+'/addTask',{task : task , project_id: project_id},this.header)
+  }
 }

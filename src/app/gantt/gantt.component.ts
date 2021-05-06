@@ -14,7 +14,10 @@ export class GanttComponent implements OnInit {
 projectId
 start_date
 date 
-  public data: object[];
+selectedRow
+allTasks = Array()
+data = Array()
+  // public data: object[];
   public resources: object[];
   public resourceFields: object ;
   public taskSettings: object;
@@ -36,9 +39,17 @@ date
 
       this.projectId = this.activatedRoute.snapshot.params.projectId
       
-      
-   
-    this.data = projectNewData;
+      this.taskService.getTaskByproject(this.projectId).subscribe(
+        res =>{
+
+          
+         this.data = res
+         
+        //  this.filter(this.data)
+          
+        }
+      )   
+      this.data = [] 
     this.taskSettings = {
         id: 'id',
         name: 'task_name',
@@ -84,31 +95,26 @@ this.date = await this.dateFormat()
 
 
 
-dataBound() {
-   this.taskService.getTaskByproject(this.projectId).subscribe(
-       res => {
-         this.data = res
-           
-       }, err =>{
-           console.log(err);
-           
-       }
-   )
     
   
 
     
+
+
+endEdit(args : any): void {
+  // console.log(args.data);
+
+
+
 }
 
+taskbarEdited(args : any): void {
+  if(this.selectedRow == args.data.id){
 
-endEdit(): void {
-    console.log('Gantt <b>endEdit</b> event called<hr>');
+    console.log("edit2");
+  }
+
 }
-
-taskbarEdited(): void {
-    console.log(this.data);
-}
-
 
 
 
@@ -139,4 +145,110 @@ async dateFormat()
 return date
  
 }
+
+
+public actionComplete(args: any) { 
+
+  if (args.requestType == "add" ){ 
+
+    // let task = [
+    //  { 
+    //   task_name :  args.data.taskData.task_name,
+    //   start_date : args.data.taskData.start_date,
+    //   end_date : args.data.taskData.end_date,
+    //   progress : args.data.taskData.progress,
+    //   duration : args.data.taskData.duration,
+    //   predecessor : args.data.taskData.predecessor,
+    // }
+    // ]
+    let task = {
+      task_name :  args.data.taskData.task_name,
+      start_date : args.data.taskData.start_date,
+      end_date : args.data.taskData.end_date,
+      progress : args.data.taskData.progress,
+      duration : args.data.taskData.duration,
+      predecessor : args.data.taskData.predecessor,
+    }
+    
+    
+    
+   this.taskService.addTask(task,this.projectId).subscribe(
+     res => {
+       console.log(res);
+       
+     }, err => {
+       console.log(err);
+       
+     }
+   )
+  
+    
+  }else if(args.requestType == "delete")
+    { 
+      let msg =  this.selectedRow
+      console.log("delete");
+      console.log(msg);
+    }else if( args.requestType == "save" && (this.selectedRow != args.data.id))
+    {
+      console.log("edit1");
+      console.log(args.data);
+      
+      
+      
+    }else if(args.requestType == "indented")
+    {
+      console.log(args.data);
+      
+    }else if(args.requestType == "outdented")
+    {
+      console.log(args.data);
+
+    }
+ 
+   
+
+  
+}
+public actionBegin(args: any) { 
+  if (args.requestType == "beforeSave" || args.requestType == "beforeAdd" || args.requestType == "beforeEdit") { 
+    // console.log(args.data.id); 
+  } 
+
+}
+public rowSelected(args: any) { 
+ 
+  this.selectedRow = (args.data.id); 
+
+  
+  
+  } 
+
+
+
+//   filter(data)
+//   {
+  
+// console.log(data);
+
+//   // data.forEach(el => {
+//   //   let element = {
+//   //     id: el.id,
+//   //     name: el.task_name,
+//   //     start_date: el.start_date,
+//   //     endDate: el.end_date,
+//   //     duration: el.duration,
+//   //     progress: el.progress,
+//   //     dependency: el.predecessor,
+//   //    }
+//   //      this.allTasks.push(element)
+//   //      if( el.subtasks.length )
+//   //      {
+//   //       this.filter(el.subtasks)
+//   //      }
+
+//   // })
+//   // console.log(this.allTasks);
+// }
+
+
 }
