@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,7 +13,10 @@ export class ForgotPasswordComponent implements OnInit {
 
 emailForm: FormGroup
 
-  constructor(private fb: FormBuilder,private UserService : UserService,private toastr : ToastrService) {
+  constructor(private fb: FormBuilder,
+              private UserService : UserService,
+              private toastr : ToastrService,
+              private router : Router) {
     
     let formControls = {
 
@@ -27,6 +31,11 @@ emailForm: FormGroup
   get email() { return this.emailForm.get('email') }
 
   ngOnInit(): void {
+    let isLogged = this.UserService.islogged();
+    if(isLogged)
+    {
+         this.router.navigate(['/'])
+    }
   }
 
 

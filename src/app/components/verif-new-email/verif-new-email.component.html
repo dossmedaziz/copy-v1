@@ -1,0 +1,37 @@
+<div class="content" *ngIf="isChecked != undefined && isChecked == 0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="../../assets/img/bg.svg" alt="Image" class="img-fluid">
+        </div>
+  
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <div class="mb-4" >
+                <br> <br> <br>
+              <h3 style="font-size: 50px;">Confirm Password</h3>
+            </div>
+            <br><br>
+           
+              <div >
+                <label for="username" > Password</label>
+                <input required  class="form-control" name="password" type="password"   [(ngModel)]="password"
+                placeholder="Password" >
+              </div>
+  
+              <input type="submit" value="confirm" class="btn btn-block my-4" (click)="updateEmail()" [disabled]="!password"
+              style="border-radius: 25px; background-color: #4b7bec; color: #fff;">
+  
+  
+  
+            </div>
+          </div>
+  
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="isChecked">token expired</div>

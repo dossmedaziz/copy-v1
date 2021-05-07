@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { VerifNewEmailComponent } from './components/verif-new-email/verif-new-email.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
 import { AddQuoteComponent } from './files/add-quote/add-quote.component';
@@ -141,6 +142,11 @@ const routes: Routes = [
  {
   path : 'updatePassword/:token',
   component : UpdatePasswordComponent,
+}
+,
+{
+ path : 'verifNewEmail/:token',
+ component : VerifNewEmailComponent,
 },
 ];
 

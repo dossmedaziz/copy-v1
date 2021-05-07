@@ -88,6 +88,7 @@ import { GanttComponent } from './gantt/gantt.component';
 // gant plugin
 import { GanttModule, ResizeService, SortService, FilterService, SelectionService, ReorderService,
   EditService, DayMarkersService, ToolbarService } from '@syncfusion/ej2-angular-gantt';
+import { VerifNewEmailComponent } from './components/verif-new-email/verif-new-email.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -127,6 +128,7 @@ import { GanttModule, ResizeService, SortService, FilterService, SelectionServic
     UpdateQuoteComponent,
     ActivityPipePipe,
     GanttComponent,
+    VerifNewEmailComponent,
 
   ],
   imports: [

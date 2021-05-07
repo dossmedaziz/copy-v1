@@ -39,6 +39,13 @@ export class ResetPasswordComponent implements OnInit {
 
 
   async ngOnInit() {
+
+
+    let isLogged = this.userService.islogged();
+    if(isLogged)
+    {
+         this.router.navigate(['/'])
+    }
   this.token =  this.activatedRoute.snapshot.params.token
   await this.userService.checkToken(this.token).then(
     res => {

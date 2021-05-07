@@ -113,4 +113,10 @@ resetPassword(password,token)
       {
         return this.http.get<any>(this.api.api+'/getConnectedUser', this.header)
       }
+
+
+      updateEmail(token,password)
+      {
+        return this.http.post<any>(this.api.api+'/updateEmail',{token : token , password:password })
+      }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { Api } from '../../api'
 @Component({
   selector: 'app-profile',
@@ -22,10 +24,13 @@ export class ProfileComponent implements OnInit {
   id
   api = new Api
   fileGenralLink = this.api.url
-
+  displayPosition: boolean;
+  emailChanged
+  position: string;
   constructor(private userService: UserService,
     private toastr: ToastrService ,
-    private fb:FormBuilder,) {
+    private fb:FormBuilder,
+    private router : Router) {
     let formControls = {
 
       name : new FormControl('',[
@@ -166,22 +171,60 @@ async   updateProfile()
     
    await this.userService.updateUser(data,path).then(
       res => {
-        this.toastr.success("User Profile Infos Are Updated!")
-        this.ngOnInit()
-          }, err => { console.log(err) }
+        this.emailChanged = res.emailChanged
+        if(this.emailChanged){
+    
+              localStorage.removeItem('token')
+              localStorage.removeItem('user')
+              localStorage.removeItem('privileges')
+    
+          this.showPositionDialog('top')
+        }else {
+          this.toastr.success("User Profile Infos Are Updated!")
+          this.ngOnInit()
+
+        }
+          }, err => {
+            if(err.status == 409 )
+            {
+              this.toastr.warning('Email Already Used!')
+            } else {
+              this.toastr.error('Serveur issue')
+
+               }
+            }
           )
 
-
-
-    this.userService.getConnectedUser().subscribe(
-      res => {
+if(!this.emailChanged){
+  this.userService.getConnectedUser().subscribe(
+    res => {
 localStorage.removeItem('user')
 localStorage.setItem('user',JSON.stringify(res));
 }  ,err => {
-        console.log(err);
-        
-      } 
-    )
+      console.log(err);
+      
+    } 
+  )
+
+}
+
+ 
    }
   }
+
+
+
+
+  
+  showPositionDialog(position: string) {
+    this.position = position;
+    this.displayPosition = true;
+}
+navigation()
+{
+
+
+       
+this.router.navigate(['/login'])  
+}
 }
