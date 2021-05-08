@@ -12,8 +12,21 @@ export class LayoutComponent implements OnInit {
   constructor(private router:Router , private PaperTypeService :PaperTypeService) { }
 
   expiredContracts
+  contracts = new Array()
+
  async ngOnInit() {
 
+  await  this.PaperTypeService.getJustContracts().then(
+    res => {
+                  
+        this.contracts = res.contracts
+        
+     
+      }, err => {
+      console.log(err)
+    }
+  ) 
+  await this.sendMail()
 
     let url = this.router.url
     let privileges = JSON.parse(localStorage.getItem('privileges'))
@@ -58,15 +71,45 @@ export class LayoutComponent implements OnInit {
         
       }
     )
-     this.PaperTypeService.changeStatus(this.expiredContracts,3).subscribe(
+
+      
+         this.PaperTypeService.changeStatus(this.expiredContracts,3).subscribe(
        res => {         
        }, err => {
          console.log(err);
          
        }
      )
+
+  
      
     
 
    }
+  async sendMail()
+  {
+
+    let autoContracts = new Array() 
+    
+   this.contracts.map(element => {
+        if((element.auto_email == 1 ) && (element.isReminded == 0)){
+          autoContracts.push(element)
+        }
+    })    
+console.log(autoContracts.length);
+
+if(autoContracts.length != 0)
+    {
+      
+      
+         this.PaperTypeService.sendMail(autoContracts).then(
+       res => {
+       }, err => {
+         console.log(err);
+         
+       })
+      
+
+    }    
+  }
 }

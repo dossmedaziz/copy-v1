@@ -11,6 +11,7 @@ import { Column } from 'jspdf-autotable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from'src/app/services/company.service';
 import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
+import date from 'date-and-time';
 
 
 
@@ -509,20 +510,13 @@ export class AddBillComponent implements OnInit {
             }
  async dateFormat()
 {
-  let date = ""
+  let formatedDate = ""
  await this.billService.getLastBill().then(
     res => {
       if(res){
         
-        
-      date = date + new Date(res.DateFacturation).getFullYear() +'-'
-      
-      date = new Date(res.DateFacturation).getMonth() + 1 < 9 ? date+'0'+(new Date(res.DateFacturation).getMonth() + 1)+'-' :
-      date+(new Date(res.DateFacturation).getMonth()+ 1) +'-'
-      date = new Date(res.DateFacturation).getDate() < 9 ?  date+'0'+new Date(res.DateFacturation).getDate() :
-      date+new Date(res.DateFacturation).getDate() 
-           
-     }
+        formatedDate = date.format(new Date(res.DateFacturation), 'YYYY-MM-DD')
+         }
       
     }, err =>{
       console.log(err);
@@ -530,7 +524,7 @@ export class AddBillComponent implements OnInit {
     }
   )
 
- return date
+ return formatedDate
  
 }
 }

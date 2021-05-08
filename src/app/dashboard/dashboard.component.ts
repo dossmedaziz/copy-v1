@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { PaperTypeService } from '../services/paper-type.service';
+import date from 'date-and-time';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  text: string = '<h1>bonjour</h2>';
+ 
 
       emailEditModal
       moreInfoModal
@@ -24,10 +27,12 @@ export class DashboardComponent implements OnInit {
       hostingtContracts
       updateContracts
    
+emailContent 
+subject
+receiver
+selectedContract
 
-    
-
-  constructor(private paperTypeService:PaperTypeService,private configService:ConfigService) { }
+  constructor(private paperTypeService:PaperTypeService,private configService:ConfigService,private toastr : ToastrService) { }
 
   async ngOnInit() {
  await  this.paperTypeService.getJustContracts().then(
@@ -43,7 +48,6 @@ export class DashboardComponent implements OnInit {
     }
   )   
 
-  await this.sendMail()
     this.contract_status= this.configService.contract_status
     this.paper_status= this.configService.status_paper
     
@@ -80,10 +84,7 @@ filterStatus1(id)
 
 
 
-showEmail()
-{
-  this.emailEditModal = true
-}
+
 
 ShowContract(contract)
 {
@@ -93,34 +94,6 @@ preview()
 {
   this.previewModal = true
 }
-
-
-
-
-sendMail()
-  {
-
-    let autoContracts = new Array() 
-    
-    this.contracts.forEach(element => {
-        if((element.auto_email == 1 ) && (element.isReminded == 0)){
-          autoContracts.push(element)
-        }
-    })    
-if(autoContracts.length != 0)
-    {
-         this.paperTypeService.sendMail(autoContracts).then(
-       res => {
-       }, err => {
-         console.log(err);
-         
-       })
-      
-
-    }    
-  }
-
-
 
 
   dashboardAccess()
@@ -134,5 +107,55 @@ if(autoContracts.length != 0)
       return false
     }
   }
+
+
+
+
+
+  previewEmail(contract)
+{
+
+  this.selectedContract = contract
+  this.receiver = (contract.project.client.email);
+  this.emailContent = contract.type.email.content 
+  this.subject = contract.type.email.subject 
+  this.emailContent =  this.emailContent.replace('/client_name',contract.project.client.client_name)
+  this.emailContent =  this.emailContent.replace('/type_name',contract.type.paper_type)
+  this.emailContent =  this.emailContent.replace('/start_date',date.format(new Date(contract.start_date), 'YYYY-MM-DD'))
+  this.emailContent =  this.emailContent.replace('/end_date',date.format(new Date(contract.end_date), 'YYYY-MM-DD'))
+  this.emailEditModal = true
+}
+
+
+
+
+    sendMail()
+    {
+      let config = {
+        contract_id  : this.selectedContract.id,
+        client_name  : this.selectedContract.project.client.client_name,
+        client_email : this.selectedContract.project.client.email,
+        subject : this.subject,
+        email_body : this.emailContent
+      }
+      this.paperTypeService.SendMailManu(config).subscribe(
+        res => {
+          console.log(res); 
+          this.emailEditModal = false
+          this.toastr.success('Email sent!')
+          this.ngOnInit()
+
+
+        }, err =>{
+          console.log(err);
+          
+        }
+      )
+
+       
+       
+    }
+
+
 
 }

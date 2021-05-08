@@ -53,7 +53,7 @@ export class BillService {
   }
 
   getBillById(id){
-    return this.http.get<any>(this.api.api+'/getBill/'+id ,this.header) ;
+    return this.http.get<any>(this.api.api+'/getBill/'+id ,this.header).toPromise() ;
   }
 
   updateBill(id,items,bill,config)

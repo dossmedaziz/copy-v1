@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
     "@syncfusion/ej2-angular-gantt": "^19.1.59",
+    "date-and-time": "^1.0.0",
     "email-validator": "^2.0.4",
     "jspdf": "^2.3.0",
     "jspdf-autotable": "^3.5.14",

@@ -98,13 +98,14 @@ export class UpdateBillComponent implements OnInit {
 get client_id() { return this.clientForm.get('client_id')
     }
  async ngOnInit() {
-    let billId = this.activatedRoute.snapshot.params.id
 
+  
+    let billId = this.activatedRoute.snapshot.params.id
 
 
  
 
-    this.billService.getBillById(billId).subscribe(
+   await  this.billService.getBillById(billId).then(
       res=>{
         
         this.num = res.bill.billNum
@@ -125,15 +126,17 @@ get client_id() { return this.clientForm.get('client_id')
 
       }
     )
-    this.billService.getBills().then(
-      res=>{
-        this.numBill = res.length
-        this.numBill++
 
-      }, err=>{
-        console.log(err);
-      }
-    )
+
+    // this.billService.getBills().then(
+    //   res=>{
+    //     this.numBill = res.length
+    //     this.numBill++
+
+    //   }, err=>{
+    //     console.log(err);
+    //   }
+    // )
      this.clientService.getClients().subscribe(
       res=>{
           this.clients=res
@@ -152,8 +155,7 @@ get client_id() { return this.clientForm.get('client_id')
       }
     )
  await this.dateFormat(billId)
-    this.num = this.invoice.tvaObj.billNum
-    this.date = this.invoice.tvaObj.date
+
 
 
 
@@ -573,7 +575,8 @@ get client_id() { return this.clientForm.get('client_id')
 {
   await    this.billService.getDateLimits(billId).then(
     res => {
-    
+     console.log(res);
+     
       if(res.limit == 0 )
       {
         this.maxDate.setDate(new Date(res.bill.DateFacturation).getDate())
@@ -589,7 +592,7 @@ get client_id() { return this.clientForm.get('client_id')
         this.minDate.setFullYear(new Date(res.bill.DateFacturation).getFullYear());
         
         
-      }else(res.limit == 2)
+      }else if(res.limit == 2)
       {
         this.maxDate.setDate(new Date(res.next_bill.DateFacturation).getDate())
         this.maxDate.setMonth(new Date(res.next_bill.DateFacturation).getMonth());

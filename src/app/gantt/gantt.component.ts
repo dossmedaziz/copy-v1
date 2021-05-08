@@ -4,6 +4,7 @@ import { editingData, projectNewData  } from './data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../services/project.service';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+import date from 'date-and-time';
 
 @Component({
   selector: 'app-gantt',
@@ -118,22 +119,13 @@ taskbarEdited(args : any): void {
 
 
 
-
 async dateFormat()
 {
-  let date = ''
+  let formatedDate = ""
   await  this.projectService.getProjectById(this.projectId).then(
     res =>  {
       if(res){
-        
-        
-      
-      date = new Date(res.start_date).getMonth() + 1 < 9 ? date+'0'+(new Date(res.start_date).getMonth() + 1)+'/' :
-      date+(new Date(res.start_date).getMonth()+ 1) +'/'
-      date = new Date(res.start_date).getDate() < 9 ?  date+'0'+new Date(res.start_date).getDate() +'/':
-      date+new Date(res.start_date).getDate() +'/'
-      date = date + new Date(res.start_date).getFullYear() 
-           
+      formatedDate = date.format(new Date(res.start_date), 'MM/DD/YYYY')      
      }
      
     }, err =>{
@@ -142,7 +134,7 @@ async dateFormat()
     }
   )
 
-return date
+return formatedDate
  
 }
 

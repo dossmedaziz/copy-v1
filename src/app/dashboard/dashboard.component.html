@@ -127,9 +127,7 @@
 
             <td>
               <button pButton pRipple icon="pi pi-send" class="p-button-rounded redbtn p-mr-2"
-                (click)="showEmail()"></button>
-              <button pButton pRipple icon="pi pi-eye" class="p-button-rounded btn-primary "
-                (click)="preview()"></button>
+                (click)="previewEmail(contract)"></button>
             </td>
           </tr>
         </ng-template>
@@ -146,32 +144,19 @@
     <!-- Modal for email editing-->
     <p-dialog header="Preview" [(visible)]="emailEditModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
       [draggable]="false" [resizable]="false">
-      <p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>
+      <label for="subject">Subject :</label><br>
+      <input type="text" [(ngModel)]="subject">
+      <p-editor [(ngModel)]="emailContent" [style]="{'height':'320px'}"></p-editor>
 
 
       <ng-template pTemplate="footer">
         <p-button icon="pi pi-times" (click)="emailEditModal=false" label="Cancel" styleClass="p-button-text"></p-button>
-        <p-button icon="pi pi-send" label="Send" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-send" label="Send" styleClass="p-button-text" (click)="sendMail()"></p-button>
 
       </ng-template>
     </p-dialog>
 
 
-
-
-    <!--Modal for more info-->
-
-
-    <p-dialog header="More Info" [(visible)]="moreInfoModal" [modal]="true" [style]="{ width: '650px' }"
-      [baseZIndex]="10000" [draggable]="true" [resizable]="true">
-      <img class="center" src="assets/img/cog_tools_configuration_settings_icon_131758.ico" />
-      <br />
-
-
-      <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="moreInfoModal = false" label="Ok" styleClass="p-button-text"></p-button>
-      </ng-template>
-    </p-dialog>
 
 
     <!-- Modal for preview-->
@@ -251,5 +236,5 @@
 
 
   <div *ngIf="!dashboardAccess()">
-    <img src="../../assets/img/dash.png" alt="" style="width:150px; height: 150px;">
-  </div>
+    <img src="../../assets/img/dash.png" alt="" style="width:fit-content; height: fit-content; padding-left: 250px;">
+</div>

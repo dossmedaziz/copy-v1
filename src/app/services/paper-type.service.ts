@@ -82,4 +82,10 @@ export class PaperTypeService {
   {
     return this.http.post<any>(this.api.api+'/changeStatus',{papers:papers,status_id:status_id},this.header)
   }
+
+
+  SendMailManu(config)
+  {
+    return this.http.post<any>(this.api.api+'/SendMailManu',{config : config},this.header)
+  }
 }

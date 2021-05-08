@@ -115,8 +115,6 @@ export class AddQuoteComponent implements OnInit {
                  }
                )
                
-               this.minDate = await this.dateFormat()
-
 
       let privileges = JSON.parse(localStorage.getItem('privileges'))
       let user = JSON.parse(localStorage.getItem('user'))
@@ -498,30 +496,5 @@ export class AddQuoteComponent implements OnInit {
             this.selectedClient = false
               
             }
-            async dateFormat()
-            {
-              let date = ""
-             await this.quoteService.getLastquote().then(
-                res => {
-                  if(res){
-                    
-                    
-                  date = date + new Date(res.DateFacturation).getFullYear() +'-'
-                  
-                  date = new Date(res.DateFacturation).getMonth() + 1 < 9 ? date+'0'+(new Date(res.DateFacturation).getMonth() + 1)+'-' :
-                  date+(new Date(res.DateFacturation).getMonth()+ 1) +'-'
-                  date = new Date(res.DateFacturation).getDate() < 9 ?  date+'0'+new Date(res.DateFacturation).getDate() :
-                  date+new Date(res.DateFacturation).getDate() 
-                       
-                 }
-                  
-                }, err =>{
-                  console.log(err);
-                  
-                }
-              )
-            
-             return date
-             
-            }
+          
 }

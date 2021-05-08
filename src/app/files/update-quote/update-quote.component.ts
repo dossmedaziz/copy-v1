@@ -145,8 +145,6 @@ get client_id() { return this.clientForm.get('client_id')
 
       }
     )
-    await this.dateFormat(quoteId)
-
     let privileges = JSON.parse(localStorage.getItem('privileges'))
     let user = JSON.parse(localStorage.getItem('user'))
     let role_id = user.role_id
@@ -527,47 +525,5 @@ get client_id() { return this.clientForm.get('client_id')
           )
             return client
         }
-        async dateFormat(quoteId)
-        {
-          await    this.quoteService.getDateLimits(quoteId).then(
-            res => {
-            
-              if(res.limit == 0 )
-              {
-                this.maxDate.setDate(new Date(res.quote.DateFacturation).getDate())
-                this.maxDate.setMonth(new Date(res.quote.DateFacturation).getMonth());
-                this.maxDate.setFullYear(new Date(res.quote.DateFacturation).getFullYear());
-          
-              
-                
-              }else if(res.limit == 1)
-              {
-                this.minDate.setDate(new Date(res.quote.DateFacturation).getDate())
-                this.minDate.setMonth(new Date(res.quote.DateFacturation).getMonth());
-                this.minDate.setFullYear(new Date(res.quote.DateFacturation).getFullYear());
-                
-                
-              }else(res.limit == 2)
-              {
-                this.maxDate.setDate(new Date(res.next_quote.DateFacturation).getDate())
-                this.maxDate.setMonth(new Date(res.next_quote.DateFacturation).getMonth());
-                this.maxDate.setFullYear(new Date(res.next_quote.DateFacturation).getFullYear());
-        
-                this.minDate.setDate(new Date(res.prev_quote.DateFacturation).getDate())
-                this.minDate.setMonth(new Date(res.prev_quote.DateFacturation).getMonth());
-                this.minDate.setFullYear(new Date(res.prev_quote.DateFacturation).getFullYear());
-        
-                
-              }
-              
-              
-              
-            },err =>{
-              console.log(err);
-              
-            }
-          )
-                
-        
-          }
+      
 }
