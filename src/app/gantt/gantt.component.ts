@@ -42,15 +42,8 @@ data = Array()
       
       this.taskService.getTaskByproject(this.projectId).subscribe(
         res =>{
-
-          
-         this.data = res
-         
-        //  this.filter(this.data)
-          
-        }
-      )   
-      this.data = [] 
+          this.data = res.length ? res : this.data
+            })   
     this.taskSettings = {
         id: 'id',
         name: 'task_name',
@@ -101,18 +94,17 @@ this.date = await this.dateFormat()
 
     
 
-
+// double click
 endEdit(args : any): void {
   // console.log(args.data);
-
-
-
+  // console.log("args.data");
 }
 
+// click taskbar
 taskbarEdited(args : any): void {
   if(this.selectedRow == args.data.id){
 
-    console.log("edit2");
+    // console.log("edit2");
   }
 
 }
@@ -130,7 +122,6 @@ async dateFormat()
      
     }, err =>{
       console.log(err);
-      
     }
   )
 
@@ -143,17 +134,7 @@ public actionComplete(args: any) {
 
   if (args.requestType == "add" ){ 
 
-    // let task = [
-    //  { 
-    //   task_name :  args.data.taskData.task_name,
-    //   start_date : args.data.taskData.start_date,
-    //   end_date : args.data.taskData.end_date,
-    //   progress : args.data.taskData.progress,
-    //   duration : args.data.taskData.duration,
-    //   predecessor : args.data.taskData.predecessor,
-    // }
-    // ]
-    let task = {
+     let task = {
       task_name :  args.data.taskData.task_name,
       start_date : args.data.taskData.start_date,
       end_date : args.data.taskData.end_date,
@@ -161,12 +142,10 @@ public actionComplete(args: any) {
       duration : args.data.taskData.duration,
       predecessor : args.data.taskData.predecessor,
     }
-    
-    
-    
-   this.taskService.addTask(task,this.projectId).subscribe(
+     this.taskService.addTask(task,this.projectId).subscribe(
      res => {
        console.log(res);
+       this.ngOnInit()
        
      }, err => {
        console.log(err);
@@ -177,25 +156,68 @@ public actionComplete(args: any) {
     
   }else if(args.requestType == "delete")
     { 
-      let msg =  this.selectedRow
-      console.log("delete");
-      console.log(msg);
-    }else if( args.requestType == "save" && (this.selectedRow != args.data.id))
+    this.taskService.deleteTask(this.selectedRow).subscribe(
+      res => {
+        console.log(res);
+         },err =>{
+        console.log(err);
+      }
+    )
+  }else if( args.requestType == "save" && (this.selectedRow == args.data.id)) // edittt
     {
-      console.log("edit1");
-      console.log(args.data);
-      
-      
-      
-    }else if(args.requestType == "indented")
-    {
-      console.log(args.data);
-      
-    }else if(args.requestType == "outdented")
-    {
-      console.log(args.data);
+      let task_id = args.data.taskData.id
+      let task = {
+      task_name :  args.data.taskData.task_name,
+      start_date : args.data.taskData.start_date,
+      end_date : args.data.taskData.end_date,
+      progress : args.data.taskData.progress,
+      duration : args.data.taskData.duration,
+      predecessor : args.data.taskData.predecessor,
 
-    }
+      }
+     this.taskService.editTask(task,task_id).subscribe(
+       res => {
+         console.log(res);
+         }, err => {
+           console.log(err);
+           
+         }
+     )
+      }else if((args.requestType == "indented") || (args.requestType == "outdented"))
+    {
+      let parent_id = args.data[0].parentItem ? args.data[0].parentItem.taskId : null
+
+      
+      this.taskService.taskRelation(this.selectedRow,parent_id).subscribe(
+        res => {
+          console.log(res);
+        }, err => {
+          console.log(err);
+          
+        }
+      )
+    }else if( args.requestType == "save" && (this.selectedRow != args.data.id)) 
+    {
+      
+      let task_id = args.data.taskData.id
+      let task = {
+      task_name :  args.data.taskData.task_name,
+      start_date : args.data.taskData.start_date,
+      end_date : args.data.taskData.end_date,
+      progress : args.data.taskData.progress,
+      duration : args.data.taskData.duration,
+      predecessor : args.data.taskData.predecessor,
+
+      }
+     this.taskService.editTask(task,task_id).subscribe(
+       res => {
+         console.log(res);
+         }, err => {
+           console.log(err);
+           
+         }
+     )
+     }
  
    
 
