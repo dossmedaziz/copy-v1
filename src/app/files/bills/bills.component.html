@@ -22,16 +22,6 @@
       class="redbtn p-mr-2 p-button-rounded"
       *ngIf="filterActions('create','bill')"
     ></button>
-    <button
-      pButton
-      pRipple
-      style="color: white"
-      icon="pi pi-trash"
-      [disabled]="!selectedBill || !selectedBill.length"
-      class="p-button-rounded btn-primary"
-      (click)="deleteBill()"
-      *ngIf="filterActions('delete','bill')"
-    ></button>
   </ng-template>
 </p-toolbar>
 
@@ -53,12 +43,12 @@
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       <h5 class="p-m-0 title_erp" style="font-size: 20px; "> Bills List</h5>
-      <select name=""  id="" class="brad" 
-      style="  border: 1px solid #ced4da ; padding: 0.45rem 0.45rem;" 
+      <select name=""  id="" class="brad"
+      style="  border: 1px solid #ced4da ; padding: 0.45rem 0.45rem;"
       [(ngModel)]="selectedYear" (change)="filterByYear()">
         <option value="" *ngFor="let year of years" value="{{year.year}}">{{year.year}}</option>
       </select>
-      
+
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input pInputText type="text" class="brad" placeholder="Search..." [(ngModel)]="searchKey"/>
@@ -71,24 +61,23 @@
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
         <th pSortableColumn="name">
-          Bill Num 	<p-columnFilter type="text" field="billNum" display="menu"></p-columnFilter>
+          Bill Num
         </th>
         <th pSortableColumn="name">
-          Client 	<p-columnFilter type="text" field="client.client_name" display="menu"></p-columnFilter>
+          Client
         </th>
         <th pSortableColumn="name">
           Fact Date	<p-columnFilter type="text" field="DateFacturation" display="menu"></p-columnFilter>
         </th>
         <th pSortableColumn="name">
-          HT Price	<p-columnFilter type="text" field="price_ht" display="menu"></p-columnFilter>
+          HT Price
         </th>
         <th pSortableColumn="name">
-          TVA Price	<p-columnFilter type="text" field="price_tva" display="menu"></p-columnFilter>
+          TVA Price
         </th>
         <th pSortableColumn="name">
-          TTC Price	<p-columnFilter type="text" field="total_ttc" display="menu"></p-columnFilter>
+          TTC Price
         </th>
-
         <th >Status</th>
         <th></th>
 
@@ -106,16 +95,14 @@
          <td>{{ bill.price_tva }}</td>
          <td>{{ bill.total_ttc }}</td>
          <td>
-            <p-message *ngIf="bill.status != 0 " severity="error" text="canceled" styleClass="p-mr-2"></p-message>
+            <p-message *ngIf="bill.status != 0 " severity="info" text="canceled" styleClass="p-mr-1"></p-message>
         </td>
           <td>
-            <button type="button" class="btn btn-danger dropdown-toggle mx-2" data-bs-toggle="dropdown" aria-expanded="false">
-              
-            </button>
+            <button type="button" class="btn btn-primary dropdown-toggle mx-2" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu">
               <li *ngIf="bill.status == 0"><a class="dropdown-item" (click)="changeStatus(bill.id,1)">Cancel</a></li>
               <li  *ngIf="bill.status != 0"><a class="dropdown-item" (click)="changeStatus(bill.id,0)">No status</a></li>
-              
+
             </ul>
 
           <button

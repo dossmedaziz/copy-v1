@@ -57,7 +57,7 @@ export class ConfigService {
     {
       "id": 1,
       "status_name" : "Sent",
-      "color" : "#20bf6b" ,
+      "color" : "#778ca3" ,
       "icon":"pi-check"
        },
        {

@@ -1,13 +1,13 @@
 <nav id="sidebar" class="sidebar" >
     <div class="sidebar-content js-simplebar">
       <a class="sidebar-brand" [routerLink]="['/dashboard']">
-        <span class="align-middle">Nachd-IT</span>
+        <span class="align-middle">sofTouch</span>
       </a>
 
       <ul class="sidebar-nav">
         <li class="sidebar-header">Pages</li>
 
-        <li class="sidebar-item active" id="item" >   
+        <li class="sidebar-item active" id="item" >
           <a class="sidebar-link" [routerLink]="['/dashboard']">
             <i class="align-middle" data-feather="grid"></i>
             <span class="align-middle">Dashboard</span>
@@ -71,7 +71,7 @@
             <span class="align-middle">Paper Types</span>
           </a>
         </li>
-      
+
         <li class="sidebar-item" *ngIf="filterRoutes('activityLog')">
           <a class="sidebar-link" [routerLink]="['/activityLog']">
             <i class="align-middle" data-feather="activity"></i>

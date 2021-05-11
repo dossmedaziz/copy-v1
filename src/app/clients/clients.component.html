@@ -167,17 +167,17 @@
 
 <!-- Modal for  editing-->
 <p-dialog header="Update Client" [(visible)]="updateModal" [modal]="true"
-[style]="{ width: '125vh'}"
+[style]="{ width: '70vh'}"
   [baseZIndex]="10000" [draggable]="false"
   [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
-    <img class="center" src="assets/img/upd.png" />
+    <img class="cli" src="assets/img/upd.png" />
     <br />
     <form [formGroup]="clientForm">
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="client_name" type="text" pInputText class="brad" formControlName="client_name"
+            <input id="client_name" type="text" pInputText class="brad radding" formControlName="client_name"
               name="client_name">
             <div *ngIf="client_name.touched && client_name.invalid">
               <small *ngIf="client_name.errors.required" class="text-danger">Name is required <br> </small>
@@ -194,7 +194,7 @@
 
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="email" type="text" pInputText class="brad" formControlName="email">
+            <input id="email" type="text" pInputText class="brad radding" formControlName="email">
             <div *ngIf="email.touched && email.invalid">
               <small *ngIf="email.errors.required" class="text-danger">email is required<br> </small>
               <small *ngIf="email.errors.email" class="text-danger">Invalid email<br> </small>
@@ -208,7 +208,7 @@
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6">
           <span class="p-float-label">
-            <input id="phone" type="text" pInputText class="brad" formControlName="phone">
+            <input id="phone" type="text" pInputText class="brad radding" formControlName="phone">
             <label for="phone">Phone</label>
             <div *ngIf="phone.touched && phone.invalid">
               <small *ngIf="phone.errors.required" class="text-danger">Phone is required<br> </small>
@@ -221,7 +221,7 @@
 
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="fax" type="text" pInputText class="brad" formControlName="fax">
+            <input id="fax" type="text" pInputText class="brad radding" formControlName="fax">
             <div *ngIf="fax.touched && fax.invalid">
               <small *ngIf="fax.errors.required" class="text-danger">Fax is required<br> </small>
               <small *ngIf="fax.errors.pattern" class="text-danger">Invalid Fax <br> </small>
@@ -235,7 +235,7 @@
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="matFisc" type="text" pInputText class="brad" formControlName="matFisc">
+            <input id="matFisc" type="text" pInputText class="brad radding" formControlName="matFisc">
             <div *ngIf="matFisc.touched && matFisc.invalid">
               <small *ngIf="matFisc.errors.required" class="text-danger">matFisc is required<br> </small>
               <small *ngIf="matFisc.errors.minlength" class="text-danger">matFisc must contain min 7 digits<br> </small>
@@ -246,7 +246,7 @@
         </div>
         <div class="p-field p-col-6">
           <span class="p-float-label">
-            <input id="address" type="text" pInputText class="brad" formControlName="address">
+            <input id="address" type="text" pInputText class="brad radding" formControlName="address">
             <div *ngIf="address.touched && address.invalid">
               <small *ngIf="address.errors.required" class="text-danger">address is required<br> </small>
             </div>
@@ -269,7 +269,7 @@
 
 <!-- Modal add new Client-->
 <p-dialog header="Add new Client" [(visible)]="addNewClientModal" [modal]="true"
-[style]="{ width: '125vh'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
+[style]="{ width: '70vh'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
   styleClass="p-fluid">
   <div class="p-fluid">
     <img class="center" src="assets/img/user.png" />
@@ -277,7 +277,7 @@
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="client_name" type="text" pInputText class="brad" formControlName="client_name"
+            <input id="client_name" type="text" pInputText class="brad radding" formControlName="client_name"
               name="client_name">
             <div *ngIf="client_name.touched && client_name.invalid">
               <small *ngIf="client_name.errors.required" class="text-danger">Name is required <br> </small>
@@ -294,7 +294,7 @@
 
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="email" type="text" pInputText class="brad" formControlName="email">
+            <input id="email" type="text" pInputText class="brad radding" formControlName="email">
             <div *ngIf="email.touched && email.invalid">
               <small *ngIf="email.errors.required" class="text-danger">email is required<br> </small>
               <small *ngIf="email.errors.email" class="text-danger">Invalid email<br> </small>
@@ -308,7 +308,7 @@
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6">
           <span class="p-float-label">
-            <input id="phone" type="text" pInputText class="brad" formControlName="phone">
+            <input id="phone" type="text" pInputText class="brad radding" formControlName="phone">
             <label for="phone">Phone</label>
             <div *ngIf="phone.touched && phone.invalid">
               <small *ngIf="phone.errors.required" class="text-danger">Phone is required<br> </small>
@@ -321,7 +321,7 @@
 
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="fax" type="text" pInputText class="brad" formControlName="fax">
+            <input id="fax" type="text" pInputText class="brad radding" formControlName="fax">
             <div *ngIf="fax.touched && fax.invalid">
               <small *ngIf="fax.errors.required" class="text-danger">Fax is required<br> </small>
               <small *ngIf="fax.errors.pattern" class="text-danger">Invalid Fax <br> </small>
@@ -335,7 +335,7 @@
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="matFisc" type="text" pInputText class="brad" formControlName="matFisc">
+            <input id="matFisc" type="text" pInputText class="brad  radding" formControlName="matFisc">
             <div *ngIf="matFisc.touched && matFisc.invalid">
               <small *ngIf="matFisc.errors.required" class="text-danger">matFisc is required<br> </small>
               <small *ngIf="matFisc.errors.minlength" class="text-danger">matFisc must contain min 7 digits<br> </small>
@@ -346,7 +346,7 @@
         </div>
         <div class="p-field p-col-6">
           <span class="p-float-label">
-            <input id="address" type="text" pInputText class="brad" formControlName="address">
+            <input id="address" type="text" pInputText class="brad radding" formControlName="address">
             <label for="address">Address</label>
             <div *ngIf="address.touched && address.invalid">
               <small *ngIf="address.errors.required" class="text-danger">address is required<br> </small>
@@ -381,7 +381,7 @@
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="contact_name" type="text" pInputText class="brad" formControlName="contact_name">
+            <input id="contact_name" type="text" pInputText class="brad radding" formControlName="contact_name">
             <div *ngIf="contact_name.touched && contact_name.invalid">
               <small *ngIf="contact_name.errors.required" class="text-danger">Name is required <br> </small>
               <small *ngIf="contact_name.errors.pattern" class="text-danger">Invalid name <br></small>
@@ -396,7 +396,7 @@
 
         <div class="p-field p-col-6 ">
           <span class="p-float-label">
-            <input id="psition" type="text" pInputText class="brad" formControlName="position">
+            <input id="psition" type="text" pInputText class="brad radding" formControlName="position">
             <label for="psition">Position</label>
           </span>
         </div>
@@ -406,14 +406,14 @@
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6">
           <span class="p-float-label">
-            <input id="contact_phone" type="text" pInputText class="brad" formControlName="contact_phone">
+            <input id="contact_phone" type="text" pInputText class="brad radding" formControlName="contact_phone">
             <label for="contact_phone">Phone</label>
           </span>
         </div>
         <div class="p-field p-col-6 ">
 
           <span class="p-float-label">
-            <input id="contact_email" type="text" pInputText class="brad" formControlName="contact_email">
+            <input id="contact_email" type="text" pInputText class="brad radding " formControlName="contact_email">
             <label for="contact_email"> Email</label>
           </span>
         </div>

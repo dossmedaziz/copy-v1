@@ -13,15 +13,15 @@
                     <div class="card-body">
                       <h4 class="card-title">Quote Info</h4>
                       <label for="name">Quote Number</label>
-                      <input type="text" readonly class="rad form-control" id="quantity" *ngFor="let product of invoice.tvaTab; let i=index"
+                      <input type="text" class="rad form-control" id="quantity" *ngFor="let product of invoice.tvaTab; let i=index"
                       [(ngModel)]="num" [ngModelOptions]="{standalone: true}">
 
                       <br>
                       <label for=" fad">Facturation Date</label> <br>
                       <p-calendar [showIcon]="false" inputId="basic" [ngModelOptions]="{standalone: true}" (onSelect)="formQuoteNum()"
                       [(ngModel)]="DateFacturation" [maxDate]="maxDate" [minDate]="minDate" ></p-calendar>
-                      
-                 
+
+
                       <br> <br>
                         <h4 class="card-title">Customer Details</h4>
                         <div class="row">
@@ -38,7 +38,7 @@
                                         [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
                                 </div>
 
-                                <input *ngIf="selectedClient" type="text" class="rad form-control" name="name" id="name"  
+                                <input *ngIf="selectedClient" type="text" class="rad form-control" name="name" id="name"
                                 [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
                                 [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
 

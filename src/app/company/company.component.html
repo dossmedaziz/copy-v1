@@ -11,12 +11,13 @@
               <br>
               <br>
               <a >
-                <img src="{{generalLink}}{{path}}" alt="" class="rounded-circle">
+                <img src="{{fileGenralLink}}{{path}}" alt="" class="rounded-circle">
                 <br>
                 <br><br>
                 <br><br>
                 <br><br>
-                <br> <input type="file" id="formFile" (change)="selectFile($event)">
+                <input type="file" accept=".png, .jpg, .jpeg" name="file" id="file" class="inputfile" (change)="selectFile($event)" />
+                <label for="file" class="center">Change Image</label>
               </a>
             </div>
           </div>
@@ -31,7 +32,7 @@
           <h3 class="mb-0">Company Profile</h3>
         </div>
         <div class="col-4 text-right">
-          <button (click)="updateCompany()" class="btn btn-sm btn-primary">Update</button>
+          <button (click)="updateCompany()" class="btn btn-sm btn-primary" [disabled]="companyForm.invalid">Update</button>
           <button (click)="clearCompanyInfo()" class="btn btn-sm redbtn">Clear</button>
         </div>
       </div>
@@ -69,14 +70,18 @@
               <div class="form-group focused">
                 <label class="form-control-label" for="phone_number">Phone</label>
                 <input type="text" formControlName="phone_number" id="phone_number" class="form-control form-control-alternative" placeholder="The phone number" value="phone number">
-
+                <div *ngIf="phone_number.touched && phone_number.invalid">
+                  <small *ngIf="phone_number.errors.required" class="text-danger">phone number is required<br> </small>
+                </div>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group focused">
                 <label class="form-control-label" for="mat_fiscal">tax registration number</label>
                 <input id="mat_fiscal" formControlName="mat_fiscal" class="form-control form-control-alternative" placeholder="tax registration number" value="The tax registration number" type="text">
-
+                <div *ngIf="mat_fiscal.touched && mat_fiscal.invalid">
+                  <small *ngIf="mat_fiscal.errors.required" class="text-danger">tax registration number is required<br> </small>
+                </div>
                </div>
 
             </div>
@@ -91,7 +96,10 @@
               <div class="form-group focused">
                 <label class="form-control-label" for="local">Address</label>
                 <input type="text" id="local" formControlName="local" class="form-control form-control-alternative" placeholder="local" value="local">
-               </div>
+                <div *ngIf="local.touched && local.invalid">
+                  <small *ngIf="local.errors.required" class="text-danger">address is required<br> </small>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -99,7 +107,9 @@
               <div class="form-group focused">
                 <label class="form-control-label" for="bank">Bank</label>
                 <input type="text" id="bank" formControlName="bank" class="form-control form-control-alternative" placeholder="Bank" value="Bank">
-
+                <div *ngIf="bank.touched && bank.invalid">
+                  <small *ngIf="bank.errors.required" class="text-danger">bank is required<br> </small>
+                </div>
               </div>
 
             </div>
@@ -107,14 +117,18 @@
               <div class="form-group focused">
                 <label class="form-control-label" for="tva">VAT rate</label>
                 <input type="text" id="tva"  formControlName="tva"  class="form-control form-control-alternative" placeholder="VAT rate" value="VAT rate">
-
+                <div *ngIf="tva.touched && tva.invalid">
+                  <small *ngIf="tva.errors.required" class="text-danger">VAT rate is required<br> </small>
+                </div>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group">
                 <label class="form-control-label" for="tax">Tax Stamp</label>
                 <input type="number" id="tax" formControlName="tax" class="form-control form-control-alternative" placeholder="Tax Stamp">
-
+                <div *ngIf="tax.touched && tax.invalid">
+                  <small *ngIf="tax.errors.required" class="text-danger">Tax Stamp is required<br> </small>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -122,7 +136,9 @@
                 <div class="form-group focused">
                   <label class="form-control-label" for="domaine">Domaine</label>
                   <input type="text" id="domaine" formControlName="domaine" class="form-control form-control-alternative" placeholder="Domaine" value="Domaine">
-
+                  <div *ngIf="domaine.touched && domaine.invalid">
+                    <small *ngIf="domaine.errors.required" class="text-danger">domaine is required<br> </small>
+                  </div>
                 </div>
               </div>
             </div>

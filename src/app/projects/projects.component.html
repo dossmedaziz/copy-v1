@@ -92,7 +92,7 @@
               </td>
 
               <td>
-                <button pButton pRipple type="button" icon="pi pi-map" class="p-button-rounded p-button-text mx-3" [routerLink]="['/ganttChart',project.id]"></button>
+                <button pButton pRipple type="button" icon="pi pi-map" class="p-button-rounded back p-button-text mx-2" [routerLink]="['/ganttChart',project.id]"></button>
                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded redbtn p-mr-2" (click)="selectedProject(project)"  *ngIf="filterActions('update','project')"></button>
 
               </td>
@@ -157,11 +157,11 @@
 <!-- New project modal-->
 <p-dialog header="Add new Project"
 [(visible)]="addNewProjectModal" [modal]="true"
-[baseZIndex]="10000" [style]="{ width: '125vh' }"
+[baseZIndex]="10000" [style]="{ width: '70vh' }"
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid" >
 
-    <img class="center" src="assets/img/add.png" />
+    <img class="add" src="assets/img/add.png" />
 
 
     <form [formGroup]="projectForm" >
@@ -194,7 +194,7 @@
     <div class="p-grid p-fluid">
       <div class="p-field p-col-6 ">
         <label for="icon">Start Date </label><br>
-          <input class="date form-control " type="date" id="" formControlName="start_date" >
+          <input class="date  " type="date" id="" formControlName="start_date" >
         <div *ngIf="start_date.touched && start_date.invalid">
           <small *ngIf="start_date.errors.required"class="text-danger">Start date is required <br> </small>
         </div>
@@ -236,10 +236,10 @@
 
  <!-- update project-->
 <p-dialog header="Update Project" [(visible)]="updateModal" [modal]="true"
-[style]="{ width: '125vh' }" [baseZIndex]="10000"
+[style]="{ width: '70vh' }" [baseZIndex]="10000"
   [draggable]="false"  [resizable]="false" styleClass="p-fluid">
   <div class="p-fluid">
-    <img class="proj" src="assets/img/upd.png" />
+    <img class="center" src="assets/img/upd.png" />
     <form [formGroup]="projectForm" >
       <div class="p-grid p-fluid">
         <div class="p-field p-col-6 ">

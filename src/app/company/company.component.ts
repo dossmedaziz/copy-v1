@@ -5,6 +5,7 @@ import { BillService } from 'src/app/services/bill.service';
 import { PaperTypeService } from '../services/paper-type.service';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2'
+import { Api } from '../api'
 import { CompanyService } from '../services/company.service';
 @Component({
   selector: 'app-company',
@@ -17,7 +18,8 @@ export class CompanyComponent implements OnInit {
   companyId
   files
   path
-  generalLink = "http://localhost:8000/"
+  api = new Api
+  fileGenralLink = this.api.url
   users
   selectedUsers =[]
   selectedEmails = Array()
@@ -103,7 +105,7 @@ export class CompanyComponent implements OnInit {
       res=>{
 
         this.company=res[0]
-        
+
         this.path = this.company.logo
 
         this.companyId = this.company.id
@@ -163,7 +165,7 @@ export class CompanyComponent implements OnInit {
   addEmail(event,email)
 
   {
-   
+
  if(event.target.checked)
 {
   this.emails = this.emails+email+','

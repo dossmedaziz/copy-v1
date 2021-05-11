@@ -22,16 +22,6 @@
       class="p-button-rounded  p-mr-2 redbtn"
       *ngIf="filterActions('create','quote')"
     ></button>
-    <button
-      pButton
-      pRipple
-      style="color: white"
-      icon="pi pi-trash"
-      [disabled]="!selectedquote || !selectedquote.length"
-      class="p-button-rounded btn-primary"
-      (click)="deleteQuote()"
-      *ngIf="filterActions('delete','quote')"
-    ></button>
   </ng-template>
 </p-toolbar>
 
@@ -53,12 +43,6 @@
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       <h5 class="p-m-0 title_erp" style="font-size: 15px; "> Quote List</h5>
-      <select name=""  id="" class="brad" 
-      style="  border: 1px solid #ced4da ; padding: 0.45rem 0.45rem;" 
-      [(ngModel)]="selectedYear" (change)="filterByYear()">
-        <option value="" *ngFor="let year of years" value="{{year.year}}">{{year.year}}</option>
-      </select>
-      
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input pInputText type="text" class="brad" placeholder="Search..." [(ngModel)]="searchKey"/>
@@ -71,22 +55,22 @@
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
         <th pSortableColumn="name">
-          Quote Num 	<p-columnFilter type="text" field="quoteNum" display="menu"></p-columnFilter>
+          Quote Num
         </th>
         <th pSortableColumn="name">
-          Client 	<p-columnFilter type="text" field="client.client_name" display="menu"></p-columnFilter>
+          Client
         </th>
         <th pSortableColumn="name">
-          Fact Date	<p-columnFilter type="text" field="DateFacturation" display="menu"></p-columnFilter>
+          Fact Date
         </th>
         <th pSortableColumn="name">
-          HT Price	<p-columnFilter type="text" field="price_ht" display="menu"></p-columnFilter>
+          HT Price
         </th>
         <th pSortableColumn="name">
-          TVA Price	<p-columnFilter type="text" field="price_tva" display="menu"></p-columnFilter>
+          TVA Price
         </th>
         <th pSortableColumn="name">
-          TTC Price	<p-columnFilter type="text" field="total_ttc" display="menu"></p-columnFilter>
+          TTC Price
         </th>
 
         <th></th>

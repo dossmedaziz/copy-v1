@@ -145,7 +145,7 @@
     <p-dialog header="Preview" [(visible)]="emailEditModal" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000"
       [draggable]="false" [resizable]="false">
       <label for="subject">Subject :</label><br>
-      <input type="text" [(ngModel)]="subject">
+      <input type="text" class="form-control brad radding" [(ngModel)]="subject">
       <p-editor [(ngModel)]="emailContent" [style]="{'height':'320px'}"></p-editor>
 
 
