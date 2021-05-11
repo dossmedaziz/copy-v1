@@ -2,32 +2,13 @@
 
 <h1 class="title_erp">Activity Log</h1>
 
-
-<!--Toolbar-->
-<p-toolbar
-  [style]="{
-    width: '70rem',
-    'margin-bottom': '2rem',
-    'margin-right': '2rem',
-    height: '4rem',
-    'background-color': '',
-    border: 'none'
-  }"
-  styleClass="p-mb-4"
->
-  <ng-template pTemplate="left">
- 
-  </ng-template>
-</p-toolbar>
-
-
-
+<br><br>
 <!--Table-->
 <div class="card">
   <p-table
     #dt
     [value]="activities | activityPipe:searchKey"
-    [rows]="10"
+    [rows]="5"
     [paginator]="true"
     [globalFilterFields]="['name', 'age']"
     [rowHover]="true"
@@ -58,7 +39,7 @@
         <th>Activity</th>
         <th></th>
         <th>
-          Service 
+          Service
         </th>
         <th></th>
       </tr>

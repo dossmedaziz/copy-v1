@@ -1,8 +1,8 @@
-body{
-  background:#eee;
-  }
+.titleh3{
+  color: #174f77 !important;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important;
+}
   .ibox-content {
-      background-color: #FFFFFF;
       color: inherit;
       padding: 15px 20px 20px 20px;
       border-color: #E7EAEC;
@@ -21,7 +21,7 @@ body{
   }
 
   .search-result .search-link {
-      color: #006621;
+      color: #0a3d62 !important;
   }
 
   .search-result p {
@@ -32,7 +32,7 @@ body{
   .hr-line-dashed {
       border-top: 1px dashed #E7EAEC;
       color: #ffffff;
-      background-color: #ffffff;
+
       height: 1px;
       margin: 20px 0;
   }

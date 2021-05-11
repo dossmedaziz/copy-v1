@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pangolin&display=swap');
+
+
+.T{
+  font-family: 'Pangolin', cursive;
+  font-size: 20px;
+  width: 200px;
+}
+
+.ouch
+{
+  font-family: 'Dancing Script', cursive;
+  width: 400px;
+  font-size: 50px;
+
+}

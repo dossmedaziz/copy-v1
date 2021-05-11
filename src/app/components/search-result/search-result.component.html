@@ -49,7 +49,17 @@
           </div>
     </div>
 </div> -->
+ <!-- <div *ngIf="contacts.length">
+    <div class="grid-container" >
+        <div class="grid-item" *ngFor="let contact of contacts">
+            <p-card header="{{ contact.contact_name}}" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+             Postion : {{contact.position}} <br>
+              Email  : {{contact.contact_email}}
+            </p-card>
+        </div>
 
+      </div>
+</div> -->
 
 <br>
 <div class="p-d-flex p-ai-center p-jc-between">
@@ -58,36 +68,39 @@
 <br>
 
 <div *ngIf="result">
+
+
   <div *ngIf="clients.length">
-    <div class="container bootstrap snippets bootdey">
-      <div class="row">
+    <div class="container">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-content">
+              <h3 class="titleh3">Client</h3>
+              <div class="ibox-content">
               <div class="search-result" *ngFor="let client of clients">
                 <h3><a href="#" [routerLink]="['/clients']">{{ client.client_name}}</a></h3>
-                <a href="#" [routerLink]="['/clients']" class="search-link">{{client.email}} | {{client.phone}}</a>
+                <a class="search-link">Email : {{client.email}} | Phone Number : {{client.phone}}</a>
                 <div class="hr-line-dashed"></div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
     </div>
   </div>
-</div>
 
 
-<div *ngIf="result">
+
+
   <div *ngIf="projects.length">
-    <div class="container bootstrap snippets bootdey">
+    <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
-            <div class="ibox-content">
+              <h3 class="titleh3">Project</h3>
+              <div class="ibox-content">
               <div class="search-result" *ngFor="let project of projects">
                 <h3><a href="#" [routerLink]="['/projects']">{{ project.project_name}}</a></h3>
-                <a href="#" [routerLink]="['/projects']" class="search-link">{{project.client.client_name}}</a>
+                <a  class="search-link">Client Name : {{project.client.client_name}}</a>
                 <div class="hr-line-dashed"></div>
               </div>
             </div>
@@ -96,19 +109,22 @@
       </div>
     </div>
   </div>
-</div>
 
 
-<div *ngIf="result">
+
+
+
   <div *ngIf="contacts.length">
-    <div class="container bootstrap snippets bootdey">
+    <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins">
+            <h3 class="titleh3">Contact</h3>
             <div class="ibox-content">
               <div class="search-result" *ngFor="let contact of contacts">
                 <h3><a href="#" [routerLink]="['/clients']">{{ contact.contact_name}}</a></h3>
-                <a href="#" [routerLink]="['/clients']" class="search-link">{{contact.contact_email}} | {{contact.position}}</a>
+                <a  class="search-link">
+                  Contact Email : {{contact.contact_email}} | Contact Position : {{contact.position}}</a>
                 <div class="hr-line-dashed"></div>
               </div>
             </div>
@@ -117,4 +133,5 @@
       </div>
     </div>
   </div>
+
 </div>

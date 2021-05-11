@@ -370,10 +370,10 @@
 
 <!--Modal for ADD Contact-->
 <p-dialog header="Add  Contact" [(visible)]="addContactModal" [modal]="true"
-  [style]="{ width: '150vh','height':'100vh' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
+  [style]="{ width: '70vh'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
   styleClass="p-fluid">
   <div class="p-fluid">
-    <img class="center" src="assets/img/add_person_user_icon_131752.ico" />
+    <img class="center" src="assets/img/user.png" />
     <br />
 
     <form [formGroup]="contactForm">
@@ -420,10 +420,10 @@
       </div>
 
       <div class="p-grid p-fluid">
-        <div class="p-field p-col-6">
+        <div class="p-field p-col-12">
 
           <span class="p-float-label">
-            <textarea rows="5" cols="30" pInputTextarea formControlName="description"></textarea>
+            <textarea rows="4" cols="30" class="brad" pInputTextarea formControlName="description"></textarea>
             <label for="description"> Description</label>
           </span>
         </div>
