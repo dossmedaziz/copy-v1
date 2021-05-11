@@ -23,4 +23,17 @@ export class TaskService {
   {
     return this.http.post<any>(this.api.api+'/addTask',{task : task , project_id: project_id},this.header)
   }
+  editTask(newTask,task_id)
+  {
+    return this.http.put<any>(this.api.api+'/editTask',{newTask :newTask , task_id:task_id},this.header)
+  }
+
+  deleteTask(task_id)
+  {
+    return this.http.post<any>(this.api.api+'/deleteTask', {task_id : task_id}, this.header )
+  }
+  taskRelation(task_id,parent_id)
+  {
+    return this.http.post<any>(this.api.api+'/taskRelation',{task_id : task_id , parent_id : parent_id},this.header)
+  }
 }
