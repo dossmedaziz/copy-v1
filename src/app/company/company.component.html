@@ -125,7 +125,7 @@
             <div class="col-lg-4">
               <div class="form-group">
                 <label class="form-control-label" for="tax">Tax Stamp</label>
-                <input type="number" id="tax" formControlName="tax" class="form-control form-control-alternative" placeholder="Tax Stamp">
+                <input type="text" id="tax" formControlName="tax" class="form-control form-control-alternative" placeholder="Tax Stamp">
                 <div *ngIf="tax.touched && tax.invalid">
                   <small *ngIf="tax.errors.required" class="text-danger">Tax Stamp is required<br> </small>
                 </div>
@@ -176,3 +176,6 @@
     </div>
   </div>
 </div>
+
+
+

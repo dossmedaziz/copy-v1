@@ -47,7 +47,6 @@ export class CompanyComponent implements OnInit {
             ]),
         local : new FormControl ('',[
             Validators.required,
-            Validators.pattern("[A-Z a-z 0-9 .'-]+"),
             Validators.minLength(4),
             ]),
         phone_number : new FormControl ('',[
@@ -58,12 +57,10 @@ export class CompanyComponent implements OnInit {
         tva : new FormControl ('',[
               Validators.required,
               Validators.pattern("[0-9 .'-]+"),
-              Validators.minLength(8),
               ]),
          tax : new FormControl ('',[
                 Validators.required,
-                Validators.pattern("[0-9 .'-]+"),
-                Validators.minLength(8),
+                Validators.pattern("[ 0-9 .'-]+"),
                 ]),
         bank : new FormControl ('',[
                 Validators.required,
@@ -74,7 +71,6 @@ export class CompanyComponent implements OnInit {
                   ]),
         domaine : new FormControl ('',[
             Validators.required,
-            Validators.pattern("[A-Z a-z 0-9 .'-]+"),
             ])}
 
      this.companyForm = this.fb.group(formControls) ;
@@ -152,6 +148,7 @@ export class CompanyComponent implements OnInit {
 
   clearCompanyInfo(){
     this.companyForm.reset()
+    
   }
 
   selectFile(event) {
@@ -177,4 +174,9 @@ this.selectedEmails = this.emails.split(',')
 
 
   }
+
+
+
+
+
 }
