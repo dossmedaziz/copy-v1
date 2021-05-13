@@ -87,7 +87,7 @@ import { GanttComponent } from './gantt/gantt.component';
 
 // gant plugin
 import { GanttModule, ResizeService, SortService, FilterService, SelectionService, ReorderService,
-  EditService, DayMarkersService, ToolbarService } from '@syncfusion/ej2-angular-gantt';
+  EditService, DayMarkersService, ToolbarService, RowDDService } from '@syncfusion/ej2-angular-gantt';
 import { VerifNewEmailComponent } from './components/verif-new-email/verif-new-email.component';
 @NgModule({
   declarations: [
@@ -180,7 +180,7 @@ GanttModule
 
   ],
   providers: [ResizeService, SortService, FilterService, SelectionService, ReorderService,
-    EditService, DayMarkersService, ToolbarService],
+    EditService, DayMarkersService, ToolbarService,RowDDService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

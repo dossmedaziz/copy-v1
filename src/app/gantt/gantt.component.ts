@@ -102,10 +102,8 @@ endEdit(args : any): void {
 
 // click taskbar
 taskbarEdited(args : any): void {
-  if(this.selectedRow == args.data.id){
-
-    // console.log("edit2");
-  }
+  console.log("hello");
+  
 
 }
 
@@ -217,6 +215,9 @@ public actionComplete(args: any) {
            
          }
      )
+     }else if(args.requestType == "dropped" ){
+       console.log("hello");
+       
      }
  
    
@@ -264,5 +265,8 @@ public rowSelected(args: any) {
 //   // console.log(this.allTasks);
 // }
 
-
+columnDrop(){
+  console.log("test");
+  
+}
 }

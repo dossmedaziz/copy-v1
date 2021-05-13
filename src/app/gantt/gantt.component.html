@@ -1,5 +1,5 @@
 
-       <ejs-gantt id="GanttSample" height="430px" [dataSource]="data" [taskFields]="taskSettings" [columns]="columns"
+       <ejs-gantt id="GanttSample" [allowRowDragAndDrop]="true" height="430px" [dataSource]="data" [taskFields]="taskSettings" [columns]="columns"
         [allowSelection]="true" [allowReordering]="true" [allowSorting]="true" [allowResizing]="true"
         [splitterSettings]="splitterSettings" [enableContextMenu]="true" [showColumnMenu]="true"
         [labelSettings]="labelSettings" [projectStartDate]="projectStartDate" [projectEndDate]="projectEndDate"
@@ -9,6 +9,7 @@
         (actionComplete)="actionComplete($event)"
         (actionBegin)="actionBegin($event)"
         (rowSelected)="rowSelected($event)"
+        (columnDrop)="columnDrop()"
         >
     </ejs-gantt>
 
