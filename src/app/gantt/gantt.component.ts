@@ -181,12 +181,13 @@ public actionComplete(args: any) {
            
          }
      )
-      }else if((args.requestType == "indented") || (args.requestType == "outdented"))
+      }else if((args.requestType == "indented") || (args.requestType == "outdented") || args.requestType == "rowDropped" )
     {
       let parent_id = args.data[0].parentItem ? args.data[0].parentItem.taskId : null
 
+
       
-      this.taskService.taskRelation(this.selectedRow,parent_id).subscribe(
+      this.taskService.taskRelation(args.data[0].id,parent_id).subscribe(
         res => {
           console.log(res);
         }, err => {
@@ -215,9 +216,6 @@ public actionComplete(args: any) {
            
          }
      )
-     }else if(args.requestType == "dropped" ){
-       console.log("hello");
-       
      }
  
    
@@ -265,8 +263,7 @@ public rowSelected(args: any) {
 //   // console.log(this.allTasks);
 // }
 
-columnDrop(){
-  console.log("test");
-  
-}
+public rowDrop(args: any) { 
+  console.log(args); 
+} 
 }
