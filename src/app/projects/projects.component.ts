@@ -41,9 +41,7 @@ export class ProjectsComponent implements OnInit {
       
                   project_name : new FormControl('',[
                      Validators.required,
-                     Validators.pattern("[A-Z a-z 0-9 .'-]+"),
                      Validators.minLength(4),
-                     Validators.maxLength(20)
                        ]),
                   start_date : new FormControl('',[
                       Validators.required,
@@ -227,7 +225,7 @@ filterStatus1(id)
 filterStatus2(id)
 {
     let status =  this.status_paper.find( el => el.id == id )
-    return status
+     return status
 }
 
       addPaperModal(id)

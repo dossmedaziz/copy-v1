@@ -18,7 +18,7 @@ import date from 'date-and-time';
 class Product{
   designation: string;
   u_price: number;
-  quantity: number;
+  quantity: number = 1;
   total_price: number;
 }
 class Tva{
@@ -39,7 +39,7 @@ class Invoice{
   address: string;
   contactNo: number;
   email: string;
-  clientid : Number ;
+  clientid : number ;
   matFisc: string;
   other: string;
 
@@ -69,7 +69,7 @@ export class AddBillComponent implements OnInit {
   totalPrice
   company =  {}
   num
-  tax
+  tax 
   rate_tva
   logoDataUrl: string;
   numberInWords!: string;
@@ -77,6 +77,8 @@ export class AddBillComponent implements OnInit {
   date 
   numBill
   minDate 
+  remise
+  type = 0
   constructor(private ngxNumToWordsService: NgxNumToWordsService,
     private router : Router, private fb:FormBuilder,private billService: BillService,
                private clientService : ClientService,
@@ -151,6 +153,7 @@ export class AddBillComponent implements OnInit {
            
              }
 
+           
              caclucTotalOfOneItem(ele,i){
               if(
                 typeof ele.quantity !== 'undefined' &&
@@ -173,9 +176,28 @@ export class AddBillComponent implements OnInit {
               this.invoice.tvaObj.price_tva = (this.invoice.tvaObj.ht_price * this.rate_tva) / 100
             }
             calculTTCprice(){
-              this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)
+
+              this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)   + parseFloat(this.tax)
+              if( this.type == 1 && this.remise){
+
+                this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - this.remise   
+              this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+              }else if(this.type == 2 && this.remise ){
+                this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - ((this.invoice.tvaObj.total_ttc* this.remise)/100)
+              this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+                }else if(this.type == 0 || !this.remise){
+                  this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc
+              this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+                }
             }
-          
+          updateTTC()
+          {
+            this.calculTTCprice()
+            this.inWord()
+          }
             saveBill() {
           
               this.invoice.tvaObj.clientid = this.selectedClient.id
@@ -202,9 +224,21 @@ export class AddBillComponent implements OnInit {
                 this.router.navigate(['/Bills'])
               }
               inWord(){
-                let value = this.invoice.tvaTab[0].total_ttc;
-               this.numberInWords = this.ngxNumToWordsService.inWords(value, this.lang);
-               this.invoice.tvaObj.inWord = this.numberInWords
+                let value =  parseFloat(this.invoice.tvaObj.total_ttc)
+                let  splitted =  this.invoice.tvaObj.total_ttc.split("."); 
+                let beforeC = splitted[0]
+                let afterC = splitted[1]
+                beforeC =  parseFloat(beforeC)
+                afterC =  parseFloat(afterC)
+                beforeC = this.ngxNumToWordsService.inWords(beforeC, this.lang);
+                afterC = this.ngxNumToWordsService.inWords(afterC, this.lang);
+                this.invoice.tvaObj.inWord = beforeC + " DINARS, " + afterC + " millimes "
+                
+                
+          
+               console.log(splitted)
+             
+                           
               }
           
           
@@ -458,6 +492,8 @@ export class AddBillComponent implements OnInit {
                 res=>{
                   this.selectedClient = res
                   this.clientId = res.id
+                  console.log(res);
+                  
                 },err=>{
                   console.log(err)
                 }

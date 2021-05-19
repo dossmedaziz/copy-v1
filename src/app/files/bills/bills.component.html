@@ -29,7 +29,7 @@
 <div class="card">
   <p-table
     #dt
-    [value]="allBills | billPipe:searchKey"
+    [value]="allBills | filter:searchKey"
     [rows]="10"
     [paginator]="true"
     [(selection)]="selectedBill"

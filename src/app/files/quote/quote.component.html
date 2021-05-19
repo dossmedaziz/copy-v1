@@ -29,7 +29,7 @@
 <div class="card">
   <p-table
     #dt
-    [value]="quotes | quotePipe:searchKey"
+    [value]="quotes | filter:searchKey"
     [rows]="10"
     [paginator]="true"
     [(selection)]="selectedquote"

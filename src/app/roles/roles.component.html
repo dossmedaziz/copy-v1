@@ -39,7 +39,7 @@
 <div class="card">
 <p-table
   #dt
-  [value]="roles | rolePipe:searchKey"
+  [value]="roles | filter:searchKey"
   [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['name', 'age']"

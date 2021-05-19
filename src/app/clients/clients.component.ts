@@ -34,30 +34,23 @@ export class ClientsComponent implements OnInit {
       
                       client_name : new FormControl('',[
                           Validators.required,
-                          Validators.pattern("[A-Z a-z 0-9 .'-]+"),
                           Validators.minLength(4),
-                          Validators.maxLength(20)
                           ]),
                       email : new FormControl ('',[
-                          Validators.required,
                           Validators.email
                           ]),
                       matFisc : new FormControl ('',[
-                          Validators.required,
                           Validators.minLength(7),
                           ]),
                       address : new FormControl ('',[
-                          Validators.required,
                           Validators.pattern("[A-Z a-z 0-9 .'-]+"),
                           Validators.minLength(4),
                           ]),
                       phone : new FormControl ('',[
-                          Validators.required,
-                          Validators.pattern("[0-9 .'-]+"),
+                           Validators.pattern("[0-9 .'-]+"),
                           Validators.minLength(8),
                           ]),
                       fax : new FormControl ('',[
-                          Validators.required,
                           Validators.pattern("[0-9 .'-]+"),
                           Validators.minLength(8),
                           ])}

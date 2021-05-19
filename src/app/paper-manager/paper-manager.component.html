@@ -39,7 +39,7 @@
 <div class="card">
 <p-table
   #dt
-  [value]="papers | paperPipe:searchKey"
+  [value]="papers | filter:searchKey"
   [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['paper_name','type','expiration_date','project','description','status']"

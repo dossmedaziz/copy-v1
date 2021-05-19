@@ -7,7 +7,7 @@
 <div class="card">
   <p-table
     #dt
-    [value]="activities | activityPipe:searchKey"
+    [value]="activities |filter:searchKey"
     [rows]="5"
     [paginator]="true"
     [globalFilterFields]="['name', 'age']"

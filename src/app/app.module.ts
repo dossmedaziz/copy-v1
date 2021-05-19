@@ -82,6 +82,7 @@ import { AddQuoteComponent } from './files/add-quote/add-quote.component';
 import { UpdateQuoteComponent } from './files/update-quote/update-quote.component';
 import { ActivityPipePipe } from './pipes/activity-pipe.pipe';
 import { GanttComponent } from './gantt/gantt.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -176,7 +177,8 @@ import { VerifNewEmailComponent } from './components/verif-new-email/verif-new-e
     MessageModule,
     AvatarModule,
 AvatarGroupModule,
-GanttModule
+GanttModule,
+Ng2SearchPipeModule
 
   ],
   providers: [ResizeService, SortService, FilterService, SelectionService, ReorderService,

@@ -39,7 +39,7 @@
 <div class="card">
 <p-table
   #dt
-  [value]="users | userPipe:searchKey"
+  [value]="users | filter:searchKey"
   [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['user_name', 'email','role']"
