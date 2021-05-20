@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="form-group">
                                   <label *ngIf="selectedClient" for="contactNo">tax registration number</label>
-                                  <input *ngIf="selectedClient" type="number" class="rad form-control" name="contactNo" id="contactNo"
+                                  <input *ngIf="selectedClient" type="text" class="rad form-control" name="contactNo" id="contactNo"
                                       [(ngModel)]="selectedClient.matFisc" #ContactNo="ngModel" >
                               </div>
                             </div>
@@ -127,7 +127,22 @@
               </div>
           </div>
 
+          <div class="card border-secondary mt-2" style="border-radius: 15px;">
+            <div class="card-body">
+              <h4 class="card-title d-flex justify-content-between">Discount
+              </h4>
+              <hr>
+              <input type="number" class="form-control brad col-6"
+              id="productName" [(ngModel)]="remise" (keyup)="updateTTC()" [ngModelOptions]="{standalone: true}"><br>
+              
+              <input type="radio" id="amount" name="type" [(ngModel)]="type" value="1" (change)="updateTTC()"[ngModelOptions]="{standalone: true}" >
+              <label for="amount">Amount</label><br>
+              <input type="radio" id="%" name="type" [(ngModel)]="type" value="2"(change)="updateTTC()" [ngModelOptions]="{standalone: true}">
+              <label for="%">%</label><br>
 
+             
+            </div>
+          </div>
             <!--Prices-->
             <div class="card border-secondary mt-2" >
               <div class="card-body">

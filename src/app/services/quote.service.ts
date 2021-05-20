@@ -56,7 +56,7 @@ export class QuoteService {
   }
 
   getQuoteById(id){
-    return this.http.get<any>(this.api.api+'/getQuote/'+id ,this.header) ;
+    return this.http.get<any>(this.api.api+'/getQuote/'+id ,this.header).toPromise() ;
   }
 
   updateQuote(id,items,quote,config)

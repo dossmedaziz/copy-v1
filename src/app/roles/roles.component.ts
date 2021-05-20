@@ -49,6 +49,8 @@ searchKey
           // fetch actions from api
           this.privilegeService.getAllActions().subscribe(res=>{
           this.actions = res
+          console.log(res);
+          
           },err=>{
             console.log(err)
           })
@@ -79,7 +81,8 @@ searchKey
           this.displayModal2 = true;
         }
 
-        showModalDialog3() {
+        addRoleModal() {
+          this.selectedPriv = []
           this.displayModal3 = true;
         }
 
@@ -120,6 +123,9 @@ searchKey
 
         selectAction(space_id,action_id,event)
         {
+
+         
+         
               if(event.target.checked){
                 
                 let test = this.selectedPriv.find( elt => elt.action_id == action_id && elt.space_id == space_id)
@@ -148,6 +154,8 @@ searchKey
                {
                 $( "#"+space_id ).prop( "checked", true );
                }
+
+               console.log(this.selectedPriv);
      
             }
 
@@ -289,4 +297,31 @@ searchKey
          return false
        }
       }
+
+      able(action_name,space_id){
+        
+        
+        let test  = true 
+        if(action_name == "read"){
+         test = false
+        
+        }else if(action_name != "read") {
+       this.selectedPriv.map(el => {
+
+     if(el.space_id == space_id)
+     {
+      let action = this.actions.find(elt => elt.id == el.action_id)
+      if(action.action_name == "read"){
+        test = false
+      }
+      
+     }
+      
+     
+   })
+   return test
+  
+      }
+    }
+  
     }

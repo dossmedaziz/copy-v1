@@ -75,6 +75,8 @@ export class AddQuoteComponent implements OnInit {
   numQuote
   numBill
   minDate 
+  type = 0
+  remise
   constructor(private ngxNumToWordsService: NgxNumToWordsService,
     private router : Router, private fb:FormBuilder,private quoteService : QuoteService,
                private clientService : ClientService,
@@ -166,13 +168,39 @@ export class AddQuoteComponent implements OnInit {
               this.invoice.tvaObj.price_tva = (this.invoice.tvaObj.ht_price * this.rate_tva) / 100
             }
             calculTTCprice(){
-              this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)
-            }
+             
+              this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)   + ( parseFloat(this.tax) ? parseFloat(this.tax) : 0)
+              if( this.type == 1 && this.remise){
 
+                this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - this.remise   
+              this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+              }else if(this.type == 2 && this.remise ){
+                this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - ((this.invoice.tvaObj.total_ttc* this.remise)/100)
+              this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+                }else if(this.type == 0 || !this.remise){
+                  this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc
+              this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+                }
+            }
+            updateTTC()
+            {
+              this.calculTTCprice()
+              this.inWord()
+            }
+              
             inWord(){
-              let value = this.invoice.tvaTab[0].total_ttc;
-             this.numberInWords = this.ngxNumToWordsService.inWords(value, this.lang);
-             this.invoice.tvaObj.inWord = this.numberInWords
+              let  splitted =  this.invoice.tvaObj.total_ttc.split("."); 
+              let beforeC = splitted[0]
+              let afterC = splitted[1]
+              beforeC =  parseFloat(beforeC)
+              afterC =  parseFloat(afterC)
+              beforeC = this.ngxNumToWordsService.inWords(beforeC, this.lang);
+              afterC = afterC ? ","+ this.ngxNumToWordsService.inWords(afterC, this.lang) + " millimes ": ""
+              this.invoice.tvaObj.inWord = beforeC + " DINARS " + afterC 
+                     
             }
             invoice = new Invoice();
 
@@ -192,7 +220,7 @@ export class AddQuoteComponent implements OnInit {
 
             client(){
 
-               this.clientService.getClientInfo(this.invoice.clientid).subscribe(
+               this.clientService.getClientInfo(this.invoice.clientid).then(
                 res=>{
                   this.selectedClient = res
                   this.clientId = res.id

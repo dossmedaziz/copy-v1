@@ -76,7 +76,8 @@ export class UpdateQuoteComponent implements OnInit {
   word
   maxDate = new Date(9999,99,99)
   minDate = new Date(0,0,0)
-
+type  = 0
+remise
   constructor(private ngxNumToWordsService: NgxNumToWordsService, private fb:FormBuilder,
     private quoteService : QuoteService,
     private clientService : ClientService,
@@ -100,7 +101,7 @@ get client_id() { return this.clientForm.get('client_id')
  async ngOnInit() {
     let quoteId = this.activatedRoute.snapshot.params.id
 
-    this.quoteService.getQuoteById(quoteId).subscribe(
+   await this.quoteService.getQuoteById(quoteId).then(
       res=>{
         this.num = res.quote.QuoteNum
         this.DateFacturation= new Date(res.quote.DateFacturation)
@@ -112,7 +113,8 @@ get client_id() { return this.clientForm.get('client_id')
       this.invoice.tvaObj.total_ttc = res.quote.total_ttc
       this.invoice.tvaObj.description = res.quote.description
       this.invoice.tvaObj.inWord = res.quote.inWord
-
+      this.rate_tva =  res.quote.rate_tva
+      this.tax =  res.quote.fiscal_timber
 
       },err=>{
         console.log(err);
@@ -135,16 +137,7 @@ get client_id() { return this.clientForm.get('client_id')
        console.log(err);
       }
     )
-       this.companyService.getCompanyInfo().subscribe(
-      res => {
-        this.company = res
-        this.tax = this.company[0].tax
-        this.rate_tva = this.company[0].tva
-      }, err => {
-      console.log(err);
-
-      }
-    )
+    
     let privileges = JSON.parse(localStorage.getItem('privileges'))
     let user = JSON.parse(localStorage.getItem('user'))
     let role_id = user.role_id
@@ -188,13 +181,37 @@ get client_id() { return this.clientForm.get('client_id')
       this.invoice.tvaObj.price_tva = (this.invoice.tvaObj.ht_price * this.rate_tva) / 100
     }
     calculTTCprice(){
-      this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)
+      this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)   + ( parseFloat(this.tax) ? parseFloat(this.tax) : 0)
+      if( this.type == 1 && this.remise){
+  
+        this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - this.remise   
+      this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+  
+      }else if(this.type == 2 && this.remise ){
+        this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - ((this.invoice.tvaObj.total_ttc* this.remise)/100)
+      this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+  
+        }else if(this.type == 0 || !this.remise){
+          this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc
+      this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+  
+        }
     }
+    updateTTC()
+            {
+              this.calculTTCprice()
+              this.inWord()
+            }
     inWord(){
-      let value = this.invoice.tvaTab[0].total_ttc;
-     this.numberInWords = this.ngxNumToWordsService.inWords(value, this.lang);
-     this.invoice.tvaObj.inWord = this.numberInWords
-    }
+      let  splitted =  this.invoice.tvaObj.total_ttc.split("."); 
+      let beforeC = splitted[0]
+      let afterC = splitted[1]
+      beforeC =  parseFloat(beforeC)
+      afterC =  parseFloat(afterC)
+      beforeC = this.ngxNumToWordsService.inWords(beforeC, this.lang);
+      afterC = afterC ? ","+ this.ngxNumToWordsService.inWords(afterC, this.lang) + " millimes ": ""
+      this.invoice.tvaObj.inWord = beforeC + " DINARS " + afterC 
+}
 
     invoice = new Invoice();
     saveQuote() {
@@ -467,7 +484,7 @@ get client_id() { return this.clientForm.get('client_id')
       }
 
       client(){
-         this.clientService.getClientInfo(this.invoice.clientid).subscribe(
+         this.clientService.getClientInfo(this.invoice.clientid).then(
           res=>{
             this.selectedClient = res
             this.clientId = res.id
@@ -512,7 +529,7 @@ get client_id() { return this.clientForm.get('client_id')
 
       getClient(id){
         let client
-           this.clientService.getClientInfo(id).subscribe(
+           this.clientService.getClientInfo(id).then(
 
             res=>{
               client = res
