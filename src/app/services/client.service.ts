@@ -14,7 +14,7 @@ myToken = localStorage.getItem('token')
 
   getClientInfo(id){
 
-    return this.http.get<any>(this.api.api+'/getClients/'+id,this.header)
+    return this.http.get<any>(this.api.api+'/getClients/'+id,this.header).toPromise()
 }
   clientWithContacts()
   {

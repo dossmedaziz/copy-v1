@@ -77,7 +77,8 @@ export class UpdateBillComponent implements OnInit {
   word
   maxDate = new Date(9999,99,99)
   minDate = new Date(0,0,0)
-
+type = 0
+remise 
   constructor(private ngxNumToWordsService: NgxNumToWordsService, private fb:FormBuilder,
     private billService: BillService,
     private clientService : ClientService,
@@ -97,7 +98,7 @@ export class UpdateBillComponent implements OnInit {
      }
 get client_id() { return this.clientForm.get('client_id')
     }
- async ngOnInit() {
+ async ngOnInit() { 
 
   
     let billId = this.activatedRoute.snapshot.params.id
@@ -109,15 +110,20 @@ get client_id() { return this.clientForm.get('client_id')
       res=>{
         
         this.num = res.bill.billNum
+        console.log(res.bill);
+        
         this.DateFacturation= new Date(res.bill.DateFacturation)
         this.invoice.clientid = res.bill.client_id
-      this.selectedClient =  this.getClient(this.invoice.clientid)
+      this.selectedClient =   this.getClient(this.invoice.clientid)
       this.invoice.products = res.items
       this.invoice.tvaObj.ht_price = res.bill.ht_price
       this.invoice.tvaObj.price_tva = res.bill.price_tva
       this.invoice.tvaObj.total_ttc = res.bill.total_ttc
       this.invoice.tvaObj.description = res.bill.description
       this.invoice.tvaObj.inWord = res.bill.inWord
+      this.rate_tva =  res.bill.rate_tva
+      this.tax =  res.bill.fiscal_timber
+
 
 
 
@@ -142,16 +148,6 @@ get client_id() { return this.clientForm.get('client_id')
           this.clients=res
         },err=>{
        console.log(err);
-      }
-    )
-       this.companyService.getCompanyInfo().subscribe(
-      res => {
-        this.company = res
-        this.tax = this.company[0].tax
-        this.rate_tva = this.company[0].tva
-      }, err => {
-      console.log(err);
-
       }
     )
  await this.dateFormat(billId)
@@ -209,11 +205,28 @@ get client_id() { return this.clientForm.get('client_id')
     this.invoice.tvaObj.price_tva = (this.invoice.tvaObj.ht_price * this.rate_tva) / 100
   }
   calculTTCprice(){
-    this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)
-  }
+    this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)   + ( parseFloat(this.tax) ? parseFloat(this.tax) : 0)
+    if( this.type == 1 && this.remise){
 
+      this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - this.remise   
+    this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+    }else if(this.type == 2 && this.remise ){
+      this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - ((this.invoice.tvaObj.total_ttc* this.remise)/100)
+    this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+      }else if(this.type == 0 || !this.remise){
+        this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc
+    this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc.toFixed(3) 
+
+      }
+  }
+  updateTTC()
+          {
+            this.calculTTCprice()
+            this.inWord()
+          }
   saveBill() {
-    this.invoice.tvaObj.clientid = this.selectedClient.id
 
   let config = {
     "billNum" : this.num,
@@ -229,7 +242,7 @@ get client_id() { return this.clientForm.get('client_id')
   
   
      this.billService.updateBill(billId, this.invoice.products,this.invoice.tvaObj,config).subscribe(
-       res=>{
+       res=>{         
         this.toastr.success("Updated!")
         this.router.navigate(['/bills'])
 
@@ -242,9 +255,14 @@ get client_id() { return this.clientForm.get('client_id')
     }
 
     inWord(){
-      let value = this.invoice.tvaTab[0].total_ttc;
-     this.numberInWords = this.ngxNumToWordsService.inWords(value, this.lang);
-     this.invoice.tvaObj.inWord = this.numberInWords
+      let  splitted =  this.invoice.tvaObj.total_ttc.split("."); 
+                let beforeC = splitted[0]
+                let afterC = splitted[1]
+                beforeC =  parseFloat(beforeC)
+                afterC =  parseFloat(afterC)
+                beforeC = this.ngxNumToWordsService.inWords(beforeC, this.lang);
+                afterC = afterC ? ","+ this.ngxNumToWordsService.inWords(afterC, this.lang) + " millimes ": ""
+                this.invoice.tvaObj.inWord = beforeC + " DINARS " + afterC 
     }
 
 
@@ -494,7 +512,7 @@ get client_id() { return this.clientForm.get('client_id')
 
   client(){
 
-     this.clientService.getClientInfo(this.invoice.clientid).subscribe(
+     this.clientService.getClientInfo(this.invoice.clientid).then(
       res=>{
         this.selectedClient = res
         this.clientId = res.id
@@ -547,19 +565,21 @@ get client_id() { return this.clientForm.get('client_id')
 
 
 
- getClient(id){
+ async getClient(id){
   let client
-     this.clientService.getClientInfo(id).subscribe(
+   await  this.clientService.getClientInfo(id).then(
 
       res=>{
         client = res
         this.selectedClient = res
         this.clientId = res.id
+        
       },err=>{
         console.log(err)
       }
 
     )
+    
       return client
   }
   
@@ -575,7 +595,6 @@ get client_id() { return this.clientForm.get('client_id')
 {
   await    this.billService.getDateLimits(billId).then(
     res => {
-     console.log(res);
      
       if(res.limit == 0 )
       {

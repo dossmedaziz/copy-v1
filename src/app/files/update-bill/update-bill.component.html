@@ -36,23 +36,20 @@
                                     </select>
   <br>
                                     <input *ngIf="selectedClient" type="text" class="rad form-control" name="name" id="name" (click)="select()"
-                                        [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
-                                        [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
+                                        [(ngModel)]="selectedClient.client_name" #CustName="ngModel" >
                                 </div>
                                 
                                 <input *ngIf="selectedClient" type="text" class=" rad form-control" name="name" id="name" 
-                                [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
-                                [(ngModel)]="selectedClient.client_name" #CustName="ngModel" required>
+                                [(ngModel)]="selectedClient.client_name" #CustName="ngModel" >
 
                                 <div class="form-group">
                                     <label *ngIf="selectedClient" for="address">Address</label>
                                     <input *ngIf="selectedClient" type="text" class="rad form-control" name="address" id="address"
-                                        [ngClass]="{'is-invalid': invoiceForm.submitted && address.invalid}"
-                                        [(ngModel)]="selectedClient.address" #address="ngModel" required>
+                                        [(ngModel)]="selectedClient.address" #address="ngModel" >
                                 </div>
                                 <div class="form-group">
                                   <label *ngIf="selectedClient" for="contactNo">tax registration number</label>
-                                  <input *ngIf="selectedClient" type="number" class="rad form-control" name="contactNo" id="contactNo"
+                                  <input *ngIf="selectedClient" type="text" class="rad form-control" name="contactNo" id="contactNo"
                                       [(ngModel)]="selectedClient.matFisc" #ContactNo="ngModel" >
                               </div>
                             </div>
@@ -60,7 +57,7 @@
                                 <div class="form-group">
                                     <label *ngIf="selectedClient" for="email">Email </label>
                                     <input *ngIf="selectedClient" type="email" class="rad form-control" name="email" id="email"
-                                        [(ngModel)]="selectedClient.email" required>
+                                        [(ngModel)]="selectedClient.email" >
                                 </div>
                                 <div class="form-group">
                                     <label *ngIf="selectedClient" for="contactNo">Contact No.</label>
@@ -129,7 +126,22 @@
                     </div>
                 </div>
 
-
+                <div class="card border-secondary mt-2" style="border-radius: 15px;">
+                  <div class="card-body">
+                    <h4 class="card-title d-flex justify-content-between">Discount
+                    </h4>
+                    <hr>
+                    <input type="number" class="form-control brad col-6"
+                    id="productName" [(ngModel)]="remise" (keyup)="updateTTC()" [ngModelOptions]="{standalone: true}"><br>
+                    
+                    <input type="radio" id="amount" name="type" [(ngModel)]="type" value="1" (change)="updateTTC()"[ngModelOptions]="{standalone: true}" >
+                    <label for="amount">Amount</label><br>
+                    <input type="radio" id="%" name="type" [(ngModel)]="type" value="2"(change)="updateTTC()" [ngModelOptions]="{standalone: true}">
+                    <label for="%">%</label><br>
+    
+                   
+                  </div>
+                </div>
             <!--Prices-->
             <div class="card border-secondary mt-2" >
               <div class="card-body">
@@ -154,7 +166,7 @@
                                   <td>
                                       <input type="number" class="form-control"  id="quantity"
                                       [ngModelOptions]="{standalone: true}"
-                                          [(ngModel)]="rate_tva" >
+                                          [(ngModel)]="rate_tva"  (keyup)="updateTTC()">
                                   </td>
                                   <td>
                                     <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
@@ -163,7 +175,7 @@
                                   <td>
                                     <input type="number" class="form-control"  id="quantity"
                                     [ngModelOptions]="{standalone: true}"
-                                        [(ngModel)]="tax" >
+                                        [(ngModel)]="tax" (keyup)="updateTTC()">
                                 </td>
                                 <td>
                                   <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
@@ -207,7 +219,7 @@
                 <button type="submit" class="rad btn redbtn  btn-lg btn-block"
                     (click)="invoiceForm.valid ? generatePDF() : ''">Open
                     Invoice</button>
-                <button type="submit" class="rad btn redbtn btn-lg btn-block" [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient"
+                <button type="submit" class="rad btn redbtn btn-lg btn-block" [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient.client_name"
                     (click)="saveBill()"
                     >Save</button>
                     <button type="submit" class="rad btn redbtn  btn-lg btn-block"

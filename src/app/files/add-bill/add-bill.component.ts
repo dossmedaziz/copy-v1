@@ -177,7 +177,7 @@ export class AddBillComponent implements OnInit {
             }
             calculTTCprice(){
 
-              this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)   + parseFloat(this.tax)
+              this.invoice.tvaObj.total_ttc =  this.invoice.tvaObj.ht_price * ((this.rate_tva/100)+1)   + ( parseFloat(this.tax) ? parseFloat(this.tax) : 0)
               if( this.type == 1 && this.remise){
 
                 this.invoice.tvaObj.total_ttc = this.invoice.tvaObj.total_ttc - this.remise   
@@ -209,6 +209,8 @@ export class AddBillComponent implements OnInit {
               "tva" : this.rate_tva
             }
           
+            console.log(this.invoice.tvaObj);
+            
                 this.billService.saveBill(this.invoice.tvaObj,this.invoice.products,config).subscribe(
                   res=>{
                     this.toaster.success('Bill Created!')
@@ -224,20 +226,15 @@ export class AddBillComponent implements OnInit {
                 this.router.navigate(['/Bills'])
               }
               inWord(){
-                let value =  parseFloat(this.invoice.tvaObj.total_ttc)
                 let  splitted =  this.invoice.tvaObj.total_ttc.split("."); 
                 let beforeC = splitted[0]
                 let afterC = splitted[1]
                 beforeC =  parseFloat(beforeC)
                 afterC =  parseFloat(afterC)
                 beforeC = this.ngxNumToWordsService.inWords(beforeC, this.lang);
-                afterC = this.ngxNumToWordsService.inWords(afterC, this.lang);
-                this.invoice.tvaObj.inWord = beforeC + " DINARS, " + afterC + " millimes "
-                
-                
-          
-               console.log(splitted)
-             
+                afterC = afterC ? ","+ this.ngxNumToWordsService.inWords(afterC, this.lang) + " millimes ": ""
+                this.invoice.tvaObj.inWord = beforeC + " DINARS " + afterC 
+                             
                            
               }
           
@@ -393,7 +390,7 @@ export class AddBillComponent implements OnInit {
                                           [{text:'Taux TVA' ,style:'RowFont' }, this.rate_tva ],
                                           [{text:'Montant TVA' ,style:'RowFont'  }, this.invoice.tvaTab[0].price_tva.toFixed(3) ],
                                           [{text:'Timbre Fiscal' ,style:'RowFont'  }, this.tax ],
-                                          [{text:'Montant TTC', style: 'RowFont' }, this.invoice.tvaTab[0].total_ttc.toFixed(3)  ],
+                                          [{text:'Montant TTC', style: 'RowFont' }, this.invoice.tvaObj.total_ttc  ],
                                           [{text:'Montant en toute lettres', style: 'RowFont' }, this.numberInWords  ],
                                         ]
                                       },
@@ -488,7 +485,7 @@ export class AddBillComponent implements OnInit {
           
             client(){
              
-               this.clientService.getClientInfo(this.invoice.clientid).subscribe(
+               this.clientService.getClientInfo(this.invoice.clientid).then(
                 res=>{
                   this.selectedClient = res
                   this.clientId = res.id
