@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from'src/app/services/company.service';
 import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
 import date from 'date-and-time';
+import * as CryptoJS from 'crypto-js'
 
 
 
@@ -209,7 +210,6 @@ export class AddBillComponent implements OnInit {
               "tva" : this.rate_tva
             }
           
-            console.log(this.invoice.tvaObj);
             
                 this.billService.saveBill(this.invoice.tvaObj,this.invoice.products,config).subscribe(
                   res=>{
@@ -337,7 +337,29 @@ export class AddBillComponent implements OnInit {
 
 OpenPdf()
 {
-  let info ="doss"
-  window.open('/pdf/'+info)
+  let sercretKey = "nachd-it"
+  let config = {
+    "billNum" : this.num,
+    "clientId": this.clientId,
+    "tax" : this.tax,
+    "tva" : this.rate_tva
+  }
+  let object = {
+   "client": this.selectedClient,
+   "config": config,
+   "invoice": this.invoice.tvaObj,
+   "products" : this.invoice.products
+
+
+  }
+  let  cryptedObject = CryptoJS.AES.encrypt(JSON.stringify(object),sercretKey).toString();
+localStorage.setItem('dataPdf',cryptedObject)
+  
+  // var bytes  = CryptoJS.AES.decrypt(cryptedObject,sercretKey);
+  // var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+  window.open('/pdf')
+
+
 }
 }

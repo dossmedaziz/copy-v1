@@ -16,7 +16,7 @@ import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
 class Product{
   designation: string;
   u_price: number;
-  quantity: number;
+  quantity: number = 1;
   total_price: number;
 }
 class Tva{

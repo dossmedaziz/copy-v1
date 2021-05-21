@@ -128,7 +128,7 @@ const routes: Routes = [
     canActivate:[AuthGuard],
   },
    {
-        path : 'pdf/:info',
+        path : 'pdf',
         component : PdfFormComponent
     },
   {

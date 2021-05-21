@@ -216,7 +216,7 @@
                   >Print
                     Invoice</button>
                 <button type="submit" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-                     (click)="OpenPdf()">Open
+                     (click)="OpenPdf()" [disabled]="!invoice.tvaObj.DateFacturation || !invoiceForm.valid || !selectedClient.client_name">Open
                     Invoice</button>
                 <button type="submit" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
                     (click)="saveBill()" [disabled]="!invoice.tvaObj.DateFacturation || !invoiceForm.valid || !selectedClient.client_name"

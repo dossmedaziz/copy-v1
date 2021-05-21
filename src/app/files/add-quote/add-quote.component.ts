@@ -16,7 +16,7 @@ import { QuoteService } from 'src/app/services/quote.service';
 class Product{
   designation: string;
   u_price: number;
-  quantity: number;
+  quantity: number = 1;
   total_price: number;
 }
 class Tva{
