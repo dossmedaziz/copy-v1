@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddBillComponent } from './files/add-bill/add-bill.component';
 import { AddQuoteComponent } from './files/add-quote/add-quote.component';
 import { BillsComponent } from './files/bills/bills.component';
+import { PdfFormComponent } from './files/pdf-form/pdf-form.component';
 import { QuoteComponent } from './files/quote/quote.component';
 import { UpdateBillComponent } from './files/update-bill/update-bill.component';
 import { UpdateQuoteComponent } from './files/update-quote/update-quote.component';
@@ -126,6 +127,10 @@ const routes: Routes = [
     component : AddQuoteComponent,
     canActivate:[AuthGuard],
   },
+   {
+        path : 'pdf/:info',
+        component : PdfFormComponent
+    },
   {
     path:'updateQuote/:id',
     component : UpdateQuoteComponent,

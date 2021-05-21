@@ -90,6 +90,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { GanttModule, ResizeService, SortService, FilterService, SelectionService, ReorderService,
   EditService, DayMarkersService, ToolbarService, RowDDService } from '@syncfusion/ej2-angular-gantt';
 import { VerifNewEmailComponent } from './components/verif-new-email/verif-new-email.component';
+import { PdfFormComponent } from './files/pdf-form/pdf-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -130,6 +131,7 @@ import { VerifNewEmailComponent } from './components/verif-new-email/verif-new-e
     ActivityPipePipe,
     GanttComponent,
     VerifNewEmailComponent,
+    PdfFormComponent,
 
   ],
   imports: [

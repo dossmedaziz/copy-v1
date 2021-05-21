@@ -43,8 +43,5 @@ url = this.api.url
 
 
 
-  
-
-
 
 }

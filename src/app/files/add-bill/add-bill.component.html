@@ -211,12 +211,12 @@
             </div>
             <div class="col-md-4">
                 <button type="button" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-                    (click)="invoiceForm.valid ? generatePDF('download') : ''">Download Invoice</button>
+                  >Download Invoice</button>
                 <button type="button" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-                    (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
+                  >Print
                     Invoice</button>
                 <button type="submit" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-                    (click)="invoiceForm.valid ? generatePDF() : ''">Open
+                     (click)="OpenPdf()">Open
                     Invoice</button>
                 <button type="submit" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
                     (click)="saveBill()" [disabled]="!invoice.tvaObj.DateFacturation || !invoiceForm.valid || !selectedClient.client_name"
