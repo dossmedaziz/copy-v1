@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Api } from '../../api'
+import { ConfigService } from 'src/app/services/config.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -30,7 +31,8 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
     private toastr: ToastrService ,
     private fb:FormBuilder,
-    private router : Router) {
+    private router : Router,
+    private configService : ConfigService) {
     let formControls = {
 
       name : new FormControl('',[
@@ -95,7 +97,7 @@ export class ProfileComponent implements OnInit {
       get newPass(){ return this.passwordForm.get('newPass') }
       get confirmNew(){ return this.passwordForm.get('confirmNew') }
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'))
+    this.user = JSON.parse(this.configService.decryptString(localStorage.getItem('user')))
 
 
     this.userService.getUserById(this.user.id).subscribe(
@@ -174,9 +176,7 @@ async   updateProfile()
         this.emailChanged = res.emailChanged
         if(this.emailChanged){
     
-              localStorage.removeItem('token')
-              localStorage.removeItem('user')
-              localStorage.removeItem('privileges')
+             localStorage.clear()
     
           this.showPositionDialog('top')
         }else {

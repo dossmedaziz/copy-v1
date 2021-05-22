@@ -98,7 +98,7 @@ preview()
 
   dashboardAccess()
   {
-    let user = JSON.parse(localStorage.getItem('user'))
+    let user = JSON.parse(this.configService.decryptString(localStorage.getItem('user')))
     let role_id = user.role_id 
     if(role_id == 1)
     {
@@ -155,7 +155,6 @@ preview()
        
        
     }
-
 
 
 }

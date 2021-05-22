@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-
+import * as CryptoJS from 'crypto-js'
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
 
-
+secretKey= "nachd-it"
   status_project = [
     {
       "id":1,
@@ -72,8 +72,8 @@ export class ConfigService {
 
   filterActions(action_name,space_name)
   {
-let privileges = JSON.parse(localStorage.getItem('privileges'))
-let user = JSON.parse(localStorage.getItem('user'))
+let privileges = JSON.parse(this.decryptString(localStorage.getItem('privileges')))
+let user = JSON.parse(this.decryptString(localStorage.getItem('user')))
 let role_id = user.role_id
 let  reslt  = privileges.find(element =>{
 let action = element.action.action_name
@@ -93,5 +93,27 @@ return true
 return false
 }
 
+}
+
+
+encryptString(string)
+{
+ return  CryptoJS.AES.encrypt(string,this.secretKey).toString();
+
+}
+decryptString(string)
+{
+  if(string){
+
+    let  bytes  = CryptoJS.AES.decrypt(string, this.secretKey);
+    return  bytes.toString(CryptoJS.enc.Utf8);
+  }
+ return string
+}
+
+
+getToken()
+{
+  return this.decryptString(localStorage.getItem('token'))
 }
 }

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Api } from '../api';
+import { ConfigService }from './config.service'
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
   api = new Api();
-myToken = localStorage.getItem('token')
+  configService = new ConfigService()
+  myToken = this.configService.getToken()
  header = {headers: new HttpHeaders().append('Authorization','Bearer '+this.myToken )}
   constructor(private http:HttpClient) { }
 

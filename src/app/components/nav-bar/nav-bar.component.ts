@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
 import { SearchResultComponent } from '../search-result/search-result.component';
 import { Api} from '../../api'
+import { ConfigService } from 'src/app/services/config.service';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -22,12 +23,12 @@ export class NavBarComponent implements OnInit {
     private primengConfig: PrimeNGConfig,
                 private toastr: ToastrService,
                 private router: Router,
-                private userService : UserService ) { }
+                private configService : ConfigService ) { }
 
   ngOnInit(): void {
 
     this.primengConfig.ripple = true;
-    let user = JSON.parse(localStorage.getItem('user'))
+    let user = JSON.parse(this.configService.decryptString(localStorage.getItem('user')))
       this.userName = user.name
       this.Userphoto = user.photo
 
@@ -37,12 +38,9 @@ export class NavBarComponent implements OnInit {
 
   logout()
   {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      localStorage.removeItem('privileges')
+      localStorage.clear()
       this.router.navigate(['/login'])
       this.toastr.info('you are logged out')
-
    }
 
 

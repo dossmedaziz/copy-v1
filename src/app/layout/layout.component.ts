@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree,Router } from '@angular/router';
+import { ConfigService } from '../services/config.service';
 import { PaperTypeService } from '../services/paper-type.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { PaperTypeService } from '../services/paper-type.service';
 })
 export class LayoutComponent implements OnInit {
   
-  constructor(private router:Router , private PaperTypeService :PaperTypeService) { }
+  constructor(private router:Router , private PaperTypeService :PaperTypeService,private configService : ConfigService) { }
 
   expiredContracts
   contracts = new Array()
@@ -29,9 +30,9 @@ export class LayoutComponent implements OnInit {
   await this.sendMail()
 
     let url = this.router.url
-    let privileges = JSON.parse(localStorage.getItem('privileges'))
-    let user = JSON.parse(localStorage.getItem('user'))
-    let role_id = user.role_id 
+    let privileges = JSON.parse(this.configService.decryptString(localStorage.getItem('privileges')))
+    let user = JSON.parse(this.configService.decryptString(localStorage.getItem('user')))
+    let role_name = user.role.role_name
 
 
          let  reslt  = privileges.find(element =>{
@@ -45,7 +46,7 @@ export class LayoutComponent implements OnInit {
         }) 
 
 
-        if(role_id == 1 )
+        if(role_name == "admin" )
         {
 
         }else if(!reslt){

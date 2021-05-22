@@ -12,6 +12,7 @@ import { CompanyService } from'src/app/services/company.service';
 import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
 import { QuoteService } from 'src/app/services/quote.service';
 import * as CryptoJS from 'crypto-js'
+import { ConfigService } from 'src/app/services/config.service';
 
 
 class Product{
@@ -83,7 +84,8 @@ export class AddQuoteComponent implements OnInit {
                private clientService : ClientService,
                private toaster:ToastrService,
                private activeRoute : ActivatedRoute,
-               private companyService : CompanyService) {
+               private companyService : CompanyService,
+               private configService : ConfigService) {
 
                 let formControls = {
 
@@ -119,8 +121,8 @@ export class AddQuoteComponent implements OnInit {
                )
                
 
-      let privileges = JSON.parse(localStorage.getItem('privileges'))
-      let user = JSON.parse(localStorage.getItem('user'))
+      let privileges = JSON.parse(this.configService.decryptString(localStorage.getItem('privileges')))
+      let user = JSON.parse(this.configService.decryptString(localStorage.getItem('user')))
       let role_id = user.role_id
       let  reslt  = privileges.find(element =>{
         let action = "create"

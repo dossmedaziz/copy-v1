@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'; 
+import { ConfigService } from '../services/config.service';
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,8 @@ url =  new Api()
 constructor(private userService : UserService,
   private router : Router, 
   private toaster:ToastrService,
-  private fb:FormBuilder,) {
+  private fb:FormBuilder,
+  private configService : ConfigService) {
 
       let formControls = {
 
@@ -63,16 +66,15 @@ constructor(private userService : UserService,
           let token = res.token
           let user = res.user
           let privileges = res.privileges
-              
-          localStorage.setItem('token',token);
-          localStorage.setItem('user',JSON.stringify(user));
-          localStorage.setItem('privileges',JSON.stringify(privileges));
+          localStorage.setItem('token',this.configService.encryptString(token));
+          localStorage.setItem('user',this.configService.encryptString( JSON.stringify(user)));
+          localStorage.setItem('privileges',this.configService.encryptString( JSON.stringify(privileges)));
           localStorage.setItem('refresh',"true")
+          
             this.router.navigate(['/'])
             this.toaster.success('welcome!')
      
-        
-        
+            
               
       },err=>{
 
@@ -89,5 +91,5 @@ constructor(private userService : UserService,
       }
 
 
-
+  
 }

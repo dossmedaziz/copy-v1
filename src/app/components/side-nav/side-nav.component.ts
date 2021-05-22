@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private configService : ConfigService) { }
 
   ngOnInit(): void {
   }
@@ -15,8 +16,8 @@ export class SideNavComponent implements OnInit {
 
   filterRoutes(space_name)
 {
-  let privileges = JSON.parse(localStorage.getItem('privileges'))
-  let user = JSON.parse(localStorage.getItem('user'))
+  let privileges = JSON.parse(this.configService.decryptString(localStorage.getItem('privileges')))
+  let user = JSON.parse(this.configService.decryptString(localStorage.getItem('user')))
   let role_id = user.role_id 
   let  reslt  = privileges.find(element =>{
     let name = element.space.space_name

@@ -12,6 +12,7 @@ import { CompanyService } from'src/app/services/company.service';
 import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
 import { QuoteService } from 'src/app/services/quote.service';
 import * as CryptoJS from 'crypto-js'
+import { ConfigService } from 'src/app/services/config.service';
 
 
 class Product{
@@ -85,7 +86,8 @@ remise
     private toastr:ToastrService,
     private activatedRoute : ActivatedRoute,
     private companyService : CompanyService,
-    private router : Router) {
+    private router : Router,
+    private configService : ConfigService) {
 
      let formControls = {
 
@@ -139,8 +141,8 @@ get client_id() { return this.clientForm.get('client_id')
       }
     )
     
-    let privileges = JSON.parse(localStorage.getItem('privileges'))
-    let user = JSON.parse(localStorage.getItem('user'))
+    let privileges = JSON.parse(this.configService.decryptString(localStorage.getItem('privileges')))
+    let user = JSON.parse(this.configService.decryptString(localStorage.getItem('user')))
     let role_id = user.role_id
     let  reslt  = privileges.find(element =>{
       let action = "update"
