@@ -253,8 +253,12 @@ export class AddBillComponent implements OnInit {
           
             } else {
                 this.invoice.products.splice(index, 1);
+              this.sumofTotalPrice()
+              this.updateTTC()
                 return true;
             }
+          
+
             }
           
             client(){

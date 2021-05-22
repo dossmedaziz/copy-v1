@@ -23,13 +23,15 @@ export class PdfFormComponent implements OnInit {
   await this.companyService.getCompanyInfo().then(
     res => {
       this.company = res[0]
-      
+    
     }, err => {
       console.log(err);
       
     }
   )
-  console.log(this.company);
+  //     setTimeout(() => {
+  //       window.print()
+  //     }, 0);
   
   }
 
@@ -47,5 +49,11 @@ export class PdfFormComponent implements OnInit {
       
      
     }
+  }
+
+
+  print()
+  {
+    window.print()
   }
 }

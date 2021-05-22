@@ -479,7 +479,8 @@ get client_id() { return this.clientForm.get('client_id')
 
       } else {
           this.invoice.products.splice(index, 1);
-
+          this.sumofTotalPrice()
+          this.updateTTC()
           return true;
       }
       }
