@@ -108,7 +108,7 @@ export class AddBillComponent implements OnInit {
                   console.log(err);
                  }
                )
-                  this.companyService.getCompanyInfo().subscribe(
+                  this.companyService.getCompanyInfo().then(
                  res => {
                    this.company = res
                    this.tax = this.company[0].tax
@@ -354,11 +354,7 @@ OpenPdf()
   }
   let  cryptedObject = CryptoJS.AES.encrypt(JSON.stringify(object),sercretKey).toString();
 localStorage.setItem('dataPdf',cryptedObject)
-  
-  // var bytes  = CryptoJS.AES.decrypt(cryptedObject,sercretKey);
-  // var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-
-  window.open('/pdf')
+window.open('/pdf')
 
 
 }

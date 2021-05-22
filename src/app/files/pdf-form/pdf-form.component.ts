@@ -20,16 +20,17 @@ export class PdfFormComponent implements OnInit {
   async ngOnInit() {
  
   await this.decrypt()
-  await this.companyService.getCompanyInfo().subscribe(
+  await this.companyService.getCompanyInfo().then(
     res => {
       this.company = res[0]
-      console.log(res);
       
     }, err => {
       console.log(err);
       
     }
   )
+  console.log(this.company);
+  
   }
 
   decrypt()
@@ -42,6 +43,8 @@ export class PdfFormComponent implements OnInit {
       this.invoice = decryptedData.invoice
       this.config = decryptedData.config
       this.items =  decryptedData.products
+
+      
      
     }
   }

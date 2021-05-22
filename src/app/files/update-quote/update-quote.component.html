@@ -217,8 +217,9 @@
                 <button type="button" class="btn rad redbtn btn-lg btn-block"
                     (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
                     Quote</button>
-                <button type="submit" class="btn rad redbtn btn-lg btn-block"
-                    (click)="invoiceForm.valid ? generatePDF() : ''">Open
+                <button type="submit" class="btn rad redbtn btn-lg btn-block" [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient"
+                (click)="saveQuote()"
+                    (click)="OpenPdf()">Open
                     Invoice</button>
                 <button type="submit" class="btn rad redbtn btn-lg btn-block" [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient"
                     (click)="saveQuote()"

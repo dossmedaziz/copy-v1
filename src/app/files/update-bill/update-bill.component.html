@@ -216,8 +216,8 @@
                 <button type="button" class="rad btn redbtn  btn-lg btn-block"
                     (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
                     Invoice</button>
-                <button type="submit" class="rad btn redbtn  btn-lg btn-block"
-                    (click)="invoiceForm.valid ? generatePDF() : ''">Open
+                <button type="submit" class="rad btn redbtn  btn-lg btn-block" (click)="OpenPdf()"
+                [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient.client_name">Open
                     Invoice</button>
                 <button type="submit" class="rad btn redbtn btn-lg btn-block" [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient.client_name"
                     (click)="saveBill()"

@@ -11,6 +11,7 @@ import { style } from '@angular/animations';
 import { Column } from 'jspdf-autotable';
 import { CompanyService } from'src/app/services/company.service';
 import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
+import * as CryptoJS from 'crypto-js'
 
 
 class Product{
@@ -634,4 +635,27 @@ get client_id() { return this.clientForm.get('client_id')
         
 
   }
+  OpenPdf()
+{
+  let sercretKey = "nachd-it"
+  let config = {
+    "billNum" : this.num,
+    "clientId": this.clientId,
+    "tax" : this.tax,
+    "tva" : this.rate_tva
+  }
+  let object = {
+   "client": this.selectedClient,
+   "config": config,
+   "invoice": this.invoice.tvaObj,
+   "products" : this.invoice.products
+
+
+  }
+  let  cryptedObject = CryptoJS.AES.encrypt(JSON.stringify(object),sercretKey).toString();
+localStorage.setItem('dataPdf',cryptedObject)
+window.open('/pdf')
+
+
+}
 }

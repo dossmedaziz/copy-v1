@@ -16,7 +16,7 @@ export class CompanyService {
   
   getCompanyInfo()
   {
-    return this.http.get<any>(this.api.api+'/getCompanyInfo',this.header)
+    return this.http.get<any>(this.api.api+'/getCompanyInfo',this.header).toPromise()
   }
 
 

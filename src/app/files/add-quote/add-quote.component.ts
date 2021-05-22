@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from'src/app/services/company.service';
 import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
 import { QuoteService } from 'src/app/services/quote.service';
+import * as CryptoJS from 'crypto-js'
 
 
 class Product{
@@ -106,7 +107,7 @@ export class AddQuoteComponent implements OnInit {
                   console.log(err);
                  }
                )
-                  this.companyService.getCompanyInfo().subscribe(
+                  this.companyService.getCompanyInfo().then(
                  res => {
                    this.company = res
                    this.tax = this.company[0].tax
@@ -523,6 +524,29 @@ export class AddQuoteComponent implements OnInit {
             {
             this.selectedClient = false
               
+            }
+            OpenPdf()
+            {
+              let sercretKey = "nachd-it"
+              let config = {
+                "billNum" : this.num,
+                "clientId": this.clientId,
+                "tax" : this.tax,
+                "tva" : this.rate_tva
+              }
+              let object = {
+               "client": this.selectedClient,
+               "config": config,
+               "invoice": this.invoice.tvaObj,
+               "products" : this.invoice.products
+            
+            
+              }
+              let  cryptedObject = CryptoJS.AES.encrypt(JSON.stringify(object),sercretKey).toString();
+            localStorage.setItem('dataPdf',cryptedObject)
+            window.open('/pdf')
+            
+            
             }
           
 }
