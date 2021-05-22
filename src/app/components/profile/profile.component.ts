@@ -199,7 +199,7 @@ if(!this.emailChanged){
   this.userService.getConnectedUser().subscribe(
     res => {
 localStorage.removeItem('user')
-localStorage.setItem('user',JSON.stringify(res));
+localStorage.setItem('user',this.configService.encryptString(JSON.stringify(res)));
 }  ,err => {
       console.log(err);
       
