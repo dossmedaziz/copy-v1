@@ -209,7 +209,7 @@
               </li>
              <ul *ngFor="let action of actions" >
                <li><input type="checkbox" name="priv" (change)="selectAction(space.id,action.id,$event)"
-                          id="{{space.id}}{{action.id}}" class="checkBox">
+                          id="{{space.id}}{{action.id}}" class="checkBox" [disabled]="able(action.action_name,space.id)">
                  {{ action.action_name}}
                </li>
 

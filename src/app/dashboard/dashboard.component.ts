@@ -99,10 +99,9 @@ preview()
   dashboardAccess()
   {
     let user = JSON.parse(this.configService.decryptString(localStorage.getItem('user')))
-    console.log(user);
     
-    let role_id = user.role_id 
-    if(role_id == 1)
+    let role_name = user.role.role_name 
+    if(role_name == "admin")
     {
       return true
     }else {

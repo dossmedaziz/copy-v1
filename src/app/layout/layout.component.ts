@@ -17,6 +17,8 @@ export class LayoutComponent implements OnInit {
 
  async ngOnInit() {
 
+
+
   await  this.PaperTypeService.getJustContracts().then(
     res => {
                   
@@ -97,8 +99,6 @@ export class LayoutComponent implements OnInit {
           autoContracts.push(element)
         }
     })    
-console.log(autoContracts.length);
-
 if(autoContracts.length != 0)
     {
       
@@ -113,4 +113,5 @@ if(autoContracts.length != 0)
 
     }    
   }
+  
 }
