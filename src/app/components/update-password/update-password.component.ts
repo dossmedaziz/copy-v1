@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class UpdatePasswordComponent implements OnInit {
   passWordForm: FormGroup
   token
+  isChecked
   constructor(private fb: FormBuilder,private router : Router ,private userService : UserService, private activatedRoute : ActivatedRoute) { 
 
     let formControls = {
@@ -33,9 +34,16 @@ export class UpdatePasswordComponent implements OnInit {
   }
   get password() { return this.passWordForm.get('password') }
   get Confirm_password() { return this.passWordForm.get('Confirm_password') }
-  ngOnInit(): void {
-    this.token  = this.activatedRoute.snapshot.params.token
-
+  async ngOnInit() {
+     this.token  = await  this.activatedRoute.snapshot.params.token
+    console.log(this.token);
+    
+  await this.userService.checkToken2(this.token).subscribe(
+    res => {  
+     this.isChecked = res.isChecked
+      
+    }
+  )
     let isLogged = this.userService.islogged();
     if(isLogged)
     {

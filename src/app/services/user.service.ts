@@ -104,6 +104,11 @@ resetPassword(password,token)
           return this.http.post<any>(this.api.api+'/checkToken',{ token : token }).toPromise()
       }
 
+      checkToken2(token)
+      {
+          return this.http.post<any>(this.api.api+'/checkToken',{ token : token })
+      }
+
       uploadFile(data) {
         return  this.http.post<any>(this.api.api+'/uploadFile',data,this.header).toPromise();
     

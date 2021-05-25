@@ -65,13 +65,16 @@
         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
       </th>
       <th pSortableColumn="user_name">
-        Name <p-sortIcon field="user_name"></p-sortIcon>
+        Name  
       </th>
       <th pSortableColumn="email">
-        Email <p-sortIcon field="email"></p-sortIcon>
+        Email 
       </th>
       <th pSortableColumn="role">
-        Role <p-sortIcon field="name"></p-sortIcon>
+        Role 
+      </th>
+      <th pSortableColumn="role">
+        Status 
       </th>
       <th></th>
     </tr>
@@ -84,8 +87,12 @@
       <td>{{ user.name }}</td>
       <td>{{ user.email }}</td>
       <td>{{ user.role.role_name }}</td>
-
-
+      <td  *ngIf=" user.verified == 0 " >
+      <p-message severity="error" text="Inactive" styleClass="p-mr-1"></p-message>
+      </td>
+      <td  *ngIf=" user.verified == 1 " >
+        <p-message severity="success" text="Active" styleClass="p-mr-1"></p-message>
+        </td>
       <td>
         <button
           pButton

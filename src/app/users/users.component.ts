@@ -58,6 +58,8 @@ searchKey
     this.userService.getusers().subscribe(
       res=>{
 this.users = res 
+console.log(res);
+
       },err=>{
         console.log(err)
       }
