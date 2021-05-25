@@ -244,10 +244,11 @@ filterExt(file)
    return 'pi-file-pdf'
  }else if( ext == "png" || ext == "jpg"){
     return 'pi-image'
-}else if(ext == "docx" || ext == "txt"){
-   return 'pi-file'
- }else if( ext == "xlsx"){
+}else if( ext == "xlsx"){
    return 'pi-file-excel'
+ }else{
+  return 'pi-file'
+
  }
 }
 

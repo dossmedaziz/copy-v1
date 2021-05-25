@@ -4,6 +4,7 @@ import { PaperTypeService } from 'src/app/services/paper-type.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from 'src/app/services/project.service';
 import { ConfigService } from 'src/app/services/config.service';
+import date from 'date-and-time';
 
 
 @Component({
@@ -42,10 +43,10 @@ export class AddPaperComponent implements OnInit {
         Validators.required,
 
       ]),
-      start_date: new FormControl('', [
+      start_date: new FormControl([
         Validators.required,
       ]),
-      end_date: new FormControl('', [
+      end_date: new FormControl([
         Validators.required,
       ]),
       description: new FormControl('', [
@@ -75,6 +76,15 @@ export class AddPaperComponent implements OnInit {
   get file() { return this.paperForm.get('file') }
   get auto_email() { return this.paperForm.get('auto_email') }
   ngOnInit(): void {
+    let today = date.format(new Date(), 'YYYY-MM-DD')
+    let nexMonth = date.format(date.addMonths(new Date(), 1),'YYYY-MM-DD') 
+   this.paperForm.patchValue({
+     start_date : today,
+     end_date : nexMonth
+   })
+    
+
+    
     this.paperTypeService.getPaperTypes().subscribe(
       res => {
         this.papersType = res
@@ -90,10 +100,10 @@ export class AddPaperComponent implements OnInit {
       }
     )
     this.status_paper = this.configService.status_paper
-
+ 
 
     this.paperForm.patchValue({
-       project_id : this.projectId
+       project_id : this.projectId,
     })
 
   }

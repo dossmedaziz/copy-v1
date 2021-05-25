@@ -265,16 +265,17 @@ filterStatus2(id)
       filterExt(file)
 {
   let ext =  file.split('.').pop();
- if(ext == "pdf")
- {
-   return 'pi-file-pdf'
- }else if( ext == "png" || ext == "jpg"){
-    return 'pi-image'
-}else if(ext == "docx" || ext == "txt"){
-   return 'pi-file'
+  if(ext == "pdf")
+  {
+    return 'pi-file-pdf'
+  }else if( ext == "png" || ext == "jpg"){
+     return 'pi-image'
  }else if( ext == "xlsx"){
-   return 'pi-file-excel'
- }
+    return 'pi-file-excel'
+  }else{
+   return 'pi-file'
+ 
+  }
 }
 filterActions(action_name,space_name)
                 {
