@@ -49,7 +49,6 @@ searchKey
           // fetch actions from api
           this.privilegeService.getAllActions().subscribe(res=>{
           this.actions = res
-          console.log(res);
           
           },err=>{
             console.log(err)
@@ -125,7 +124,8 @@ searchKey
         {
 
          
-         
+         this.test(space_id)
+
               if(event.target.checked){
                 
                 let test = this.selectedPriv.find( elt => elt.action_id == action_id && elt.space_id == space_id)
@@ -322,6 +322,24 @@ searchKey
    return test
   
       }
+    }
+
+    test(space_id)
+    {
+      let action = this.actions.find(el => el.action_name == "read")
+      let id = '#'+space_id+action.id
+
+       if(!($(id).prop("checked")))
+       {
+         for(let i = 1 ; i <=4 ; i++)
+         {
+           let id = '#'+space_id+i
+          $(id).prop( "checked", false );
+          let index = this.selectedPriv.findIndex(elt=> elt.action_id == i && elt.space_id == space_id);
+          this.selectedPriv.splice(index , 1) ;
+         }
+    }
+      
     }
   
     }

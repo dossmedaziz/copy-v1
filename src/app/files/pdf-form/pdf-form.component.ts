@@ -23,6 +23,8 @@ export class PdfFormComponent implements OnInit {
   await this.companyService.getCompanyInfo().then(
     res => {
       this.company = res[0]
+      console.log(this.company);
+      
     
     }, err => {
       console.log(err);
