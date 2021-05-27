@@ -212,11 +212,6 @@
 
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn rad redbtn btn-lg btn-block"
-                    (click)="invoiceForm.valid ? generatePDF('download') : ''">Download Quote</button>
-                <button type="button" class="btn rad redbtn btn-lg btn-block"
-                    (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
-                    Quote</button>
                 <button type="submit" class="btn rad redbtn btn-lg btn-block" [disabled]="!DateFacturation || !invoiceForm.valid || !selectedClient"
                 (click)="saveQuote()"
                     (click)="OpenPdf()">Open

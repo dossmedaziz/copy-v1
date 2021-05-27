@@ -210,11 +210,6 @@
 
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-                  >Download Invoice</button>
-                <button type="button" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-                  >Print
-                    Invoice</button>
                 <button type="submit" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
                      (click)="OpenPdf()" [disabled]="!invoice.tvaObj.DateFacturation || !invoiceForm.valid || !selectedClient.client_name">Open
                     Invoice</button>

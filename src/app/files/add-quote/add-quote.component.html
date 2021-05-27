@@ -207,13 +207,8 @@
 
       </div>
       <div class="col-md-4">
-        <button type="button" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-          (click)="invoiceForm.valid ? generatePDF('download') : ''">Download Quote</button>
-        <button type="button" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-          (click)="invoiceForm.valid ? generatePDF('print') : ''">Print
-          Quote</button>
         <button type="submit" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;"
-          (click)="OpenPdf()">Open
+          (click)="OpenPdf()" [disabled]="!invoice.tvaObj.DateFacturation || !invoiceForm.valid || !selectedClient.client_name">Open
           Quote</button>
         <button type="submit" class="btn redbtn btn-lg btn-block" style="border-radius: 15px;" (click)="saveQuote()"
           [disabled]="!invoice.tvaObj.DateFacturation || !invoiceForm.valid || !selectedClient.client_name">Save</button>
